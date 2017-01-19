@@ -5,6 +5,7 @@ import com.quantityandconversion.hackernews.network.item.Items;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -19,10 +20,10 @@ public class ItemNetworkTests {
     public final MockWebServer mockWebServer = new MockWebServer();
 
     @Test
-    public void makeTopStoriesRequest() {
-        mockWebServer.enqueue(new MockResponse().setResponseCode(HttpURLConnection.HTTP_OK).setBody("{}"));
+    public void makeTopStoriesRequest() throws IOException {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(HttpURLConnection.HTTP_OK).setBody("[]"));
         final Call<Items> topStoriesCall = new ItemNetwork(mockWebServer.url("/")).topStories();
 
-        assertNotNull(topStoriesCall);
+        assertNotNull(topStoriesCall.execute());
     }
 }
