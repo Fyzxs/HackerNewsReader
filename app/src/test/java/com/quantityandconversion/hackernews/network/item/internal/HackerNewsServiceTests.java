@@ -1,4 +1,6 @@
-package com.quantityandconversion.hackernews.network;
+package com.quantityandconversion.hackernews.network.item.internal;
+
+import com.quantityandconversion.hackernews.network.item.StoryId;
 
 import org.junit.Test;
 
@@ -10,7 +12,7 @@ public class HackerNewsServiceTests {
 
     @Test
     public void TopStoriesExistsOnInterface(){
-        final HackerNewsApi service = new HackerNewsApi(){
+        final ItemApi service = new ItemApi(){
             @Override
             public Call<ArrayList<StoryId>> topStories() {
                 return null;
