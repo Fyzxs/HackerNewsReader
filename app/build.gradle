@@ -25,7 +25,10 @@ dependencies {
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-moshi:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
 
     //Local Testing
     testCompile 'junit:junit:4.12'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.5.0'
 }
