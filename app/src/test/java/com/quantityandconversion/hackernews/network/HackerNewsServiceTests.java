@@ -10,7 +10,7 @@ public class HackerNewsServiceTests {
 
     @Test
     public void TopStoriesExistsOnInterface(){
-        final HackerNewsService service = new HackerNewsService(){
+        final HackerNewsApi service = new HackerNewsApi(){
             @Override
             public Call<ArrayList<StoryId>> topStories() {
                 return null;
