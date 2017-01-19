@@ -21,6 +21,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
                 .baseUrl(serverUrl)
                 .addConverterFactory(MoshiConverterFactory.create(new Moshi.Builder()
                         .add(new ItemsAdapter())
+                        .add(new ItemAdapter())
                         .build()))
                 .build()
                 .create(ItemApi.class).topStories();

@@ -1,7 +1,13 @@
 package com.quantityandconversion.hackernews.network.item;
 
 public class Items {
-    public Items(ItemId[] itemIds) {
+    private final ItemId[] itemIds;
 
+    public Items(ItemId[] itemIds) {
+        this.itemIds = itemIds;
+    }
+
+    public int size() {
+        return itemIds.length;
     }
 }
