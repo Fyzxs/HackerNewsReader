@@ -1,5 +1,7 @@
 package com.quantityandconversion.hackernews.network.item.internal;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.quantityandconversion.hackernews.network.item.Items;
 import com.squareup.moshi.Moshi;
 
@@ -8,15 +10,25 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-/* package */ class ItemNetwork {
+public class ItemNetwork {
 
-    private final HttpUrl serverUrl;
+    private static HttpUrl serverUrl = null;
 
-    /* package */ ItemNetwork(final HttpUrl url) {
-        this.serverUrl = url;
+    public ItemNetwork() {
+        if(serverUrl != null) return;
+        serverUrl = HttpUrl.parse(ItemApi.URL);
     }
 
-    /* package */ Call<Items> topStories() {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public ItemNetwork(final HttpUrl url) {
+        serverUrl = url;
+    }
+
+    public Call<Items> topStories() {
+        return topStoriesItemApi().topStories();
+    }
+
+    private ItemApi topStoriesItemApi() {
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
                 .addConverterFactory(MoshiConverterFactory.create(new Moshi.Builder()
@@ -24,6 +36,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
                         .add(new ItemAdapter())
                         .build()))
                 .build()
-                .create(ItemApi.class).topStories();
+                .create(ItemApi.class);
     }
 }

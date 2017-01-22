@@ -22,4 +22,8 @@ public class Items {
     public int size() {
         return itemIdList.size();
     }
+
+    public boolean contains(final ItemId itemId) {
+        return itemIdList.contains(itemId);
+    }
 }

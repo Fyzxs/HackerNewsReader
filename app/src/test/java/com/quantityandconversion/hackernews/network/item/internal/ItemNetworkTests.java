@@ -21,7 +21,7 @@ public class ItemNetworkTests {
     public final MockWebServer mockWebServer = new MockWebServer();
 
     @Test
-    public void makeTopStoriesRequest() throws IOException {
+    public void topStories() throws IOException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(HttpURLConnection.HTTP_OK).setBody("[10000,2]"));
         final Call<Items> topStoriesCall = new ItemNetwork(mockWebServer.url("/")).topStories();
         final Items items = topStoriesCall.execute().body();
