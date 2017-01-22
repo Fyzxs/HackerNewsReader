@@ -1,7 +1,6 @@
 package com.quantityandconversion.hackernews.network.item;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Items {
@@ -10,7 +9,14 @@ public class Items {
     public Items(ItemId[] itemIds) {
         if(itemIds == null) { throw new IllegalArgumentException("itemIds cannot be null"); }
 
-        Collections.addAll(itemIdList, itemIds);
+        importItemIds(itemIds);
+    }
+
+    private void importItemIds(final ItemId[] itemIds) {
+        for (final ItemId itemId : itemIds) {
+            if(itemId == null){ continue;}
+            itemIdList.add(itemId);
+        }
     }
 
     public int size() {
