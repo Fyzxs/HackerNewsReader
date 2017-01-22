@@ -1,13 +1,19 @@
 package com.quantityandconversion.hackernews.network.item;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Items {
-    private final ItemId[] itemIds;
+    private final List<ItemId> itemIdList = new ArrayList<>();
 
     public Items(ItemId[] itemIds) {
-        this.itemIds = itemIds;
+        if(itemIds == null) { throw new IllegalArgumentException("itemIds cannot be null"); }
+
+        Collections.addAll(itemIdList, itemIds);
     }
 
     public int size() {
-        return itemIds.length;
+        return itemIdList.size();
     }
 }
