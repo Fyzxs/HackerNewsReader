@@ -35,9 +35,9 @@ captures/
 
 # Intellij
 *.iml
-.idea/*
-!.idea/codeStyleSettings.xml
-!.idea/copyright
+**/.idea/*
+!**/.idea/codeStyleSettings.xml
+!**/.idea/copyright
 
 # Keystore files
 *.jks
