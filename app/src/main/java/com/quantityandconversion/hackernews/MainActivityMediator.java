@@ -24,7 +24,7 @@ class MainActivityMediator {
 
             @Override
             public void onFailure(Call<Items> call, Throwable t) {
-                throw new RuntimeException("This shouldn't happen");
+                throw new UnsupportedOperationException("Not Yet Implemented");
             }
         });
     }
