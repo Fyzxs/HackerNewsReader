@@ -40,7 +40,7 @@ public class AppiumTest  {
 
     @Test
     public void sampleTest(){
-        final WebDriverWait wait = new WebDriverWait(driver, 30);
+        final WebDriverWait wait = new WebDriverWait(driver, 10);
 
         final WebElement txt =  driver.findElement(By.id("top_story_count"));
         final String txtValue = txt.getText();
