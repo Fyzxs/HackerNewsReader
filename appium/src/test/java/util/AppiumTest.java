@@ -37,8 +37,8 @@ public class AppiumTest  {
 
     @Test
     public void sampleTest(){
-        WebElement txt =  driver.findElement(By.id("hello_world"));
-        assertEquals("Hello World!", txt.getText());
+        WebElement txt =  driver.findElement(By.id("top_story_count"));
+        Integer.parseInt(txt.getText());
     }
 
     @After

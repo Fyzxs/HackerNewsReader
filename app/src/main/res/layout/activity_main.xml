@@ -11,8 +11,8 @@
     tools:context="com.quantityandconversion.hackernews.MainActivity">
 
     <TextView
-        android:id="@+id/hello_world"
+        android:id="@+id/top_story_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Not_A_Number" />
 </RelativeLayout>
