@@ -2,14 +2,17 @@ package util;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AutomationName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.URL;
@@ -37,7 +40,18 @@ public class AppiumTest  {
 
     @Test
     public void sampleTest(){
-        WebElement txt =  driver.findElement(By.id("top_story_count"));
+        final WebDriverWait wait = new WebDriverWait(driver, 30);
+
+        final WebElement txt =  driver.findElement(By.id("top_story_count"));
+        final String txtValue = txt.getText();
+
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(final WebDriver webDriver) {
+                return !txtValue.equals(webDriver.findElement(By.id("top_story_count")).getText());
+            }
+        });
+
         Integer.parseInt(txt.getText());
     }
 
