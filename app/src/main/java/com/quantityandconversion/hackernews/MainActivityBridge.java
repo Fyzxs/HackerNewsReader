@@ -1,5 +1,7 @@
 package com.quantityandconversion.hackernews;
 
+import com.quantityandconversion.hackernews.network.item.Items;
+
 class MainActivityBridge {
     private final MainActivity mainActivity;
 
@@ -14,7 +16,7 @@ class MainActivityBridge {
     }
 
 
-    /* package */ void loadedItemData() {
-        mainActivity.setTopStoryCount("value");
+    /* package */ void loadedItemData(final Items body) {
+        mainActivity.setTopStoryCount(Integer.toString(body.size()));
     }
 }

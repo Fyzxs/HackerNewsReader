@@ -19,7 +19,7 @@ class MainActivityMediator {
         new ItemAccess().topStories(new Callback<Items>() {
             @Override
             public void onResponse(Call<Items> call, Response<Items> response) {
-                mainActivityBridge.loadedItemData();
+                mainActivityBridge.loadedItemData(response.body());
             }
 
             @Override
