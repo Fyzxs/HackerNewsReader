@@ -1,6 +1,5 @@
 package com.quantityandconversion.hackernews.screens.main;
 
-import com.quantityandconversion.hackernews.MainActivityBridge;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
