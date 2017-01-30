@@ -1,5 +1,7 @@
-package com.quantityandconversion.hackernews;
+package com.quantityandconversion.hackernews.screens.main;
 
+import com.quantityandconversion.hackernews.screens.main.MainActivity;
+import com.quantityandconversion.hackernews.MainActivityBridge;
 import com.quantityandconversion.hackernews.network.item.Items;
 
 import java.util.concurrent.CountDownLatch;

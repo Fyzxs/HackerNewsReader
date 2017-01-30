@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews;
+package com.quantityandconversion.hackernews.screens.main;
 
 import com.quantityandconversion.test.MockWebServerTestClass;
 

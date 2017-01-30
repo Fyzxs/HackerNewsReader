@@ -1,8 +1,10 @@
-package com.quantityandconversion.hackernews;
+package com.quantityandconversion.hackernews.screens.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.quantityandconversion.hackernews.R;
 
 public class MainActivity extends AppCompatActivity {
 
