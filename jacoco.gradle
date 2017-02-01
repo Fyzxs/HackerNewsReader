@@ -7,20 +7,20 @@ jacoco {
 project.afterEvaluate {
     // Grab all build types and product flavors
     def buildTypes = android.buildTypes.collect { type -> type.name }
-    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+//    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+//
+//    // When no product flavors defined, use empty
+//    if (!productFlavors) productFlavors.add('')
 
-    // When no product flavors defined, use empty
-    if (!productFlavors) productFlavors.add('')
-
-    productFlavors.each { productFlavorName ->
+    //productFlavors.each { productFlavorName ->
         buildTypes.each { buildTypeName ->
             def sourceName, sourcePath
-            if (!productFlavorName) {
+            //if (!productFlavorName) {
                 sourceName = sourcePath = "${buildTypeName}"
-            } else {
-                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
-                sourcePath = "${productFlavorName}/${buildTypeName}"
-            }
+//            } else {
+//                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
+//                sourcePath = "${productFlavorName}/${buildTypeName}"
+//            }
             def testTaskName = "test${sourceName.capitalize()}UnitTest"
 
             // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
@@ -40,7 +40,7 @@ project.afterEvaluate {
 
                 def coverageSourceDirs = [
                         "src/main/java",
-                        "src/$productFlavorName/java",
+//                        "src/$productFlavorName/java",
                         "src/$buildTypeName/java"
                 ]
                 additionalSourceDirs = files(coverageSourceDirs)
@@ -53,5 +53,5 @@ project.afterEvaluate {
                 }
             }
         }
-    }
+//    }
 }
