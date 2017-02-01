@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../jacoco.gradle'
+apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 25
@@ -28,7 +28,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            testCoverageEnabled = true
+            testCoverageEnabled true
         }
     }
     lintOptions {
