@@ -51,7 +51,7 @@ do
             SONAR_PROJECT_NAME=${OPTARG}
             ;;
         v)
-            VERSION_NAME_OVERRIDE="${OPTARG}.${DATE}.${BUILD_BUILDID}"
+            VERSION_NAME_OVERRIDE="${OPTARG}.${BUILD_BUILDID}.${DATE}"
             ;;
         p)
             BUILD_PROJECT=${OPTARG}
@@ -79,8 +79,8 @@ else
 ./gradlew -Dsonar.host.url=${SONAR_QUBE_URL} \
           -Dsonar.login=${SONAR_QUBE_USER} \
           -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-          -Dsonar.projectName=${SONAR_PROJECT_NAME} \
-          -PversionNameOverride=${VERSION_NAME_OVERRIDE} \
+          -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
+          -Dsonar.projectVersion="${VERSION_NAME_OVERRIDE}" \
           -Dsonar.scm.disabled=true \
           clean \
           ${BUILD_PROJECT}:build \
