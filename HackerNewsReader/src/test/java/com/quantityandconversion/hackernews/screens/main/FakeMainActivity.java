@@ -1,7 +1,5 @@
 package com.quantityandconversion.hackernews.screens.main;
 
-import com.quantityandconversion.hackernews.screens.main.MainActivity;
-
 import java.util.concurrent.CountDownLatch;
 
 public class FakeMainActivity extends MainActivity {

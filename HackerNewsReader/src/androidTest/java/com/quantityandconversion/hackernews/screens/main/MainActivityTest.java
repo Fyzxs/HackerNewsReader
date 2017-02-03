@@ -29,12 +29,6 @@ public class MainActivityTest{
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Test
-    public void mainActivityTest() {
-        ViewInteraction textView = onView(withId(R.id.top_story_count));
-        onView(isRoot()).perform(waitFor(1000));
-        textView.check(matches(withText("500")));
-    }
     /**
      * Perform action of waiting for a specific time.
      */
@@ -55,5 +49,12 @@ public class MainActivityTest{
                 uiController.loopMainThreadForAtLeast(millis);
             }
         };
+    }
+
+    @Test
+    public void mainActivityTest() {
+        ViewInteraction textView = onView(withId(R.id.top_story_count));
+        onView(isRoot()).perform(waitFor(1000));
+        textView.check(matches(withText("500")));
     }
 }
