@@ -34,4 +34,4 @@ Function Install-AndroidSDK() {
 
 # Example usage:
 $sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 10*' -or $_.name -like 'google apis*api 10' }
-Install-AndroidSDK -sdks $sdks
+echo y | Install-AndroidSDK -sdks $sdks
