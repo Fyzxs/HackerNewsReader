@@ -69,14 +69,15 @@ echo ${VERSION_NAME_OVERRIDE}
 
 if [ -z "$SONAR_QUBE_URL" ]
 then
-./gradlew clean \
+    ./gradlew clean \
           ${BUILD_PROJECT}:build \
           ${BUILD_PROJECT}:test \
           ${BUILD_PROJECT}:lint \
           jacocoTestReport \
           ${GRADLE_FLAGS}
 else
-./gradlew -Dsonar.host.url=${SONAR_QUBE_URL} \
+          #-PversionNameOverride=${VERSION_NAME_OVERRIDE} \
+    ./gradlew -Dsonar.host.url=${SONAR_QUBE_URL} \
           -Dsonar.login=${SONAR_QUBE_USER} \
           -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
           -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
