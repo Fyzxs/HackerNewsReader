@@ -14,6 +14,6 @@ import com.squareup.moshi.ToJson;
 
     @ToJson
     /* package */ ItemId[] itemsToJson(final Items items) {
-        return null;
+        throw new UnsupportedOperationException("serializing to json not supported");
     }
 }

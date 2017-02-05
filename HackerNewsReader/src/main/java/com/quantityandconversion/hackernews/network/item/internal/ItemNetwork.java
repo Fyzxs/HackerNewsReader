@@ -33,7 +33,7 @@ public class ItemNetwork {
                 .baseUrl(serverUrl)
                 .addConverterFactory(MoshiConverterFactory.create(new Moshi.Builder()
                         .add(new ItemsAdapter())
-                        .add(new ItemAdapter())
+                        .add(new ItemIdAdapter())
                         .build()))
                 .build()
                 .create(ItemApi.class);
