@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="single_share">1</integer>
+    <integer name="double_share">2</integer>
+    <integer name="triple_share">3</integer>
+    <integer name="quad_share">4</integer>
+</resources>
