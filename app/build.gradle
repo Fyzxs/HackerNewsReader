@@ -38,7 +38,7 @@ android {
 
 dependencies {
     //Android
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.+'
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
