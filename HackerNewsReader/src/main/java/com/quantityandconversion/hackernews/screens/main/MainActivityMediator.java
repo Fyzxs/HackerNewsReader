@@ -1,7 +1,7 @@
 package com.quantityandconversion.hackernews.screens.main;
 
-import com.quantityandconversion.hackernews.network.item.ItemAccess;
-import com.quantityandconversion.hackernews.network.item.Items;
+import com.quantityandconversion.hackernews.network.hackernews.HackerNewsAccess;
+import com.quantityandconversion.hackernews.network.hackernews.Stories;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,14 +16,14 @@ class MainActivityMediator {
     }
 
     public void loadItemData() {
-        new ItemAccess().topStories(new Callback<Items>() {
+        new HackerNewsAccess().topStories(new Callback<Stories>() {
             @Override
-            public void onResponse(Call<Items> call, Response<Items> response) {
+            public void onResponse(Call<Stories> call, Response<Stories> response) {
                 mainActivityBridge.loadedItemData(response.body());
             }
 
             @Override
-            public void onFailure(Call<Items> call, Throwable t) {
+            public void onFailure(Call<Stories> call, Throwable t) {
                 throw new UnsupportedOperationException("Not Yet Implemented");
             }
         });

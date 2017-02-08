@@ -24,7 +24,7 @@ public class MainActivityMediatorTests extends MockWebServerTestClass {
 
     @Test
     public void loadItemData() throws InterruptedException {
-        itemNetworkTestResponses.simpleItemIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         new MainActivityMediator(new FakeMainActivityBridge(latch, new MainActivity())).loadItemData();

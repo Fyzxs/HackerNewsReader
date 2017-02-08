@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.quantityandconversion.hackernews.R;
-import com.quantityandconversion.hackernews.network.item.ItemId;
-import com.quantityandconversion.hackernews.network.item.Items;
+import com.quantityandconversion.hackernews.network.hackernews.StoryId;
+import com.quantityandconversion.hackernews.network.hackernews.Stories;
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
-    private final Items topStories;
+    private final Stories topStories;
 
-    public TopStoriesAdapter(final Items topStories){
+    public TopStoriesAdapter(final Stories topStories){
         this.topStories = topStories;
     }
 
@@ -39,7 +39,9 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ItemId item = topStories.itemIdAt(position);
+        final StoryId item = topStories.itemIdAt(position);
+
+
 
 //        TextView textView = viewHolder.nameTextView;
 //        textView.setText(contact.getName());

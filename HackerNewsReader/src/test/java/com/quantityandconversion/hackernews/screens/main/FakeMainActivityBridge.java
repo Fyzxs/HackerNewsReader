@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.screens.main;
 
-import com.quantityandconversion.hackernews.network.item.Items;
+import com.quantityandconversion.hackernews.network.hackernews.Stories;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -13,7 +13,7 @@ class FakeMainActivityBridge extends MainActivityBridge {
     }
 
     @Override
-    /* package */ void loadedItemData(Items body) {
+    /* package */ void loadedItemData(Stories body) {
         latch.countDown();
     }
 

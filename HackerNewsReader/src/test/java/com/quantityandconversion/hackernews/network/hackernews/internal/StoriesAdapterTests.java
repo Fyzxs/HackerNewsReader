@@ -1,21 +1,21 @@
-package com.quantityandconversion.hackernews.network.item.internal;
+package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.item.ItemId;
+import com.quantityandconversion.hackernews.network.hackernews.StoryId;
 
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 
-public class ItemsAdapterTests {
+public class StoriesAdapterTests {
     @Test
     public void itemsFromJson() {
-        assertNotNull(new ItemsAdapter().itemsFromJson(new ItemId[]{}));
+        assertNotNull(new StoriesAdapter().itemsFromJson(new StoryId[]{}));
     }
 
     @Test
     public void itemsToJson() {
-        assertThatThrownBy(() -> new ItemsAdapter().itemsToJson(null))
+        assertThatThrownBy(() -> new StoriesAdapter().itemsToJson(null))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessageContaining("serializing to json not supported");
     }

@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.network.item;
+package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.test.MockWebServerTestClass;
 
@@ -13,27 +13,27 @@ import retrofit2.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ItemAccessTests extends MockWebServerTestClass {
+public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void topStories() throws Exception {
-        itemNetworkTestResponses.simpleItemIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new ItemAccess().topStories(new Callback<Items>(){
+        new HackerNewsAccess().topStories(new Callback<Stories>(){
             @Override
-            public void onResponse(Call<Items> call, Response<Items> response) {
+            public void onResponse(Call<Stories> call, Response<Stories> response) {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
-                final Items items = response.body();
-                assertThat(items.size()).isEqualTo(2);
-                assertThat(items.contains(new ItemId(10000))).isTrue();
-                assertThat(items.contains(new ItemId(2))).isTrue();
+                final Stories stories = response.body();
+                assertThat(stories.size()).isEqualTo(2);
+                assertThat(stories.contains(new StoryId(10000))).isTrue();
+                assertThat(stories.contains(new StoryId(2))).isTrue();
                 latch.countDown();
             }
 
             @Override
-            public void onFailure(Call<Items> call, Throwable t) {
+            public void onFailure(Call<Stories> call, Throwable t) {
 
             }
         });
