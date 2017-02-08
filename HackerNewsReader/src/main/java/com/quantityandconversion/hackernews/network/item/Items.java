@@ -26,4 +26,8 @@ public class Items {
     public boolean contains(final ItemId itemId) {
         return itemIdList.contains(itemId);
     }
+
+    public ItemId itemIdAt(final int index) {
+        return itemIdList.get(index);
+    }
 }

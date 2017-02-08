@@ -17,4 +17,10 @@ public class ItemsTests {
         assertThat(new Items(new ItemId[1]).size()).isEqualTo(0);
         assertThat(new Items(new ItemId[]{new ItemId(1L)}).size()).isEqualTo(1);
     }
+
+    @Test
+    public void itemIdAt(){
+        assertThatThrownBy(() -> new Items(new ItemId[0]).itemIdAt(0))
+                .isInstanceOf(IndexOutOfBoundsException.class);
+    }
 }
