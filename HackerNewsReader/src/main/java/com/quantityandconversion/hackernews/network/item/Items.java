@@ -14,7 +14,7 @@ public class Items {
 
     private void importItemIds(final ItemId[] itemIds) {
         for (final ItemId itemId : itemIds) {
-            if(itemId == null){ continue;}
+            if(itemId == null){ continue; }
             itemIdList.add(itemId);
         }
     }
