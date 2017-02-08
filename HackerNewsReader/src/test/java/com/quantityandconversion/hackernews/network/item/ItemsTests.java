@@ -22,5 +22,6 @@ public class ItemsTests {
     public void itemIdAt(){
         assertThatThrownBy(() -> new Items(new ItemId[0]).itemIdAt(0))
                 .isInstanceOf(IndexOutOfBoundsException.class);
+        assertThat(new Items(new ItemId[]{new ItemId(1L)}).itemIdAt(0)).isEqualTo(new ItemId(1L));
     }
 }
