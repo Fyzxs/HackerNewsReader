@@ -17,7 +17,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void topStories() throws Exception {
-        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         new HackerNewsAccess().topStories(new Callback<Stories>(){
@@ -39,5 +39,10 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
         });
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void story() throws Exception{
+        hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
     }
 }

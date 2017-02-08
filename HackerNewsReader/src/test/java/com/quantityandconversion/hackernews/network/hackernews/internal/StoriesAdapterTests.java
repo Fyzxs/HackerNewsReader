@@ -9,13 +9,13 @@ import static org.junit.Assert.assertNotNull;
 
 public class StoriesAdapterTests {
     @Test
-    public void itemsFromJson() {
-        assertNotNull(new StoriesAdapter().itemsFromJson(new StoryId[]{}));
+    public void storiesFromJson() {
+        assertNotNull(new StoriesAdapter().storiesFromJson(new StoryId[]{}));
     }
 
     @Test
-    public void itemsToJson() {
-        assertThatThrownBy(() -> new StoriesAdapter().itemsToJson(null))
+    public void storiesToJson() {
+        assertThatThrownBy(() -> new StoriesAdapter().storiesToJson(null))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessageContaining("serializing to json not supported");
     }

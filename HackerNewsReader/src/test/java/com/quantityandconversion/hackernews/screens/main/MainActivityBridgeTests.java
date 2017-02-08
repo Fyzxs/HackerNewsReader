@@ -24,7 +24,7 @@ public class MainActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
     public void loadData() throws InterruptedException {
-        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeMainActivity fakeMainActivity = new FakeMainActivity(latch);
         final MainActivityBridge mainActivityBridge = new MainActivityBridge(fakeMainActivity);

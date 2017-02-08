@@ -8,6 +8,8 @@ public class StoryIdTests {
 
     @Test
     public void equals(){
+        final StoryId same = new StoryId(1L);
+        assertThat(same).isEqualTo(same);
         assertThat(new StoryId(1L)).isEqualTo(new StoryId(1L));
         assertThat(new StoryId(1L)).isNotEqualTo(new StoryId(2L));
     }

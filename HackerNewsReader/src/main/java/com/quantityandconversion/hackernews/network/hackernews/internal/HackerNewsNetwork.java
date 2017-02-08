@@ -2,7 +2,6 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import android.support.annotation.VisibleForTesting;
 
-import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.squareup.moshi.Moshi;
 
@@ -29,10 +28,6 @@ public class HackerNewsNetwork {
         return hackerNewsApiTopStories().topStories();
     }
 
-
-    public Call<Story> item(final int storyId) {
-        return hackerNewsApiStory().story(storyId);
-    }
 
     private HackerNewsApi hackerNewsApiTopStories() {
         return new Retrofit.Builder()
