@@ -1,7 +1,5 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.support.v7.widget.RecyclerView;
-
 import java.util.concurrent.CountDownLatch;
 
 class FakeTopStoriesActivity extends TopStoriesActivity{
@@ -12,7 +10,7 @@ class FakeTopStoriesActivity extends TopStoriesActivity{
     }
 
     @Override
-    /* package */ void loadStories(final RecyclerView.Adapter adapter) {
+    /* package */ void loadStories(final TopStoriesAdapter adapter) {
         latch.countDown();
     }
 

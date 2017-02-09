@@ -27,7 +27,7 @@ public class TopStoriesActivity extends AppCompatActivity {
         rvTopStories = (RecyclerView)findViewById(R.id.rv_top_stories);
     }
 
-    /* package */ void loadStories(final RecyclerView.Adapter adapter) {
+    /* package */ void loadStories(final TopStoriesAdapter adapter) {
         rvTopStories.setAdapter(adapter);
         rvTopStories.setLayoutManager(new LinearLayoutManager(this));
     }

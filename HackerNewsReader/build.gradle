@@ -30,14 +30,17 @@ android {
     }
 
     compileOptions {
+        incremental true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+//    dexOptions {
+//        javaMaxHeapSize '4096m'
+//    }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             testCoverageEnabled true
@@ -52,6 +55,7 @@ dependencies {
     //Android
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -79,7 +83,4 @@ jacocoAndroidUnitTestReport {
     csv.enabled false
     html.enabled true
     xml.enabled true
-
-    excludes = ['com/quantityandconversion/hackernews/network/hackernews/internal/HackerNewsApi.java',
-                'com/quantityandconversion/hackernews/network/hackernews/internal/StoryJson.java']
 }
