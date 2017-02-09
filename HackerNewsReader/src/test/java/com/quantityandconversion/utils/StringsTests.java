@@ -14,6 +14,4 @@ public class StringsTests {
         assertFalse(Strings.isNullOrEmpty(" \t\n "));
         assertFalse(Strings.isNullOrEmpty("Not Empty or WhiteSpace"));
     }
-
-
 }

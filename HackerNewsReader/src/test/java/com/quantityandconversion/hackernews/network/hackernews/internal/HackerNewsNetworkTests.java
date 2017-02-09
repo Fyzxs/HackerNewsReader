@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
+import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
@@ -33,9 +34,9 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
     }
 
     @Test
-    public void item() throws IOException{
+    public void story() throws IOException{
         hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
-        //final Call<Story> itemCall = new HackerNewsNetwork().item(111111);
+        final Call<Story> itemCall = new HackerNewsNetwork().story(new StoryId(1));
     }
 }

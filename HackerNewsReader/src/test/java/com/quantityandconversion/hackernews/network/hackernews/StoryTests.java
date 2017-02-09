@@ -5,6 +5,8 @@ import com.quantityandconversion.test.utils.RandomValues;
 
 import org.junit.Test;
 
+import java.util.Scanner;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -35,5 +37,11 @@ public class StoryTests {
         assertThat(new Story(title).hashCode()).isEqualTo(new Story(title).hashCode());
         assertThat(new Story(RandomValues.alphaNumeric(10)).hashCode())
                 .isNotEqualTo(new Story(RandomValues.alphaNumeric(10)).hashCode());
+    }
+
+    @Test
+    public void title(){
+        final Scanner titleScanner = new Story("Some Title").title();
+        assertThat(titleScanner.nextLine()).isEqualTo("Some Title");
     }
 }

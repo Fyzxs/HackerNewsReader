@@ -14,5 +14,5 @@ import retrofit2.http.Path;
     Call<Stories> topStories();
 
     @GET("item/{storyId}.json")
-    Call<Story> story(@Path("storyId") final int storyId);
+    Call<Story> story(@Path("storyId") final long storyId);
 }

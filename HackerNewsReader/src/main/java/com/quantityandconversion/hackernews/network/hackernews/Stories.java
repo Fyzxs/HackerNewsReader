@@ -1,5 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
+import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+
 import java.util.ArrayList;
 import java.util.List;
 

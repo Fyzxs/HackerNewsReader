@@ -1,6 +1,5 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.StoryId;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 

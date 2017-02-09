@@ -2,6 +2,8 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.utils.Strings;
 
+import java.util.Scanner;
+
 public class Story {
     private String title;
 
@@ -21,5 +23,9 @@ public class Story {
     }
     private boolean equals(final Story other){
         return this.title.equals(other.title);
+    }
+
+    public Scanner title() {
+        return new Scanner(title);
     }
 }

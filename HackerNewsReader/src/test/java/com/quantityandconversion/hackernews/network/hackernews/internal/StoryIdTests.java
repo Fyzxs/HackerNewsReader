@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.network.hackernews;
+package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import org.junit.Test;
 
@@ -14,10 +14,14 @@ public class StoryIdTests {
         assertThat(new StoryId(1L)).isNotEqualTo(new StoryId(2L));
     }
 
-
     @Test
     public void hash(){
         assertThat(new StoryId(1L).hashCode()).isEqualTo(new StoryId(1L).hashCode());
         assertThat(new StoryId(1L).hashCode()).isNotEqualTo(new StoryId(2L).hashCode());
+    }
+
+    @Test
+    public void isAdLong(){
+        assertThat(new StoryId(1L).idAsLong()).isEqualTo(1L);
     }
 }

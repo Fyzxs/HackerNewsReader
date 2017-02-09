@@ -3,6 +3,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 import android.support.annotation.VisibleForTesting;
 
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
+import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.squareup.moshi.Moshi;
 
 import okhttp3.HttpUrl;
@@ -29,6 +30,10 @@ public class HackerNewsNetwork {
     }
 
 
+    public Call<Story> story(final StoryId storyId) {
+        return hackerNewsApiStory().story(storyId.idAsLong());
+    }
+
     private HackerNewsApi hackerNewsApiTopStories() {
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
@@ -44,8 +49,7 @@ public class HackerNewsNetwork {
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
                 .addConverterFactory(MoshiConverterFactory.create(new Moshi.Builder()
-                        .add(new StoriesAdapter())
-                        .add(new StoryIdAdapter())
+                        .add(new StoryAdapter())
                         .build()))
                 .build()
                 .create(HackerNewsApi.class);

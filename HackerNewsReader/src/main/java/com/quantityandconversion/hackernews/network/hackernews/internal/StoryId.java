@@ -1,10 +1,14 @@
-package com.quantityandconversion.hackernews.network.hackernews;
+package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 public class StoryId {
     private long id;
 
     public StoryId(final long id) {
         this.id = id;
+    }
+
+    /* package */ long idAsLong(){
+        return id;
     }
 
     @Override

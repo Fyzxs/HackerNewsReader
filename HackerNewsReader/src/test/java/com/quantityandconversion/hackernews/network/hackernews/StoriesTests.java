@@ -1,5 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
+import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
