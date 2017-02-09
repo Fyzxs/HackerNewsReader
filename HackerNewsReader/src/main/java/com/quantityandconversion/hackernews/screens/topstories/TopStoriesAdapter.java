@@ -13,7 +13,7 @@ import com.quantityandconversion.hackernews.R;
 
     private final TopStoriesActivityMediator topStoriesActivityMediator;
 
-    public TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
+    /* package */ TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
         this.topStoriesActivityMediator = topStoriesActivityMediator;
     }
 
@@ -46,10 +46,10 @@ import com.quantityandconversion.hackernews.R;
         return topStoriesActivityMediator.topStoriesSize();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    /* package */ static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
 
-        public ViewHolder(final View itemView) {
+        /* package */ ViewHolder(final View itemView) {
             super(itemView);
 
             bindControls(itemView);

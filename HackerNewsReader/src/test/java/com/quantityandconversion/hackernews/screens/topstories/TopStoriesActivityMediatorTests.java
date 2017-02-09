@@ -1,16 +1,17 @@
-package com.quantityandconversion.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topstories;
 
-import com.quantityandconversion.hackernews.screens.topstories.TopStoriesActivity;
-import com.quantityandconversion.hackernews.screens.topstories.TopStoriesActivityBridge;
-import com.quantityandconversion.hackernews.screens.topstories.TopStoriesActivityMediator;
+import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static com.quantityandconversion.hackernews.network.hackernews.Story.NullStory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TopStoriesMediatorTests {
+public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
     @Test
     public void constructor(){
 
@@ -19,6 +20,16 @@ public class TopStoriesMediatorTests {
                 .hasMessageContaining("topStoriesActivityBridge");
 
         new TopStoriesActivityMediator(new TopStoriesActivityBridge(new TopStoriesActivity()));
+    }
+
+    @Test
+    public void loadItemData() throws InterruptedException {
+        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new TopStoriesActivity())).loadTopStoriesData();
+
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
     @Test
     public void topStoriesSize(){

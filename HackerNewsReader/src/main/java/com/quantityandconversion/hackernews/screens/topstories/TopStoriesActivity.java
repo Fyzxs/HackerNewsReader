@@ -2,6 +2,7 @@ package com.quantityandconversion.hackernews.screens.topstories;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.quantityandconversion.hackernews.R;
@@ -26,4 +27,8 @@ public class TopStoriesActivity extends AppCompatActivity {
         rvTopStories = (RecyclerView)findViewById(R.id.rv_top_stories);
     }
 
+    /* package */ void loadStories(final RecyclerView.Adapter adapter) {
+        rvTopStories.setAdapter(adapter);
+        rvTopStories.setLayoutManager(new LinearLayoutManager(this));
+    }
 }

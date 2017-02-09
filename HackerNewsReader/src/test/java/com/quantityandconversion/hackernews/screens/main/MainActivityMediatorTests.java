@@ -29,6 +29,6 @@ public class MainActivityMediatorTests extends MockWebServerTestClass {
         final CountDownLatch latch = new CountDownLatch(1);
         new MainActivityMediator(new FakeMainActivityBridge(latch, new MainActivity())).loadItemData();
 
-        assertThat(latch.await(1000, TimeUnit.SECONDS)).isTrue();
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
 }
