@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories.internal;
+package com.quantityandconversion.hackernews.screens.topstories;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.quantityandconversion.hackernews.R;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
-import com.quantityandconversion.hackernews.network.hackernews.Stories;
 
-public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
-    private final Stories topStories;
+    private final TopStoriesActivityMediator topStoriesActivityMediator;
 
-    public TopStoriesAdapter(final Stories topStories){
-        this.topStories = topStories;
+    public TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
+        this.topStoriesActivityMediator = topStoriesActivityMediator;
     }
 
     @Override
@@ -38,20 +36,14 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final StoryId item = topStories.itemIdAt(position);
-
-
-
-//        TextView textView = viewHolder.nameTextView;
-//        textView.setText(contact.getName());
-//        Button button = viewHolder.messageButton;
-//        button.setText("Message");
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        viewHolder.title.setText(
+                topStoriesActivityMediator.storyAt(position).title().nextLine());
     }
 
     @Override
     public int getItemCount() {
-        return topStories.size();
+        return topStoriesActivityMediator.topStoriesSize();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -61,7 +53,6 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
             super(itemView);
 
             bindControls(itemView);
-
         }
 
         private void bindControls(final View itemView) {

@@ -10,14 +10,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.main.MainActivity">
+        <activity android:name=".screens.topstories.TopStoriesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.topstories.TopStoriesActivity"></activity>
     </application>
 
 </manifest>

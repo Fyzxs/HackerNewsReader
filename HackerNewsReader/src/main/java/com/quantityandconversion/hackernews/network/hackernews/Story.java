@@ -5,6 +5,7 @@ import com.quantityandconversion.utils.Strings;
 import java.util.Scanner;
 
 public class Story {
+    public final static Story NullStory = new Story("Loading Story");
     private String title;
 
     public Story(final String title) {
