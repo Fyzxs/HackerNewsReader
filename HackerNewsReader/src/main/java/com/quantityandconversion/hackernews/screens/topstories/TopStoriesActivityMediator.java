@@ -12,6 +12,7 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
 
 /* package */ class TopStoriesActivityMediator {
     private final TopStoriesActivityBridge topStoriesActivityBridge;
+    private Stories topStories;
 
     /* package */ TopStoriesActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
         if(topStoriesActivityBridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
@@ -19,18 +20,26 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
     }
 
     /* package */ int topStoriesSize() {
-        return 0;
+        return topStories == null ? 3 : topStories.size();
     }
 
     /* package */ Story storyAt(final int index) {
-        return NullStory;
+        switch (index){
+            case 0:
+                return NullStory;
+            case 1:
+                return new Story("WHAAAAA");
+            default:
+                return new Story("Creattt");
+        }
     }
 
     /* package */ void loadTopStoriesData() {
         new HackerNewsAccess().topStories(new Callback<Stories>() {
             @Override
             public void onResponse(Call<Stories> call, Response<Stories> response) {
-                topStoriesActivityBridge.loadedTopStoriesData(response.body());
+                topStories = response.body();
+                topStoriesActivityBridge.loadedTopStoriesData(topStories);
             }
 
             @Override

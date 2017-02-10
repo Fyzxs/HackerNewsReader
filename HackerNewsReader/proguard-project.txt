@@ -1,0 +1,12 @@
+-dontshrink
+-dontoptimize
+-dontobfuscate
+-dontpreverify
+-verbose
+
+-dontnote com.google.common.**
+-dontnote com.google.vending.**
+-dontnote com.android.vending.**
+-dontnote org.apache.http.**
+-dontnote android.net.http.**
+-dontnote org.jacoco.**

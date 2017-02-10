@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.quantityandconversion.hackernews.R;
 
-/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
     private final TopStoriesActivityMediator topStoriesActivityMediator;
 
-    /* package */ TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
+    public TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
         this.topStoriesActivityMediator = topStoriesActivityMediator;
     }
 
@@ -37,19 +37,19 @@ import com.quantityandconversion.hackernews.R;
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        viewHolder.title.setText(
-                topStoriesActivityMediator.storyAt(position).title().nextLine());
+        viewHolder.title.setText(topStoriesActivityMediator.storyAt(position).title().nextLine());
     }
 
     @Override
     public int getItemCount() {
-        return topStoriesActivityMediator.topStoriesSize();
+        return 3;
+        //return topStoriesActivityMediator.topStoriesSize() == 0 ? 3 : topStoriesActivityMediator.topStoriesSize();
     }
 
-    /* package */ static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
 
-        /* package */ ViewHolder(final View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             bindControls(itemView);

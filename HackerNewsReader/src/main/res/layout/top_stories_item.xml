@@ -6,9 +6,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/layout_width_for_weighted"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="@integer/single_share"
-        tools:text="OMG - A TOP STORY!!! YAY!"
-        tools:ignore="InefficientWeight" />
+        tools:text="OMG - A TOP STORY!!! YAY!" />
 </LinearLayout>
