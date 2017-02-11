@@ -18,15 +18,19 @@ public class TopStoriesActivity extends AppCompatActivity {
         setContentView(R.layout.top_stories_activity);
 
         bindViews();
-
+        configureViews();
         topStoriesActivityBridge.loadData();
+    }
+
+    private void configureViews() {
+        topStoriesActivityBridge.configureTopStoriesListing(rvTopStories);
     }
 
     private void bindViews() {
         rvTopStories = (RecyclerView)findViewById(R.id.rv_top_stories);
     }
 
-    /* package */ RecyclerView topStoriesListing(){
-        return rvTopStories;
+    /* package */ void notifyTopStoriesChanged(){
+        rvTopStories.getAdapter().notifyDataSetChanged();
     }
 }

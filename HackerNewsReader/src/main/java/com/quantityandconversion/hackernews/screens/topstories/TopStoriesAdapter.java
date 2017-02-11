@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.quantityandconversion.hackernews.R;
+import com.quantityandconversion.utils.log.FyzLog;
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
@@ -19,6 +20,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        FyzLog.v("viewType=" + viewType);
         return viewHolder(parent);
     }
 
@@ -42,8 +44,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 3;
-        //return topStoriesActivityMediator.topStoriesSize() == 0 ? 3 : topStoriesActivityMediator.topStoriesSize();
+        return topStoriesActivityMediator.topStoriesSize();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

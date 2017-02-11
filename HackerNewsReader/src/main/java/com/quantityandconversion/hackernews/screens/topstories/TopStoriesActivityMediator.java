@@ -24,14 +24,7 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
     }
 
     /* package */ Story storyAt(final int index) {
-        switch (index){
-            case 0:
-                return NullStory;
-            case 1:
-                return new Story("WHAAAAA");
-            default:
-                return new Story("Creattt");
-        }
+        return NullStory;//topStories.itemIdAt(index);
     }
 
     /* package */ void loadTopStoriesData() {
@@ -39,7 +32,7 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
             @Override
             public void onResponse(Call<Stories> call, Response<Stories> response) {
                 topStories = response.body();
-                topStoriesActivityBridge.loadedTopStoriesData(topStories);
+                topStoriesActivityBridge.notifyTopStoriesChanged();
             }
 
             @Override

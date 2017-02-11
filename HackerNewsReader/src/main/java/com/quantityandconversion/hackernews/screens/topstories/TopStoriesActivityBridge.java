@@ -3,9 +3,6 @@ package com.quantityandconversion.hackernews.screens.topstories;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.quantityandconversion.hackernews.network.hackernews.Stories;
-import com.quantityandconversion.utils.log.FyzLog;
-
 /* package */ class TopStoriesActivityBridge {
 
     private final TopStoriesActivity topStoriesActivity;
@@ -20,19 +17,15 @@ import com.quantityandconversion.utils.log.FyzLog;
     }
 
     /* package */ void loadData() {
-        final RecyclerView topStoriesListing = topStoriesActivity.topStoriesListing();
-        topStoriesListing.setAdapter(new TopStoriesAdapter(topStoriesActivityMediator));
-        topStoriesListing.setLayoutManager(new LinearLayoutManager(topStoriesActivity));
         topStoriesActivityMediator.loadTopStoriesData();
     }
 
-    /* package */ void loadedTopStoriesData(final Stories stories){
-//        final TopStoriesAdapter adapter = new TopStoriesAdapter(topStoriesActivityMediator);
-//        final RecyclerView topStoriesListing = topStoriesActivity.topStoriesListing();
-//        topStoriesListing.swapAdapter(adapter, true);
-//        topStoriesListing.invalidate();
-//        adapter.notifyDataSetChanged();
-        FyzLog.v("Change Notification Attempted");
+    /* package */ void notifyTopStoriesChanged(){
+        topStoriesActivity.notifyTopStoriesChanged();
+    }
 
+    /* package */  void configureTopStoriesListing(final RecyclerView topStories) {
+        topStories.setAdapter(new TopStoriesAdapter(topStoriesActivityMediator));
+        topStories.setLayoutManager(new LinearLayoutManager(topStoriesActivity));
     }
 }
