@@ -13,7 +13,7 @@ class FakeTopStoriesActivityBridge extends TopStoriesActivityBridge {
         this.latch = latch;
     }
 
-    @Override
+    //@Override
     /* package */ void loadedTopStoriesData(final Stories stories) {
         latch.countDown();
     }

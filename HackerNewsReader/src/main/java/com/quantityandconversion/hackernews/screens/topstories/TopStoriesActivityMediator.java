@@ -3,12 +3,11 @@ package com.quantityandconversion.hackernews.screens.topstories;
 import com.quantityandconversion.hackernews.network.hackernews.HackerNewsAccess;
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.quantityandconversion.hackernews.network.hackernews.Story.NullStory;
 
 /* package */ class TopStoriesActivityMediator {
     private final TopStoriesActivityBridge topStoriesActivityBridge;
@@ -20,23 +19,37 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
     }
 
     /* package */ int topStoriesSize() {
-        return topStories == null ? 3 : topStories.size();
+        return topStories.size();
     }
 
     /* package */ Story storyAt(final int index) {
-        return NullStory;//topStories.itemIdAt(index);
+        return topStories.itemIdAt(index);
+    }
+
+    private void doUpdate(final StoryId storyId){
+        new HackerNewsAccess().story(storyId, new Callback<Story>() {
+            @Override
+            public void onResponse(final Call<Story> call, final Response<Story> response) {
+
+            }
+
+            @Override
+            public void onFailure(final Call<Story> call, final Throwable t) {
+                throw new UnsupportedOperationException("Not Yet Implemented");
+            }
+        });
     }
 
     /* package */ void loadTopStoriesData() {
         new HackerNewsAccess().topStories(new Callback<Stories>() {
             @Override
-            public void onResponse(Call<Stories> call, Response<Stories> response) {
+            public void onResponse(final Call<Stories> call, final Response<Stories> response) {
                 topStories = response.body();
                 topStoriesActivityBridge.notifyTopStoriesChanged();
             }
 
             @Override
-            public void onFailure(Call<Stories> call, Throwable t) {
+            public void onFailure(final Call<Stories> call, final Throwable t) {
                 throw new UnsupportedOperationException("Not Yet Implemented");
             }
         });
