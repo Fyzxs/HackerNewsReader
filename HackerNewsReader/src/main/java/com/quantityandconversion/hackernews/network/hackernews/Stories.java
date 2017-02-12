@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.utils.log.FyzLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,16 +43,16 @@ public class Stories {
     }
 
     public Story storyAt(final int index, final StoryRefreshCallback storyRefreshCallback) {
-        return storyRefresh(index, storyRefreshCallback);
-    }
-
-    private Story storyRefresh(final int index, final StoryRefreshCallback storyRefreshCallback){
-        final Story story = getStory(index);
+        final StoryId storyId = storyIds[index];
+        final Story story = getStory(storyId);
         if(!shouldRefreshStory(story, storyRefreshCallback)){ return story; }
 
-        new HackerNewsAccess().story(story.storyId(), new Callback<Story>() {
+        new HackerNewsAccess().story(storyId, new Callback<Story>() {
             @Override
             public void onResponse(final Call<Story> call, final Response<Story> response) {
+                FyzLog.v("[response.isSuccessful=" + response.isSuccessful() + "]");
+                FyzLog.v("[response.code=" + response.code() + "]");
+                FyzLog.v("[call.url=" + call.request().url().toString() + "]");
                 final Story story = response.body();
                 storyMap.put(story.storyId(), story);
                 storyRefreshCallback.storyRefreshed(index);
@@ -66,8 +67,8 @@ public class Stories {
         return story;
     }
 
-    private Story getStory(final int index) {
-        final Story story = storyMap.get(storyIds[index]);
+    private Story getStory(final StoryId storyId) {
+        final Story story = storyMap.get(storyId);
         return story == null ? NullStory : story;
     }
 
