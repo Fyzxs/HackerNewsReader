@@ -50,9 +50,6 @@ public class Stories {
         new HackerNewsAccess().story(storyId, new Callback<Story>() {
             @Override
             public void onResponse(final Call<Story> call, final Response<Story> response) {
-                FyzLog.v("[response.isSuccessful=" + response.isSuccessful() + "]");
-                FyzLog.v("[response.code=" + response.code() + "]");
-                FyzLog.v("[call.url=" + call.request().url().toString() + "]");
                 final Story story = response.body();
                 storyMap.put(story.storyId(), story);
                 storyRefreshCallback.storyRefreshed(index);
