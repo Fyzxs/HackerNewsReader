@@ -27,7 +27,7 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new TopStoriesActivity())).loadTopStoriesData();
+        new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new FakeTopStoriesActivity(latch))).loadTopStoriesData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }

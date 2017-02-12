@@ -33,4 +33,7 @@ public class TopStoriesActivity extends AppCompatActivity {
     /* package */ void notifyTopStoriesChanged(){
         rvTopStories.getAdapter().notifyDataSetChanged();
     }
+    /* package */ void notifyTopStoryChanged(final int index){
+        rvTopStories.getAdapter().notifyItemChanged(index);
+    }
 }

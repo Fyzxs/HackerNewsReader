@@ -9,8 +9,8 @@ class FakeTopStoriesActivity extends TopStoriesActivity{
         this.latch = latch;
     }
 
-    //@Override
-    /* package */ void loadStories(final TopStoriesAdapter adapter) {
+    @Override
+    void notifyTopStoriesChanged() {
         latch.countDown();
     }
 

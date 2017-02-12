@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
 
 import org.junit.Test;
@@ -8,7 +9,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class StoryAdapterTests {
+public class StoryAdapterTests extends QacTestClass {
     @Test
     public void storyFromJson() {
 
@@ -27,12 +28,12 @@ public class StoryAdapterTests {
         final String expectedTitle = RandomValues.alphaNumeric(10);
 
         final StoryJson storyJson = new StoryJson();
+        storyJson.id = 1L;
         storyJson.title = expectedTitle;
 
-        final Story expectedStory = new Story(expectedTitle);
+        final Story expectedStory = new Story(new StoryId(1L), expectedTitle);
 
-        assertThat(new StoryAdapter().storyFromJson(storyJson))
-                .isEqualTo(expectedStory);
+        assertThat(new StoryAdapter().storyFromJson(storyJson)).isEqualTo(expectedStory);
     }
 
     @Test

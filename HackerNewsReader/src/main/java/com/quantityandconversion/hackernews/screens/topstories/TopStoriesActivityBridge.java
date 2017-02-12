@@ -24,6 +24,10 @@ import android.support.v7.widget.RecyclerView;
         topStoriesActivity.notifyTopStoriesChanged();
     }
 
+    /* package */ void notifyTopStoryChanged(final int index){
+        topStoriesActivity.notifyTopStoryChanged(index);
+    }
+
     /* package */  void configureTopStoriesListing(final RecyclerView topStories) {
         topStories.setAdapter(new TopStoriesAdapter(topStoriesActivityMediator));
         topStories.setLayoutManager(new LinearLayoutManager(topStoriesActivity));
