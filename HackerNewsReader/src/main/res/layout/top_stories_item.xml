@@ -2,13 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <com.quantityandconversion.widget.QacTextView
-    android:id="@+id/tv_title"
-    android:layout_width="@dimen/layout_width_for_weighted"
     android:layout_height="wrap_content"
-    android:layout_weight="@integer/single_share"
-    tools:text="OMG - A TOP STORY!!! YAY!"
-    tools:ignore="InefficientWeight" />
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.quantityandconversion.widget.QacTextView
+                android:id="@+id/tv_score_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="14sp"
+                tools:text="9999" />
+
+            <com.quantityandconversion.widget.QacTextView
+                android:id="@+id/tv_score_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:textAlignment="textEnd"
+                android:textSize="12sp"
+                tools:text="points" />
+        </LinearLayout>
+
+        <com.quantityandconversion.widget.QacTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="OMG - A TOP STORY!!! YAY!" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.quantityandconversion.widget.QacTextView
+            android:id="@+id/tv_posted_by"
+            android:layout_width="@dimen/layout_width_for_weighted"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/single_share"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            tools:ignore="InefficientWeight"
+            tools:text="Posted by {AUTHOR}" />
+
+        <com.quantityandconversion.widget.QacTextView
+            android:id="@+id/tv_posted_time"
+            android:layout_width="@dimen/layout_width_for_weighted"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/single_share"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:ignore="InefficientWeight"
+            tools:text="{8 hours ago}" />
+
+        <com.quantityandconversion.widget.QacTextView
+            android:id="@+id/tv_comments"
+            android:layout_width="@dimen/layout_width_for_weighted"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/single_share"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:textSize="12sp"
+            tools:ignore="InefficientWeight"
+            tools:text="22 comments" />
+</LinearLayout>
 </LinearLayout>
