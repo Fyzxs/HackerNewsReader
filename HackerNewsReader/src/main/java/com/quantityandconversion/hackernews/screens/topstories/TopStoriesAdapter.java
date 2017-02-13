@@ -10,11 +10,11 @@ import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.utils.log.FyzLog;
 import com.quantityandconversion.widget.QacTextView;
 
-public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
     private final TopStoriesActivityMediator topStoriesActivityMediator;
 
-    public TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
+    /* package */ TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
         this.topStoriesActivityMediator = topStoriesActivityMediator;
     }
 
@@ -41,6 +41,11 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
         topStoriesActivityMediator.storyAt(position).title(viewHolder.title);
+        viewHolder.points.setText("1234");
+        viewHolder.author.setText("Posted by Fyzxs");
+        viewHolder.comments.setText("23 comments");
+        viewHolder.time.setText("10 minutes ago");
+
     }
 
     @Override
@@ -48,10 +53,14 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
         return topStoriesActivityMediator.topStoriesSize();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    /* package */ static class ViewHolder extends RecyclerView.ViewHolder{
         private QacTextView title;
+        private QacTextView points;
+        private QacTextView author;
+        private QacTextView comments;
+        private QacTextView time;
 
-        public ViewHolder(final View itemView) {
+        /* package */ ViewHolder(final View itemView) {
             super(itemView);
 
             bindControls(itemView);
@@ -59,6 +68,10 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
 
         private void bindControls(final View itemView) {
             title = (QacTextView)itemView.findViewById(R.id.tv_title);
+            points = (QacTextView)itemView.findViewById(R.id.tv_score_value);
+            author = (QacTextView)itemView.findViewById(R.id.tv_posted_by);
+            comments = (QacTextView)itemView.findViewById(R.id.tv_comments);
+            time = (QacTextView)itemView.findViewById(R.id.tv_posted_time);
         }
     }
 }

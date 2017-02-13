@@ -22,16 +22,9 @@
                 android:layout_height="match_parent"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="14sp"
+                android:gravity="center"
                 tools:text="9999" />
 
-            <com.quantityandconversion.widget.QacTextView
-                android:id="@+id/tv_score_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="12sp"
-                tools:text="points" />
         </LinearLayout>
 
         <com.quantityandconversion.widget.QacTextView
@@ -73,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/single_share"
             android:textAlignment="textEnd"
-            android:layout_gravity="end"
+            android:gravity="end"
             android:textSize="12sp"
             tools:ignore="InefficientWeight"
             tools:text="22 comments" />
