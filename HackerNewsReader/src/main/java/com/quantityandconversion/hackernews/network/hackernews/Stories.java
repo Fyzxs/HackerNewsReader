@@ -1,7 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
-import com.quantityandconversion.utils.log.FyzLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,9 +43,15 @@ public class Stories {
 
     public Story storyAt(final int index, final StoryRefreshCallback storyRefreshCallback) {
         final StoryId storyId = storyIds[index];
-        final Story story = getStory(storyId);
+        final Story story = storyMap.get(storyId);
         if(!shouldRefreshStory(story, storyRefreshCallback)){ return story; }
 
+        refreshStory(index, storyRefreshCallback, storyId);
+
+        return story;
+    }
+
+    private void refreshStory(final int index, final StoryRefreshCallback storyRefreshCallback, StoryId storyId) {
         new HackerNewsAccess().story(storyId, new Callback<Story>() {
             @Override
             public void onResponse(final Call<Story> call, final Response<Story> response) {
@@ -60,13 +65,6 @@ public class Stories {
                 throw new UnsupportedOperationException("onFailure not implemented");
             }
         });
-
-        return story;
-    }
-
-    private Story getStory(final StoryId storyId) {
-        final Story story = storyMap.get(storyId);
-        return story == null ? NullStory : story;
     }
 
     private boolean shouldRefreshStory( final Story story, final StoryRefreshCallback storyRefreshCallback) {
