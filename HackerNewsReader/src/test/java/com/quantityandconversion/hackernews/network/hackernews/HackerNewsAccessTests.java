@@ -5,7 +5,6 @@ import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
 
-import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -54,9 +53,9 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
                 final Story story = response.body();
-                final Scanner titleScanner = story.title();
+                //final Scanner titleScanner = story.title();
 
-                assertThat(titleScanner.nextLine()).isEqualTo("this is a faked title");
+                assertThat("").isEqualTo("this is a faked title");
                 latch.countDown();
             }
 

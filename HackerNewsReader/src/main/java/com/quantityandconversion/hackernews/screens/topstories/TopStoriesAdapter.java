@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.utils.log.FyzLog;
+import com.quantityandconversion.widget.QacTextView;
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
@@ -39,7 +39,8 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        viewHolder.title.setText(topStoriesActivityMediator.storyAt(position).title().nextLine());
+        //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
+        topStoriesActivityMediator.storyAt(position).title(viewHolder.title);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView title;
+        private QacTextView title;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -57,7 +58,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Vi
         }
 
         private void bindControls(final View itemView) {
-            title = (TextView)itemView.findViewById(R.id.tv_title);
+            title = (QacTextView)itemView.findViewById(R.id.tv_title);
         }
     }
 }

@@ -9,7 +9,7 @@ import com.squareup.moshi.ToJson;
     /* package */ Story storyFromJson(final StoryJson storyJson) {
         if(storyJson == null) { throw new IllegalArgumentException("storyJson can not be null"); }
 
-        return new Story(new StoryId(storyJson.id), storyJson.title);
+        return new Story(new StoryId(storyJson.id), new Title(storyJson.title));
     }
     @ToJson
     /* package */ long storyToJson(final Story story) {

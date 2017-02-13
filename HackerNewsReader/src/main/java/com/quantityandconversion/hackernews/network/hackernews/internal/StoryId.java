@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 public class StoryId {
+    public final static StoryId NullStoryId = new StoryId(-1L);
     private long id;
 
     public StoryId(final long id) {

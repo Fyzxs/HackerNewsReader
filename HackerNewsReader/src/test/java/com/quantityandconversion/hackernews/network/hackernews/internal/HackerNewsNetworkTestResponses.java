@@ -9,7 +9,7 @@ import okhttp3.mockwebserver.MockWebServer;
 
 public class HackerNewsNetworkTestResponses {
 
-    public static final Story SimpleStory = new Story(new StoryId(1234L), "this is a faked title");
+    public static final Story SimpleStory = new Story(new StoryId(1234L), new Title("this is a faked title"));
 
     public void simpleStoryIdList(final MockWebServer mockWebServer) {
         mockWebServer.enqueue(new MockResponse()

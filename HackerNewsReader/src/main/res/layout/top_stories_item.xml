@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <com.quantityandconversion.widget.QacTextView
     android:id="@+id/tv_title"
     android:layout_width="@dimen/layout_width_for_weighted"
     android:layout_height="wrap_content"
