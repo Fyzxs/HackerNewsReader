@@ -1,9 +1,5 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 /* package */ class TopStoriesActivityBridge {
 
     private final TopStoriesActivity topStoriesActivity;
@@ -29,9 +25,7 @@ import android.support.v7.widget.RecyclerView;
         topStoriesActivity.notifyTopStoryChanged(index);
     }
 
-    /* package */  void configureTopStoriesListing(final RecyclerView topStories) {
-        topStories.setAdapter(new TopStoriesAdapter(topStoriesActivityMediator));
-        topStories.setLayoutManager(new LinearLayoutManager(topStoriesActivity));
-        topStories.addItemDecoration(new DividerItemDecoration(topStories.getContext(), DividerItemDecoration.VERTICAL));
+    /* package */  TopStoriesAdapter createTopStoriesAdapter() {
+        return new TopStoriesAdapter(topStoriesActivityMediator);
     }
 }

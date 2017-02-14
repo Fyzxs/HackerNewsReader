@@ -2,6 +2,7 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.test.MockWebServerTestClass;
+import com.quantityandconversion.widget.interfaces.QacTextView;
 
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 assertThat(response.body()).isNotNull();
                 final Stories stories = response.body();
                 assertThat(stories.size()).isEqualTo(2);
-                assertThat(stories.contains(new StoryId(10000))).isTrue();
+                assertThat(stories.contains(new StoryId(12345))).isTrue();
                 assertThat(stories.contains(new StoryId(2))).isTrue();
                 latch.countDown();
             }
@@ -53,10 +54,13 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
                 final Story story = response.body();
-                //final Scanner titleScanner = story.title();
-
-                assertThat("").isEqualTo("this is a faked title");
-                latch.countDown();
+                final QacTextView fakeTextView = new QacTextView() {
+                    @Override
+                    public void setText(CharSequence charSequence) {
+                        latch.countDown();
+                    }
+                };
+                story.title(fakeTextView);
             }
 
             @Override

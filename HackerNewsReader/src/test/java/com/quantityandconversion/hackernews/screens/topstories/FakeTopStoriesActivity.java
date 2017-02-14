@@ -10,8 +10,12 @@ class FakeTopStoriesActivity extends TopStoriesActivity{
     }
 
     @Override
-    void notifyTopStoriesChanged() {
+    /* package */ void notifyTopStoriesChanged() {
         latch.countDown();
     }
 
+    @Override
+    /* package */ void notifyTopStoryChanged(final int index){
+        latch.countDown();
+    }
 }

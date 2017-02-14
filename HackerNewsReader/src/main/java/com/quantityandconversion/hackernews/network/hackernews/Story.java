@@ -2,7 +2,7 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
-import com.quantityandconversion.widget.SetText;
+import com.quantityandconversion.widget.interfaces.QacTextView;
 
 public class Story {
     public final static Story NullStory = new Story(StoryId.NullStoryId, Title.NullTitle);
@@ -39,8 +39,8 @@ public class Story {
         return this.storyId.equals(other.storyId);
     }
 
-    public void title(final SetText setText) {
-        title.title(setText);
+    public void title(final QacTextView qacTextView) {
+        title.title(qacTextView);
     }
 
     //This remains in 'cause I'm thinknig about it. It's not

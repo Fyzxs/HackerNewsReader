@@ -28,4 +28,8 @@ public class RandomValues {
 
         return new String(buf);
     }
+
+    public static int nextInt(final int excludedMax){
+        return random.nextInt(excludedMax);
+    }
 }

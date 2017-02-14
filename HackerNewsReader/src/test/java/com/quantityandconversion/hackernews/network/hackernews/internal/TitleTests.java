@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.test.FakeSetText;
+import com.quantityandconversion.test.FakeQacTextView;
 import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
 
@@ -48,7 +48,7 @@ public class TitleTests extends QacTestClass {
     @Test
     public void title() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeSetText fakeSetText = new FakeSetText(latch);
+        final FakeQacTextView fakeSetText = new FakeQacTextView(latch);
         TitleOne.title(fakeSetText);
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();

@@ -29,9 +29,32 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
         final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+
         topStoriesActivityBridge.loadData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
 
+    @Test
+    public void notifyTopStoryChanged() throws InterruptedException {
+        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
+        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+
+        topStoriesActivityBridge.notifyTopStoryChanged(0);
+
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void createTopStoriesAdapter(){
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
+        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+
+        final TopStoriesAdapter adapter = topStoriesActivityBridge.createTopStoriesAdapter();
+
+        assertThat(adapter).isNotNull();
+    }
 }

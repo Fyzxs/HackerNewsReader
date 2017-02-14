@@ -1,13 +1,13 @@
 package com.quantityandconversion.test;
 
-import com.quantityandconversion.widget.SetText;
+import com.quantityandconversion.widget.interfaces.QacTextView;
 
 import java.util.concurrent.CountDownLatch;
 
-public class FakeSetText implements SetText{
+public class FakeQacTextView implements QacTextView {
     private final CountDownLatch latch;
 
-    public FakeSetText(final CountDownLatch latch){
+    public FakeQacTextView(final CountDownLatch latch){
         this.latch = latch;
     }
     @Override

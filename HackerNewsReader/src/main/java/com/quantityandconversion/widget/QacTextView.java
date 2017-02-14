@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-/** Implemented for mocking purposes */
-public class QacTextView extends AppCompatTextView implements SetText{
+public class QacTextView extends AppCompatTextView implements com.quantityandconversion.widget.interfaces.QacTextView {
     public QacTextView(Context context) {
         super(context);
     }

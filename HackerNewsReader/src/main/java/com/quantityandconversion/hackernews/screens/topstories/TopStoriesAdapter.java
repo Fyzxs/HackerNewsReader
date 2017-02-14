@@ -1,26 +1,25 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
-import com.quantityandconversion.utils.log.FyzLog;
+import com.quantityandconversion.widget.QacRecyclerView;
 import com.quantityandconversion.widget.QacTextView;
+import com.quantityandconversion.widget.interfaces.QacView;
 
-/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+/* package */ class TopStoriesAdapter extends QacRecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
     private final TopStoriesActivityMediator topStoriesActivityMediator;
 
     /* package */ TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
+        if(topStoriesActivityMediator == null) {throw new IllegalArgumentException("topStoriesActivityMediator cannot be null"); }
         this.topStoriesActivityMediator = topStoriesActivityMediator;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        FyzLog.v("viewType=" + viewType);
         return viewHolder(parent);
     }
 
@@ -29,8 +28,8 @@ import com.quantityandconversion.widget.QacTextView;
         return new ViewHolder(topStoryView(parent));
     }
 
-    private View topStoryView(final ViewGroup parent) {
-        return layoutInflater(parent).inflate(R.layout.top_stories_item, parent, false);
+    private QacView topStoryView(final ViewGroup parent) {
+        return (QacView)layoutInflater(parent).inflate(R.layout.top_stories_item, parent, false);
     }
 
     private LayoutInflater layoutInflater(final ViewGroup parent) {
@@ -53,20 +52,21 @@ import com.quantityandconversion.widget.QacTextView;
         return topStoriesActivityMediator.topStoriesSize();
     }
 
-    /* package */ static class ViewHolder extends RecyclerView.ViewHolder{
+    /* package */ static class ViewHolder extends QacRecyclerView.QacViewHolder implements com.quantityandconversion.widget.interfaces.QacRecyclerView.QacViewHolder{
         private QacTextView title;
         private QacTextView points;
         private QacTextView author;
         private QacTextView comments;
         private QacTextView time;
 
-        /* package */ ViewHolder(final View itemView) {
-            super(itemView);
+        /* package */ ViewHolder(final QacView itemView) {
+            super(itemView.asView());
 
+            //Bit of an unsafe cast - except it should be a QacView implementation
             bindControls(itemView);
         }
 
-        private void bindControls(final View itemView) {
+        private void bindControls(final QacView itemView) {
             title = (QacTextView)itemView.findViewById(R.id.tv_title);
             points = (QacTextView)itemView.findViewById(R.id.tv_score_value);
             author = (QacTextView)itemView.findViewById(R.id.tv_posted_by);

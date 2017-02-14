@@ -1,5 +1,6 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
+import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
@@ -39,9 +40,28 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
     }
 
     @Test
-    public void storyAt(){
+    public void storyAt() throws InterruptedException {
         assertThat(new TopStoriesActivityMediator(
                 new TopStoriesActivityBridge(new TopStoriesActivity()))
                 .storyAt(-1)).isEqualTo(NullStory);
+
+
+        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        storyAtWithRefresh();
+
+    }
+
+    private void storyAtWithRefresh() throws InterruptedException {
+        hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final TopStoriesActivityMediator mediator = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new FakeTopStoriesActivity(latch)));
+        mediator.loadTopStoriesData();
+
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+
+        assertThat(mediator.storyAt(0)).isEqualTo(Story.NullStory);
+        Thread.sleep(500);//Sleeping so the fake network can update
+        assertThat(mediator.storyAt(0)).isNotEqualTo(Story.NullStory);
     }
 }

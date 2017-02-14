@@ -4,7 +4,7 @@ package com.quantityandconversion.hackernews.network.hackernews;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.hackernews.network.hackernews.internal.TitleTests;
-import com.quantityandconversion.test.FakeSetText;
+import com.quantityandconversion.test.FakeQacTextView;
 import com.quantityandconversion.test.QacTestClass;
 
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class StoryTests extends QacTestClass {
     @Test
     public void title() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeSetText fakeSetText = new FakeSetText(latch);
+        final FakeQacTextView fakeSetText = new FakeQacTextView(latch);
         StoryOne.title(fakeSetText);
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();

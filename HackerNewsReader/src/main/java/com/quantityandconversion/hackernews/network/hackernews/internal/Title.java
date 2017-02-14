@@ -1,7 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.utils.Strings;
-import com.quantityandconversion.widget.SetText;
+import com.quantityandconversion.widget.interfaces.QacTextView;
 
 public class Title {
     public final static Title NullTitle = new Title("[ Loading Title ]");
@@ -28,7 +28,7 @@ public class Title {
         return this.title.equals(other.title);
     }
 
-    public void title(final SetText setText) {
-        setText.setText(title);
+    public void title(final QacTextView qacTextView) {
+        qacTextView.setText(title);
     }
 }
