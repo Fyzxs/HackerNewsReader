@@ -24,6 +24,7 @@ public class StoryAdapterTests extends QacTestClass {
                 .hasMessageContaining("can not be null");
     }
 
+
     private void storyFromJsonBuildsExpectantly() {
         final String expectedTitle = RandomValues.alphaNumeric(10);
 
@@ -35,7 +36,6 @@ public class StoryAdapterTests extends QacTestClass {
 
         assertThat(new StoryAdapter().storyFromJson(storyJson)).isEqualTo(expectedStory);
     }
-
     @Test
     public void storyToJson() {
         assertThatThrownBy(() -> new StoryAdapter().storyToJson(null))

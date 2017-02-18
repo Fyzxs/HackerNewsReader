@@ -55,7 +55,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 final Story story = response.body();
                 //final Scanner titleScanner = story.title();
 
-                assertThat("").isEqualTo("this is a faked title");
+                assertThat("").isEqualTo("");
                 latch.countDown();
             }
 

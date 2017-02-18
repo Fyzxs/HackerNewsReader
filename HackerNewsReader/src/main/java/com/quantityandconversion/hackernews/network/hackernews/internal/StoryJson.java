@@ -8,6 +8,6 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 //    long score;
 //    long time;
     String title;
-//    String type;
+    String type;
 //    String url;
 }

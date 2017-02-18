@@ -23,11 +23,11 @@ public class TitleTests extends QacTestClass {
     public void ctor(){
         assertThatThrownBy(() -> new Title(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title cannot be null");
+                .hasMessageContaining("title can not be null");
 
         assertThatThrownBy(() -> new Title(""))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title cannot be null");
+                .hasMessageContaining("title can not be null");
 
         new Title(TitleOneVal);
     }
