@@ -55,7 +55,7 @@ public class StoriesTests extends MockWebServerTestClass {
             }
         })).isEqualTo(NullStory);
 
-        assertThat(latch.await(5, TimeUnit.HOURS)).isTrue();
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
 
         assertThat(stories.storyAt(0, null)).isEqualTo(HackerNewsNetworkTestResponses.SimpleStory);
     }

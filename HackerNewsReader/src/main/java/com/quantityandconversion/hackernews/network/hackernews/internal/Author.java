@@ -5,6 +5,8 @@ import com.quantityandconversion.utils.Strings;
 import com.quantityandconversion.ood.SetText;
 
 public class Author extends SimpleWrapper<String> {
+    public final static Author NullAuthor = new Author("{{ Loading Author }}");
+
     public Author(final String author) {
         super(author);
     }

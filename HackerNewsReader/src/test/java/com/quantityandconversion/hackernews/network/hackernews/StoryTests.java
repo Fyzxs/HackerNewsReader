@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 
+import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.hackernews.network.hackernews.internal.TitleTests;
@@ -21,15 +22,15 @@ public class StoryTests extends QacTestClass {
     private final static StoryId StoryIdTwo = new StoryId(2L);
     private final static Title TitleOne = TitleTests.TitleOne;
     private final static Title TitleTwo = TitleTests.TitleTwo;
-    private final static Story StoryOne = new Story(StoryIdOne, TitleOne);
-    private final static Story StoryOneDiff = new Story(StoryIdOne, TitleOne);
-    private final static Story StoryTwo = new Story(StoryIdTwo, TitleTwo);
+    private final static Story StoryOne = new Story(StoryIdOne, TitleOne, new Author("That_Guy"));
+    private final static Story StoryOneDiff = new Story(StoryIdOne, TitleOne,new Author("That_Guy"));
+    private final static Story StoryTwo = new Story(StoryIdTwo, TitleTwo, new Author("That_Guy"));
 
     @Test
     public void constructor(){
-        assertThatThrownBy(() -> new Story(StoryIdOne, null))
+        assertThatThrownBy(() -> new Story(StoryIdOne, null, new Author("That_Guy") ))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title cannot be null");
+                .hasMessageContaining("title can not be null");
     }
 
     @Test

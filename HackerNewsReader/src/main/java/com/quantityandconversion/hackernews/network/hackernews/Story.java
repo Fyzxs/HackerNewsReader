@@ -1,30 +1,26 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
+import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
+import com.quantityandconversion.ood.SetText;
 import com.quantityandconversion.widget.interfaces.QacTextView;
 
 public class Story {
-    public final static Story NullStory = new Story(StoryId.NullStoryId, Title.NullTitle);
+    public final static Story NullStory = new Story(StoryId.NullStoryId, Title.NullTitle, Author.NullAuthor);
     private final StoryId storyId;
     private final Title title;
-//
-//    public Story(final StoryId storyId, final String title) {
-//        if(Strings.isNullOrEmpty(title)) { throw new IllegalArgumentException("title cannot be null"); }
-//        if(storyId == null) { throw new IllegalArgumentException("storyId cannot be null");}
-//
-//        this.storyId = storyId;
-//        this.title = null;
-//    }
-    public Story(final StoryId storyId, final Title title) {
-        if(title == null) { throw new IllegalArgumentException("title cannot be null"); }
-        if(storyId == null) { throw new IllegalArgumentException("storyId cannot be null");}
+    private final Author author;
+
+    public Story(final StoryId storyId, final Title title, final Author author) {
+        if(title == null) { throw new IllegalArgumentException("title can not be null"); }
+        if(storyId == null) { throw new IllegalArgumentException("storyId can not be null");}
+        if(author == null) { throw new IllegalArgumentException("author can not be null");}
 
         this.storyId = storyId;
         this.title = title;
+        this.author = author;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -39,16 +35,15 @@ public class Story {
         return this.storyId.equals(other.storyId);
     }
 
-    public void title(final QacTextView qacTextView) {
-        title.title(qacTextView);
+    public void title(final SetText item) {
+        title.title(item);
     }
 
-    //This remains in 'cause I'm thinknig about it. It's not
-    //needed, but i might try swapping it in.
-//    private String title(final String stringFormat){
-//        return title.title(stringFormat);
-//    }
+    public void author(final SetText item) {
+        author.author(item);
+    }
 
+    //I'm very BOOOO on this
     /* package */ StoryId storyId(){
         return storyId;
     }

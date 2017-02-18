@@ -9,7 +9,7 @@ import okhttp3.mockwebserver.MockWebServer;
 
 public class HackerNewsNetworkTestResponses {
 
-    public static final Story SimpleStory = new Story(new StoryId(12345L), new Title("this is a faked title"));
+    public static final Story SimpleStory = new Story(new StoryId(12345L), new Title("this is a faked title"), new Author("That_Guy"));
 
     public void simpleStoryIdList(final MockWebServer mockWebServer) {
         mockWebServer.enqueue(new MockResponse()
@@ -22,7 +22,7 @@ public class HackerNewsNetworkTestResponses {
     public void simpleStory(final MockWebServer mockWebServer){
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)
-                .setBody("{\"id\":12345,\"title\":\"this is a faked title\"}"));
+                .setBody("{\"id\":12345,\"title\":\"this is a faked title\", \"type\":\"story\", \"by\":\"That_Guy\"}"));
 
         new HackerNewsNetwork(mockWebServer.url("/"));
     }

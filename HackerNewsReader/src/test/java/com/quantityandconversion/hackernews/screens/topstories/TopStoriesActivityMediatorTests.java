@@ -48,7 +48,6 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
 
         hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
         storyAtWithRefresh();
-
     }
 
     private void storyAtWithRefresh() throws InterruptedException {
