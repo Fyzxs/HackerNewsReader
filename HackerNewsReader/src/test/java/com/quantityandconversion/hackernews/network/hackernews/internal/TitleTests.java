@@ -23,7 +23,7 @@ public class TitleTests extends QacTestClass {
     public void ctor(){
         assertThatThrownBy(() -> new Title(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title can not be null");
+                .hasMessageContaining("input can not be null");
 
         assertThatThrownBy(() -> new Title(""))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -52,5 +52,10 @@ public class TitleTests extends QacTestClass {
         TitleOne.title(fakeSetText);
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void titleDoesNotThrowGivenNull() throws InterruptedException {
+        TitleOne.title(null);
     }
 }

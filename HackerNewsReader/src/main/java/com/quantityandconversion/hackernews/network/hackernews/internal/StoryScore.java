@@ -1,7 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
+import com.quantityandconversion.ood.SetText;
 import com.quantityandconversion.ood.SimpleWrapper;
-import com.quantityandconversion.widget.SetText;
 
 /* package */ class StoryScore extends SimpleWrapper<Long> {
 

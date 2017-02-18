@@ -16,7 +16,6 @@ public class Author extends SimpleWrapper<String> {
 
     public void author(final SetText item) {
         if(item == null){ return; }
-
         item.setText(value());
     }
 }

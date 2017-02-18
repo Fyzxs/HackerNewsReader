@@ -1,5 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
+
 import com.quantityandconversion.test.FakeSetText;
 
 import org.junit.Test;
