@@ -1,5 +1,6 @@
 package com.quantityandconversion.widget.interfaces;
 
-public interface QacTextView {
-    void setText(final CharSequence charSequence);
+import com.quantityandconversion.ood.SetText;
+
+public interface QacTextView extends SetText {
 }

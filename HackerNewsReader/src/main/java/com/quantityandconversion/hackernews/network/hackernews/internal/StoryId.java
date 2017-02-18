@@ -1,27 +1,17 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-public class StoryId {
+import com.quantityandconversion.ood.SimpleWrapper;
+
+//ID Wrappers will need to collapse?
+public class StoryId extends SimpleWrapper<Long> {
     public final static StoryId NullStoryId = new StoryId(-1L);
-    private long id;
 
     public StoryId(final long id) {
-        this.id = id;
+        super(id);
     }
 
     /* package */ long idAsLong(){
-        return id;
+        return value();
     }
 
-    @Override
-    public int hashCode() {
-        return Long.valueOf(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return other instanceof StoryId && this.equals((StoryId)other);
-    }
-    private boolean equals(final StoryId other){
-        return this.id == other.id;
-    }
 }

@@ -9,7 +9,7 @@ public class Title {
     private final String title;
 
     /* package */ Title(final String title) {
-        if(Strings.isNullOrEmpty(title)) { throw new IllegalArgumentException("title cannot be null or empty"); }
+        if(Strings.isNullOrEmpty(title)) { throw new IllegalArgumentException("title can not be null or empty"); }
         this.title = title;
     }
 
