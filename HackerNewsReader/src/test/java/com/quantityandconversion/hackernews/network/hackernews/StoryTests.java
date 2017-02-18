@@ -53,7 +53,7 @@ public class StoryTests extends QacTestClass {
     public void title() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeQacTextView fakeSetText = new FakeQacTextView(latch);
-        StoryOne.title(fakeSetText);
+        StoryOne.titleInto(fakeSetText);
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }

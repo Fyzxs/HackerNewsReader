@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
+import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.widget.QacRecyclerView;
 import com.quantityandconversion.widget.QacTextView;
 import com.quantityandconversion.widget.interfaces.QacView;
@@ -39,7 +40,8 @@ import com.quantityandconversion.widget.interfaces.QacView;
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
-        topStoriesActivityMediator.storyAt(position).title(viewHolder.title);
+        final Story story = topStoriesActivityMediator.storyAt(position);
+        story.titleInto(viewHolder.title);
         viewHolder.points.setText("1234");
         viewHolder.author.setText("Posted by Fyzxs");
         viewHolder.comments.setText("23 comments");
@@ -62,7 +64,6 @@ import com.quantityandconversion.widget.interfaces.QacView;
         /* package */ ViewHolder(final QacView itemView) {
             super(itemView.asView());
 
-            //Bit of an unsafe cast - except it should be a QacView implementation
             bindControls(itemView);
         }
 

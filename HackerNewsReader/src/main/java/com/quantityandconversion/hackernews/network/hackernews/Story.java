@@ -4,7 +4,6 @@ import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.ood.SetText;
-import com.quantityandconversion.widget.interfaces.QacTextView;
 
 public class Story {
     public final static Story NullStory = new Story(StoryId.NullStoryId, Title.NullTitle, Author.NullAuthor);
@@ -35,7 +34,7 @@ public class Story {
         return this.storyId.equals(other.storyId);
     }
 
-    public void title(final SetText item) {
+    public void titleInto(final SetText item) {
         title.title(item);
     }
 

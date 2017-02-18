@@ -1,5 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
+import android.view.View;
+
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.test.MockWebServerTestClass;
 import com.quantityandconversion.widget.interfaces.QacTextView;
@@ -56,11 +58,21 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 final Story story = response.body();
                 final QacTextView fakeTextView = new QacTextView() {
                     @Override
+                    public View findViewById(int id) {
+                        return null;
+                    }
+
+                    @Override
+                    public View asView() {
+                        return null;
+                    }
+
+                    @Override
                     public void setText(CharSequence charSequence) {
                         latch.countDown();
                     }
                 };
-                story.title(fakeTextView);
+                story.titleInto(fakeTextView);
             }
 
             @Override
