@@ -60,14 +60,14 @@ public class StoryAdapterTests extends QacTestClass {
         assertThat(item.getText()).isEqualTo("Posted by: " + expectedAuthor);
         //descendants
         targetStory.commentCountInto(item);
-        assertThat(item.getText()).contains(Long.toString(expectedComments));
+        assertThat(item.getText()).isEqualTo(expectedComments + " comments");
         //score
         targetStory.scoreInto(item);
         assertThat(item.getText()).isEqualTo(Integer.toString(expectedScore));
         //time - Since this is time; there's a TEENY change this will fail when the calls cross
         //the second boundary. Small. Deal with it then.
         targetStory.postTimeInto(item);
-        assertThat(item.getText()).contains(new DateUtils().relativeTimeSpanString(expectedTime));
+        assertThat(item.getText()).isEqualTo(new DateUtils().relativeTimeSpanString(expectedTime*1000));
 
     }
 
