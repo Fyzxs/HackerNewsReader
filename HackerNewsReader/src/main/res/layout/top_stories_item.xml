@@ -44,7 +44,7 @@
             android:id="@+id/tv_posted_by"
             android:layout_width="@dimen/layout_width_for_weighted"
             android:layout_height="wrap_content"
-            android:layout_weight="@integer/single_share"
+            android:layout_weight="@integer/double_share"
             android:textAlignment="textStart"
             android:layout_gravity="start"
             android:textSize="12sp"

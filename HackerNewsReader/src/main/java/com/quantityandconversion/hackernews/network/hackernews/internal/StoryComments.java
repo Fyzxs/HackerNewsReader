@@ -14,7 +14,6 @@ public class StoryComments {
 
         this.storyId = storyId;
         this.commentCount = commentCount;
-
     }
 
     public void commentCountInto(final SetText item) {

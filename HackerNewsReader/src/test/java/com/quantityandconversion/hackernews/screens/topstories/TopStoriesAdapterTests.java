@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryBuilder;
@@ -15,6 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class TopStoriesAdapterTests {
+
+    @Test
+    public void onCreateViewHolderThrowsBecauseStub(){
+        final TopStoriesActivityMediator fake = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(null, new FakeTopStoriesActivity(null)));
+        assertThatThrownBy(() -> new TopStoriesAdapter(fake).onCreateViewHolder(Mockito.mock(ViewGroup.class), 0))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Method from in android.view.LayoutInflater not mocked. See http://g.co/androidstudio/not-mocked for details.");
+    }
 
     @Test
     public void ctor(){
@@ -108,7 +117,7 @@ public class TopStoriesAdapterTests {
         
         //Assert
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
-        assertThat(authorCaptor.getValue()).isEqualTo(authorExpected);
+        assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
         assertThat(commentsCaptor.getValue()).isEqualTo(Long.toString(commentsExpected) + " comments");
 //        assertThat(scoreCaptor.getValue()).isEqualTo(scoreExpected);
 //        assertThat(postedTimeCaptor.getValue()).isEqualTo(postedTimeExpected);

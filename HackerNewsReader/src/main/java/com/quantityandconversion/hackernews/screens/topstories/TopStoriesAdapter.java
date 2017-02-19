@@ -20,8 +20,7 @@ import com.quantityandconversion.widget.QacTextView;
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.top_stories_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.top_stories_item, parent, false));
     }
 
     @Override

@@ -18,6 +18,6 @@ public class Author extends SimpleWrapper<String> {
 
     public void authorInto(final SetText item) {
         if(item == null){ return; }
-        item.setText(value());
+        item.setText("Posted by: " + value());
     }
 }

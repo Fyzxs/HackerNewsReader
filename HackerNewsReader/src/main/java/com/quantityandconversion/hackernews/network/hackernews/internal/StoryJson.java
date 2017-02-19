@@ -2,7 +2,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 /* package */ final class StoryJson {
     String by;
-//    long decendants;
+    long descendants;
     long id;
 //    long[] kids;
 //    long score;
