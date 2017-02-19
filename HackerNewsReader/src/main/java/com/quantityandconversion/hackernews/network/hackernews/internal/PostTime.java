@@ -10,7 +10,7 @@ import com.quantityandconversion.ood.SetText;
 
     private final long unixTime;
 
-    public PostTime(final long unixTime) {
+    /* package */ PostTime(final long unixTime) {
         if(unixTime < 0) { throw new IllegalArgumentException("unixTime can not be less than zero"); }
         this.unixTime = intoMillis(unixTime);
     }
@@ -23,7 +23,7 @@ import com.quantityandconversion.ood.SetText;
         item.setText(relativeTimeSpan());
     }
 
-    public CharSequence relativeTimeSpan(){
+    private CharSequence relativeTimeSpan(){
         return new DateUtils().relativeTimeSpanString(unixTime);
     }
 }
