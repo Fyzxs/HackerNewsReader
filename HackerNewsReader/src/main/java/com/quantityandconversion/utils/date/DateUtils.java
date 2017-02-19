@@ -6,6 +6,9 @@ public class DateUtils {
     /* package */ static void useSecondsOnly() {
         ActiveDateUtil = DateUtil.SecondsOnly;
     }
+    /* package */ static void useAndroid() {
+        ActiveDateUtil = DateUtil.Android;
+    }
 
     public CharSequence relativeTimeSpanString(final long startTime){
         return ActiveDateUtil.relativeTimeSpanString(startTime);
