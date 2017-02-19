@@ -30,8 +30,8 @@ import com.quantityandconversion.widget.QacTextView;
         story.titleInto(viewHolder.title);
         story.authorInto(viewHolder.author);
         story.commentCountInto(viewHolder.comments);
-        viewHolder.points.setText("1234");
-        viewHolder.time.setText("10 minutes ago");
+        story.scoreInto(viewHolder.points);
+        story.postTimeInto(viewHolder.time);
 
     }
 

@@ -6,11 +6,13 @@ import com.quantityandconversion.test.utils.RandomValues;
 import java.util.Locale;
 
 public class StoryBuilder {
-    private final static String jsonFormat = "{\"id\":%d,\"title\":\"%s\",\"type\":\"story\",\"by\":\"%s\",\"descendants\":%d}";
+    private final static String jsonFormat = "{\"time\":%d,\"score\":%d,\"id\":%d,\"title\":\"%s\",\"type\":\"story\",\"by\":\"%s\",\"descendants\":%d}";
     private String title = RandomValues.alphaNumeric(50);
     private String author = RandomValues.alphaNumeric(20);
     private long storyId = RandomValues.nextInt(Integer.MAX_VALUE);
     private long commentCount = RandomValues.nextInt(Integer.MAX_VALUE);
+    private long storyScore = RandomValues.nextInt(1000);
+    private long postTime = RandomValues.nextLongAbs();
 
     public StoryBuilder setTitle(final String title){
         this.title = title;
@@ -33,11 +35,15 @@ public class StoryBuilder {
     }
 
     public String buildJson(){
-        return String.format(Locale.US, jsonFormat, storyId, title, author, commentCount);
+        return String.format(Locale.US, jsonFormat, postTime, storyScore, storyId, title, author, commentCount);
     }
 
     public Story buildStory(){
         final StoryId storyIdClass = new StoryId(storyId);
-        return new Story(storyIdClass, new Title(title), new Author(author), new StoryComments(storyIdClass, commentCount));
+        return new Story(storyIdClass,
+                new Title(title),
+                new Author(author),
+                new StoryComments(commentCount),
+                StoryScore.NullStoryScore, PostTime.NullPostTime);
     }
 }

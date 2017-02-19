@@ -12,19 +12,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class StoryCommentsTests {
     @Test
     public void ctorWorks(){
-        new StoryComments(StoryId.NullStoryId, 0L);
+        new StoryComments(0L);
     }
 
-    @Test
-    public void ctorWorksThrowsOnNullStoryId(){
-        assertThatThrownBy(() -> new StoryComments(null, 0L))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("storyId can not be null");
-
-    }
     @Test
     public void ctorWorksThrowsOnSubZeroCommentCount(){
-        assertThatThrownBy(() -> new StoryComments(StoryId.NullStoryId, -1L))
+        assertThatThrownBy(() -> new StoryComments(-1L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("commentCount can not be less than zero");
     }

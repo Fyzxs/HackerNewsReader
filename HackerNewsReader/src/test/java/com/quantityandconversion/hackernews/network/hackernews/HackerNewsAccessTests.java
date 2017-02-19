@@ -2,11 +2,8 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.test.MockWebServerTestClass;
-import com.quantityandconversion.widget.QacTextView;
 
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -48,28 +45,23 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void story() throws Exception{
-        hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
+        final Story builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
-        final QacTextView mockTextView = Mockito.mock(QacTextView.class);
-        Mockito.doNothing().when(mockTextView).setText(titleCaptor.capture());
-        new HackerNewsAccess().story(new StoryId(1L), new Callback<Story>(){
+        new HackerNewsAccess().story(builtStory.storyId(), new Callback<Story>(){
             @Override
-            public void onResponse(Call<Story> call, Response<Story> response) {
+            public void onResponse(final Call<Story> call, final Response<Story> response) {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
-                final Story story = response.body();
-                story.titleInto(mockTextView);
                 latch.countDown();
             }
 
             @Override
-            public void onFailure(Call<Story> call, Throwable t) {
-
+            public void onFailure(final Call<Story> call, final Throwable t) {
+                assertThat(call).isNull();
             }
         });
 
-        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+        assertThat(latch.await(5, TimeUnit.SECONDS)).isTrue();
     }
 }

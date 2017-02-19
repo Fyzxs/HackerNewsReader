@@ -3,7 +3,9 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 import com.quantityandconversion.ood.SetText;
 import com.quantityandconversion.ood.SimpleWrapper;
 
-/* package */ class StoryScore extends SimpleWrapper<Long> {
+public class StoryScore extends SimpleWrapper<Long> {
+
+    public final static StoryScore NullStoryScore = new StoryScore(0);
 
     /* package */ StoryScore(final long commentId) {
         super(commentId);

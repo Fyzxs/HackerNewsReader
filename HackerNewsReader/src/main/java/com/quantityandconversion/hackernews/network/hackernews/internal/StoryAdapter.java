@@ -13,7 +13,9 @@ import com.squareup.moshi.ToJson;
         return new Story(storyId,
                 new Title(storyJson.title),
                 new Author(storyJson.by),
-                new StoryComments(storyId, storyJson.descendants));
+                new StoryComments(storyJson.descendants),
+                new StoryScore(storyJson.score),
+                new PostTime(storyJson.time));
     }
 
     @ToJson

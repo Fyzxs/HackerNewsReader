@@ -32,4 +32,11 @@ public class RandomValues {
     public static int nextInt(final int excludedMax){
         return random.nextInt(excludedMax);
     }
+
+    public static long nextLongAbs(){
+        return Math.abs(random.nextLong());
+    }
+    public static long nextLong(){
+        return random.nextLong();
+    }
 }
