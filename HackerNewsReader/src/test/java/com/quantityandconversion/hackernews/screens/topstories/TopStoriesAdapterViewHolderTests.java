@@ -1,39 +1,30 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.widget.TextView;
+import android.view.View;
+
+import com.quantityandconversion.hackernews.R;
+import com.quantityandconversion.widget.QacTextView;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 public class TopStoriesAdapterViewHolderTests {
     @Test
     public void ctor(){
-//        title = (QacTextView)itemView.findViewById(R.id.tv_title);
-//        points = (QacTextView)itemView.findViewById(R.id.tv_score_value);
-//        author = (QacTextView)itemView.findViewById(R.id.tv_posted_by);
-//        comments = (QacTextView)itemView.findViewById(R.id.tv_comments);
-//        time = (QacTextView)itemView.findViewById(R.id.tv_posted_time);
+        final QacTextView mockQacTextView = Mockito.mock(QacTextView.class);
+        final View mockView = Mockito.mock(View.class);
+        Mockito.when(mockView.findViewById(anyInt())).thenReturn(mockQacTextView);
 
-        //final String expectedTitle = RandomValues.alphaNumeric(20);
+        final TopStoriesAdapter.ViewHolder viewHolder = new TopStoriesAdapter.ViewHolder(mockView);
 
-        final TextView tv = Mockito.mock(TextView.class);
-        Mockito.doNothing().when(tv).setText(anyString());
-        tv.setText("vclort");
-//        final TopStoriesAdapter.ViewHolder vh =
-//                new TopStoriesAdapter.ViewHolder(new QacView() {
-//                    @Override
-//                    public View findViewById(int id) {
-//                        return new FakeTextView();
-//                    }
-//
-//                    @Override
-//                    public View asView() {
-//                        return new FakeTextView(Mockito.mock(Context.class));
-//                    }
-//                });
-
+        Mockito.verify(mockView).findViewById(R.id.tv_title);
+        Mockito.verify(mockView).findViewById(R.id.tv_score_value);
+        Mockito.verify(mockView).findViewById(R.id.tv_posted_by);
+        Mockito.verify(mockView).findViewById(R.id.tv_comments);
+        Mockito.verify(mockView).findViewById(R.id.tv_posted_time);
+        Mockito.verifyNoMoreInteractions(mockView);
 
     }
 }

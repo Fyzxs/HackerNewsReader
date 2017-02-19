@@ -1,11 +1,10 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.test.FakeSetText;
+import com.quantityandconversion.test.AsyncFakeSetText;
 
 import org.assertj.core.api.Java6Assertions;
 import org.junit.Test;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,16 +34,15 @@ public class AuthorTests {
 
     @Test
     public void authorSetsValue() throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(1);
-        final FakeSetText fakeSetText = new FakeSetText(latch);
-        OneAuthor.author(fakeSetText);
+        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
+        OneAuthor.authorInto(fakeSetText);
 
-        Java6Assertions.assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+        Java6Assertions.assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
     }
 
     @Test
     public void authorDoesNotThrowGivenNull() throws InterruptedException {
-        OneAuthor.author(null);//Update TitleTests w/this form
+        OneAuthor.authorInto(null);//Update TitleTests w/this form
     }
 
     @Test

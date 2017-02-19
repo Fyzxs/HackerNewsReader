@@ -16,7 +16,7 @@ public class Title extends SimpleWrapper<String>{
         if(Strings.isNullOrEmpty(input)) { throw new IllegalArgumentException("title can not be null or empty"); }
     }
 
-    public void title(final SetText item) {
+    public void titleInto(final SetText item) {
         if(item == null){ return; }
         item.setText(value());
     }

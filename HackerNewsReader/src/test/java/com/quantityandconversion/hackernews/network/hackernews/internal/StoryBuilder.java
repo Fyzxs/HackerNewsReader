@@ -1,0 +1,43 @@
+package com.quantityandconversion.hackernews.network.hackernews.internal;
+
+import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.test.utils.RandomValues;
+
+import java.util.Locale;
+
+public class StoryBuilder {
+    private final static String jsonFormat = "{\"id\":%d,\"title\":\"%s\",\"type\":\"story\",\"by\":\"%s\",\"descendants\":%d}";
+    private String title = RandomValues.alphaNumeric(50);
+    private String author = RandomValues.alphaNumeric(20);
+    private long storyId = RandomValues.nextInt(Integer.MAX_VALUE);
+    private long commentCount = RandomValues.nextInt(Integer.MAX_VALUE);
+
+    public StoryBuilder setTitle(final String title){
+        this.title = title;
+        return this;
+    }
+
+    public StoryBuilder setAuthor(final String author){
+        this.author = author;
+        return this;
+    }
+
+    public StoryBuilder setStoryId(final long storyId){
+        this.storyId = storyId;
+        return this;
+    }
+
+    public StoryBuilder setCommentCount(final long commentCount){
+        this.commentCount = commentCount;
+        return this;
+    }
+
+    public String buildJson(){
+        return String.format(Locale.US, jsonFormat, storyId, title, author, commentCount);
+    }
+
+    public Story buildStory(){
+        final StoryId storyIdClass = new StoryId(storyId);
+        return new Story(storyIdClass, new Title(title), new Author(author), new StoryComments(storyIdClass, commentCount));
+    }
+}

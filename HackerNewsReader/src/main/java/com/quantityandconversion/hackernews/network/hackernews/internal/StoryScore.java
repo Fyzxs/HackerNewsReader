@@ -9,7 +9,7 @@ import com.quantityandconversion.ood.SimpleWrapper;
         super(commentId);
     }
 
-    public void score(final SetText item){
+    public void scoreInto(final SetText item){
         if(item == null){return;}
         item.setText(Long.toString(value()));
     }

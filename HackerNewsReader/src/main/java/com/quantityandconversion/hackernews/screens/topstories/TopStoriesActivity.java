@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.quantityandconversion.hackernews.R;
-import com.quantityandconversion.widget.QacRecyclerView;
 
 public class TopStoriesActivity extends AppCompatActivity {
 
     private TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(this);
 
-    private QacRecyclerView rvTopStories;
+    private RecyclerView rvTopStories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class TopStoriesActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        rvTopStories = (QacRecyclerView)findViewById(R.id.rv_top_stories);
+        rvTopStories = (RecyclerView)findViewById(R.id.rv_top_stories);
     }
 
     /* package */ void notifyTopStoriesChanged(){

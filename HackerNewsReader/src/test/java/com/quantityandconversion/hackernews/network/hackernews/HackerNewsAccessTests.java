@@ -1,13 +1,14 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
-import android.view.View;
-
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.test.MockWebServerTestClass;
-import com.quantityandconversion.widget.interfaces.QacTextView;
+import com.quantityandconversion.widget.QacTextView;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +22,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void topStories() throws Exception {
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        final List<Long> storyIds = hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         new HackerNewsAccess().topStories(new Callback<Stories>(){
@@ -31,8 +32,8 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 assertThat(response.body()).isNotNull();
                 final Stories stories = response.body();
                 assertThat(stories.size()).isEqualTo(2);
-                assertThat(stories.contains(new StoryId(12345))).isTrue();
-                assertThat(stories.contains(new StoryId(2))).isTrue();
+                assertThat(stories.contains(new StoryId(storyIds.get(0)))).isTrue();
+                assertThat(stories.contains(new StoryId(storyIds.get(1)))).isTrue();
                 latch.countDown();
             }
 
@@ -50,29 +51,17 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
+        final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
+        final QacTextView mockTextView = Mockito.mock(QacTextView.class);
+        Mockito.doNothing().when(mockTextView).setText(titleCaptor.capture());
         new HackerNewsAccess().story(new StoryId(1L), new Callback<Story>(){
             @Override
             public void onResponse(Call<Story> call, Response<Story> response) {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
                 final Story story = response.body();
-                final QacTextView fakeTextView = new QacTextView() {
-                    @Override
-                    public View findViewById(int id) {
-                        return null;
-                    }
-
-                    @Override
-                    public View asView() {
-                        return null;
-                    }
-
-                    @Override
-                    public void setText(CharSequence charSequence) {
-                        latch.countDown();
-                    }
-                };
-                story.titleInto(fakeTextView);
+                story.titleInto(mockTextView);
+                latch.countDown();
             }
 
             @Override

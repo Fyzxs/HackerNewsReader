@@ -16,7 +16,7 @@ public class Author extends SimpleWrapper<String> {
         if(Strings.isNullOrEmpty(author)){ throw new IllegalArgumentException("author can not be null");}
     }
 
-    public void author(final SetText item) {
+    public void authorInto(final SetText item) {
         if(item == null){ return; }
         item.setText(value());
     }

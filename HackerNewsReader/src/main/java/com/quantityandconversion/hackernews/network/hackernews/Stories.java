@@ -44,7 +44,9 @@ public class Stories {
     public Story storyAt(final int index, final StoryRefreshCallback storyRefreshCallback) {
         final StoryId storyId = storyIds[index];
         final Story story = storyMap.get(storyId);
-        if(!shouldRefreshStory(story, storyRefreshCallback)){ return story; }
+        if(!shouldRefreshStory(story, storyRefreshCallback)){
+            return story;
+        }
 
         refreshStory(index, storyRefreshCallback, storyId);
 

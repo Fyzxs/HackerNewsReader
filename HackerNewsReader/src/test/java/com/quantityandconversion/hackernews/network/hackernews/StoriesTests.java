@@ -1,6 +1,5 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
-import com.quantityandconversion.hackernews.network.hackernews.internal.HackerNewsNetworkTestResponses;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
@@ -38,14 +37,13 @@ public class StoriesTests extends MockWebServerTestClass {
                 .isInstanceOf(IndexOutOfBoundsException.class);
 
         assertThat(new Stories(new StoryId[]{new StoryId(12345L)}).storyAt(0, null)).isEqualTo(NullStory);
-
-        storyAtRefresh();
     }
 
-    private void storyAtRefresh() throws InterruptedException {
-        this.hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
+    @Test
+    public void storyAtRefresh() throws InterruptedException {
+        final Story builtStory = this.hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
         final CountDownLatch latch = new CountDownLatch(1);
-        final Stories stories = new Stories(new StoryId[]{new StoryId(12345L)});
+        final Stories stories = new Stories(new StoryId[]{builtStory.storyId()});
         assertThat(stories.storyAt(0, new Stories.StoryRefreshCallback(){
 
             @Override
@@ -57,6 +55,6 @@ public class StoriesTests extends MockWebServerTestClass {
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
 
-        assertThat(stories.storyAt(0, null)).isEqualTo(HackerNewsNetworkTestResponses.SimpleStory);
+        assertThat(stories.storyAt(0, null)).isEqualTo(builtStory);
     }
 }

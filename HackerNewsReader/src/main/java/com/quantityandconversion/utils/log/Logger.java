@@ -53,11 +53,17 @@ import java.util.Locale;
         boolean hitLogger = false;
         for (final StackTraceElement ste : Thread.currentThread().getStackTrace()) {
             final boolean isLogger = ste.getClassName().startsWith(FyzLog.class.getName());
+            /*
+                F || F => !F || F => continue
+                F || T => !T || T => continue
+                T || F => !T || F => return
+             */
             hitLogger = hitLogger || isLogger;
-            if (hitLogger && !isLogger) {
-                return ste;
-            }
+            if (!hitLogger || isLogger) {continue;}
+            return ste;
         }
+
+        //Unlikely; but it's a "Don't Crash" handler
         return new StackTraceElement(FyzLog.class.getName(),
                 "getCallingStackTraceElement",
                 null,

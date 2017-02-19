@@ -1,16 +1,15 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.Story;
-import com.quantityandconversion.widget.QacRecyclerView;
 import com.quantityandconversion.widget.QacTextView;
-import com.quantityandconversion.widget.interfaces.QacView;
 
-/* package */ class TopStoriesAdapter extends QacRecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
     private final TopStoriesActivityMediator topStoriesActivityMediator;
 
@@ -21,20 +20,8 @@ import com.quantityandconversion.widget.interfaces.QacView;
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return viewHolder(parent);
-    }
-
-    @NonNull
-    private ViewHolder viewHolder(final ViewGroup parent) {
-        return new ViewHolder(topStoryView(parent));
-    }
-
-    private QacView topStoryView(final ViewGroup parent) {
-        return (QacView)layoutInflater(parent).inflate(R.layout.top_stories_item, parent, false);
-    }
-
-    private LayoutInflater layoutInflater(final ViewGroup parent) {
-        return LayoutInflater.from(parent.getContext());
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.top_stories_item, parent, false));
     }
 
     @Override
@@ -42,9 +29,9 @@ import com.quantityandconversion.widget.interfaces.QacView;
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
         final Story story = topStoriesActivityMediator.storyAt(position);
         story.titleInto(viewHolder.title);
+        story.authorInto(viewHolder.author);
+        story.commentCountInto(viewHolder.comments);
         viewHolder.points.setText("1234");
-        viewHolder.author.setText("Posted by Fyzxs");
-        viewHolder.comments.setText("23 comments");
         viewHolder.time.setText("10 minutes ago");
 
     }
@@ -54,20 +41,20 @@ import com.quantityandconversion.widget.interfaces.QacView;
         return topStoriesActivityMediator.topStoriesSize();
     }
 
-    /* package */ static class ViewHolder extends QacRecyclerView.QacViewHolder implements com.quantityandconversion.widget.interfaces.QacRecyclerView.QacViewHolder{
+    /* package */ static class ViewHolder extends RecyclerView.ViewHolder{
         private QacTextView title;
         private QacTextView points;
         private QacTextView author;
         private QacTextView comments;
         private QacTextView time;
 
-        /* package */ ViewHolder(final QacView itemView) {
-            super(itemView.asView());
+        /* package */ ViewHolder(final View itemView) {
+            super(itemView);
 
             bindControls(itemView);
         }
 
-        private void bindControls(final QacView itemView) {
+        private void bindControls(final View itemView) {
             title = (QacTextView)itemView.findViewById(R.id.tv_title);
             points = (QacTextView)itemView.findViewById(R.id.tv_score_value);
             author = (QacTextView)itemView.findViewById(R.id.tv_posted_by);

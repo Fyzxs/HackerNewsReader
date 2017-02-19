@@ -3,9 +3,10 @@ package com.quantityandconversion.widget;
 import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.view.View;
 
-public class QacTextView extends AppCompatTextView implements com.quantityandconversion.widget.interfaces.QacTextView {
+import com.quantityandconversion.ood.SetText;
+
+public class QacTextView extends AppCompatTextView implements SetText {
     public QacTextView(Context context) {
         super(context);
     }
@@ -16,10 +17,5 @@ public class QacTextView extends AppCompatTextView implements com.quantityandcon
 
     public QacTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    public View asView() {
-        return this;
     }
 }

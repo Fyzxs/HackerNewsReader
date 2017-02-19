@@ -1,12 +1,11 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.test.FakeQacTextView;
+import com.quantityandconversion.test.AsyncFakeSetText;
 import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
 
 import org.junit.Test;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -47,15 +46,14 @@ public class TitleTests extends QacTestClass {
 
     @Test
     public void title() throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(1);
-        final FakeQacTextView fakeSetText = new FakeQacTextView(latch);
-        TitleOne.title(fakeSetText);
+        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
+        TitleOne.titleInto(fakeSetText);
 
-        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
     }
 
     @Test
     public void titleDoesNotThrowGivenNull() throws InterruptedException {
-        TitleOne.title(null);
+        TitleOne.titleInto(null);
     }
 }

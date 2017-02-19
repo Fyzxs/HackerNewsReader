@@ -1,11 +1,10 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 
-import com.quantityandconversion.test.FakeSetText;
+import com.quantityandconversion.test.AsyncFakeSetText;
 
 import org.junit.Test;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -28,10 +27,9 @@ public class StoryScoreTests {
 
     @Test
     public void score() throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(1);
-        final FakeSetText fakeSetText = new FakeSetText(latch);
-        new StoryScore(1L).score(fakeSetText);
+        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
+        new StoryScore(1L).scoreInto(fakeSetText);
 
-        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
     }
 }

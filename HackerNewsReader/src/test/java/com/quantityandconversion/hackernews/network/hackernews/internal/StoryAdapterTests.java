@@ -34,7 +34,7 @@ public class StoryAdapterTests extends QacTestClass {
         storyJson.type = "story";
         storyJson.by = "That_Guy";
 
-        final Story expectedStory = new Story(new StoryId(1L), new Title(expectedTitle), new Author("That_Guy"));
+        final Story expectedStory = new Story(new StoryId(1L), new Title(expectedTitle), new Author("That_Guy"), StoryComments.NullStoryComments);
 
         assertThat(new StoryAdapter().storyFromJson(storyJson)).isEqualTo(expectedStory);
     }
