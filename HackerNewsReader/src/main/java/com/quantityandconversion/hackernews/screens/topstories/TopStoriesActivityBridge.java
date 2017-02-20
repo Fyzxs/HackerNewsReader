@@ -19,9 +19,6 @@ import android.app.AlertDialog;
         topStoriesActivityMediator.loadTopStoriesData();
     }
 
-    /* package */ void notifyTopStoriesChanged(){
-        topStoriesActivity.notifyTopStoriesChanged();
-    }
     /* package */ void notifyTopStoriesChanged(final DataLoadStrategy dataLoadStrategy){
         dataLoadStrategy.run(topStoriesActivity);
     }
@@ -53,7 +50,6 @@ import android.app.AlertDialog;
 
         private DataLoadStrategy(){}
         public abstract void run(final TopStoriesActivity activity);
-
     }
 
     /*
