@@ -31,13 +31,20 @@ import retrofit2.Response;
             @Override
             public void onResponse(final Call<Stories> call, final Response<Stories> response) {
                 topStories = response.body();
-                topStoriesActivityBridge.notifyTopStoriesChanged();
+                //topStoriesActivityBridge.notifyTopStoriesChanged();
+                topStoriesActivityBridge.notifyTopStoriesChanged(dataLoadStrategyFactory(response));
             }
 
             @Override
             public void onFailure(final Call<Stories> call, final Throwable t) {
-                throw new UnsupportedOperationException("Not Yet Implemented");
+                topStoriesActivityBridge.notifyTopStoriesChanged(dataLoadStrategyFactory(null));
             }
         });
+    }
+
+    private TopStoriesActivityBridge.DataLoadStrategy dataLoadStrategyFactory(final Response<Stories> response){
+        return response == null || !response.isSuccessful()
+                ? TopStoriesActivityBridge.DataLoadStrategy.DataError
+                : TopStoriesActivityBridge.DataLoadStrategy.DataChanged;
     }
 }
