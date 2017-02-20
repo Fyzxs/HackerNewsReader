@@ -2,6 +2,8 @@ package com.quantityandconversion.hackernews.screens.topstories;
 
 import android.app.AlertDialog;
 
+import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
+
 /* package */ class TopStoriesActivityBridge {
 
     private final TopStoriesActivity topStoriesActivity;
@@ -42,9 +44,10 @@ import android.app.AlertDialog;
         public final static DataLoadStrategy DataError = new DataLoadStrategy() {
             @Override
             public void run(TopStoriesActivity activity) {
-                new AlertDialog.Builder(activity)
-                        .setTitle("OMG, DIALOG")
-                        .setMessage("Exciting").show();
+                new AlertDialogBuilder<>().init(this).
+//                new AlertDialog.Builder(activity)
+//                        .setTitle("OMG, DIALOG")
+//                        .setMessage("Exciting").show();
             }
         };
 

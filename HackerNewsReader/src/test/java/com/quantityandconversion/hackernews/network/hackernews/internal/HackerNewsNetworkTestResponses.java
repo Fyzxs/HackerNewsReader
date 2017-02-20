@@ -16,6 +16,15 @@ public class HackerNewsNetworkTestResponses {
         private long storyId = RandomValues.nextInt(Integer.MAX_VALUE);
     }
 
+    public void emptyBodyDataError(final MockWebServer mockWebServer) {
+
+        mockWebServer.enqueue(new MockResponse()
+                .setResponseCode(HttpURLConnection.HTTP_OK)
+                .setBody(""));
+
+        new HackerNewsNetwork(mockWebServer.url("/"));
+    }
+
     public List<Long> simpleStoryIdList(final MockWebServer mockWebServer) {
         return simpleStoryIdList(mockWebServer, new Builder());
     }

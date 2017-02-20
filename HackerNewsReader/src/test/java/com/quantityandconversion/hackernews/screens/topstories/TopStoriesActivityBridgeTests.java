@@ -36,6 +36,19 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     }
 
     @Test
+    public void loadDataError() throws InterruptedException {
+        hackerNewsNetworkTestResponses.emptyBodyDataError(mockWebServer);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
+        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+
+        topStoriesActivityBridge.loadData();
+
+        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
     public void notifyTopStoriesChanged() throws InterruptedException {
         hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
 
