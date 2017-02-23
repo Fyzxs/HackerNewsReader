@@ -1,7 +1,6 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.app.AlertDialog;
-
+import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
 /* package */ class TopStoriesActivityBridge {
@@ -43,11 +42,12 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
         public final static DataLoadStrategy DataError = new DataLoadStrategy() {
             @Override
-            public void run(TopStoriesActivity activity) {
-                new AlertDialogBuilder<>().init(this).
-//                new AlertDialog.Builder(activity)
-//                        .setTitle("OMG, DIALOG")
-//                        .setMessage("Exciting").show();
+            public void run(final TopStoriesActivity activity) {
+                new AlertDialogBuilder<>()
+                        .init(activity)
+                        .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
+                        .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
+                        .show();
             }
         };
 

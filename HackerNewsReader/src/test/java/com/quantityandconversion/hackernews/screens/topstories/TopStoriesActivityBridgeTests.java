@@ -1,6 +1,8 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
 import com.quantityandconversion.test.MockWebServerTestClass;
+import com.quantityandconversion.test.dialog.FakeDialogBuilder;
+import com.quantityandconversion.utils.dialog.AlertDialogBuilderAccess;
 
 import org.junit.Test;
 
@@ -39,6 +41,9 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     public void loadDataError() throws InterruptedException {
         hackerNewsNetworkTestResponses.emptyBodyDataError(mockWebServer);
 
+        final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder();
+        AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
+
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
         final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
@@ -46,6 +51,10 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         topStoriesActivityBridge.loadData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
+
+        //wasShowCalled is the result of encapsulation. harmful otherwise; no
+        // but why let data out? NO DATA OUT!
+        assertThat(fakeDialogBuilder.wasShowCalled(1)).isTrue();
     }
 
     @Test

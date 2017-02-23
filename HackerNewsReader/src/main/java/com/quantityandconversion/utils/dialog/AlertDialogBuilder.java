@@ -16,42 +16,42 @@ public class AlertDialogBuilder<T extends Dialog> extends DialogBuilder<T> {
 
 
     @Override
-    public DialogBuilder init(Context context) {
+    public DialogBuilder init(final Context context) {
         return ActiveDialogBuilder.init(context);
     }
 
     @Override
-    public DialogBuilder setTitle(int titleId) {
+    public DialogBuilder setTitle(final int titleId) {
         return null;
     }
 
     @Override
-    public DialogBuilder setMessage(@StringRes int messageId) {
+    public DialogBuilder setMessage(@StringRes final int messageId) {
         return null;
     }
 
     @Override
-    public DialogBuilder setView(View view) {
+    public DialogBuilder setView(final View view) {
         return null;
     }
 
     @Override
-    public DialogBuilder setSingleChoiceItems(CharSequence[] items, int checkedItem, DialogInterface.OnClickListener listener) {
+    public DialogBuilder setSingleChoiceItems(final CharSequence[] items, final int checkedItem, final DialogInterface.OnClickListener listener) {
         return null;
     }
 
     @Override
-    public DialogBuilder setNegativeButton(@StringRes int textId, DialogInterface.OnClickListener listener) {
+    public DialogBuilder setNegativeButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
         return null;
     }
 
     @Override
-    public DialogBuilder setPositiveButton(@StringRes int textId, DialogInterface.OnClickListener listener) {
+    public DialogBuilder setPositiveButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
         return null;
     }
 
     @Override
-    public DialogBuilder setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener) {
+    public DialogBuilder setNeutralButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
         return null;
     }
 
