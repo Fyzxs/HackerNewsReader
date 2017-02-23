@@ -28,93 +28,29 @@ import android.widget.ListView;
  * {@link android.support.v7.app.AlertDialog.Builder} and {@link android.app.AlertDialog.Builder}
  * @param <T> type of created alert dialog, extends from {@link Dialog}
  */
-public abstract class DialogBuilder<T extends Dialog> {
+public interface DialogBuilder<T extends Dialog> {
 
-    /* package */ static final DialogBuilder V7 = new DialogBuilder<android.support.v7.app.AlertDialog>() {
-
-        private android.support.v7.app.AlertDialog.Builder builder;
-
-        @Override
-        public DialogBuilder init(Context context) {
-            builder = new android.support.v7.app.AlertDialog.Builder(context);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setTitle(int titleId) {
-            builder.setTitle(titleId);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setMessage(@StringRes int messageId) {
-            builder.setMessage(messageId);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setView(View view) {
-            builder.setView(view);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setSingleChoiceItems(CharSequence[] items, int checkedItem, DialogInterface.OnClickListener listener) {
-            builder.setSingleChoiceItems(items, checkedItem, listener);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setNegativeButton(@StringRes int textId,
-                                               DialogInterface.OnClickListener listener) {
-            builder.setNegativeButton(textId, listener);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setPositiveButton(@StringRes int textId,
-                                               DialogInterface.OnClickListener listener) {
-            builder.setPositiveButton(textId, listener);
-            return this;
-        }
-
-        @Override
-        public DialogBuilder setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener) {
-            builder.setNeutralButton(textId, listener);
-            return this;
-        }
-
-        @Override
-        public android.support.v7.app.AlertDialog create() {
-            return builder.create();
-        }
-
-        @Override
-        public android.support.v7.app.AlertDialog show() {
-            return builder.show();
-        }
-    };
 
     /**
      * Construct the wrapped dialog builder object. This must be called before any other methods.
      * @param context activity context
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder init(Context context);
+    DialogBuilder init(Context context);
 
     /**
      * Set the title using the given resource id.
      *
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setTitle(int titleId);
+    DialogBuilder setTitle(int titleId);
 
     /**
      * Set the message to display using the given resource id.
      *
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setMessage(@StringRes int messageId);
+    DialogBuilder setMessage(@StringRes int messageId);
 
     /**
      * Sets a custom view to be the contents of the alert dialog.
@@ -130,7 +66,7 @@ public abstract class DialogBuilder<T extends Dialog> {
      * @return this Builder object to allow for chaining of calls to set
      *         methods
      */
-    public abstract DialogBuilder setView(View view);
+    DialogBuilder setView(View view);
 
     /**
      * Set a list of items to be displayed in the dialog as the content, you will be notified
@@ -149,7 +85,7 @@ public abstract class DialogBuilder<T extends Dialog> {
      *                    dialog.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setSingleChoiceItems(CharSequence[] items, int checkedItem,
+    DialogBuilder setSingleChoiceItems(CharSequence[] items, int checkedItem,
                                        final DialogInterface.OnClickListener listener);
 
     /**
@@ -159,7 +95,7 @@ public abstract class DialogBuilder<T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setNegativeButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder setNegativeButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Set a listener to be invoked when the positive button of the dialog is pressed.
@@ -168,7 +104,7 @@ public abstract class DialogBuilder<T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setPositiveButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder setPositiveButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Set a listener to be invoked when the neutral button of the dialog is pressed.
@@ -177,7 +113,7 @@ public abstract class DialogBuilder<T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    public abstract DialogBuilder setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Creates a {@link Dialog} with the arguments supplied to this builder. It does not
@@ -185,11 +121,11 @@ public abstract class DialogBuilder<T extends Dialog> {
      * before displaying the dialog. Use {@link #show()} if you don't have any other processing
      * to do and want this to be created and displayed.
      */
-    public abstract T create();
+    T create();
 
     /**
      * Creates a {@link Dialog} with the arguments supplied to this builder and
      * {@link Dialog#show()}'s the dialog.
      */
-    public abstract T show();
+    T show();
 }

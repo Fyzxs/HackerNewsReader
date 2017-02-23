@@ -34,6 +34,16 @@ public class StoryBuilder {
         return this;
     }
 
+    public StoryBuilder setPostTime(final long postTime) {
+        this.postTime = postTime;
+        return this;
+    }
+
+    public StoryBuilder setScore(final long score) {
+        this.storyScore = score;
+        return this;
+    }
+
     public String buildJson(){
         return String.format(Locale.US, jsonFormat, postTime, storyScore, storyId, title, author, commentCount);
     }
@@ -44,6 +54,7 @@ public class StoryBuilder {
                 new Title(title),
                 new Author(author),
                 new StoryComments(commentCount),
-                StoryScore.NullStoryScore, PostTime.NullPostTime);
+                new StoryScore(storyScore),
+                new PostTime(postTime));
     }
 }

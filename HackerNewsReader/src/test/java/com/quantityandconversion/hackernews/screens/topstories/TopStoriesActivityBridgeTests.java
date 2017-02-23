@@ -51,9 +51,8 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         topStoriesActivityBridge.loadData();
 
         assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
-        // wasShowCalled is the result of encapsulation. harmful otherwise; no
-        // but why let data out? NO DATA OUT!
-        fakeDialogBuilder.assertShowCalled(1);
+
+        fakeDialogBuilder.assertShowCalled(11);
     }
 
     @Test

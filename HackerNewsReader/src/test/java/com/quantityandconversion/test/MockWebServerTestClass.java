@@ -7,7 +7,7 @@ import org.junit.Rule;
 
 import okhttp3.mockwebserver.MockWebServer;
 
-public class MockWebServerTestClass extends QacTestClass{
+public abstract class MockWebServerTestClass extends QacTestClass{
     @Rule
     public final MockWebServer mockWebServer = new MockWebServer();
 

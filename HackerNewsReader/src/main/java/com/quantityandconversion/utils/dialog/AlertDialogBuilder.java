@@ -6,14 +6,13 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.View;
 
-public class AlertDialogBuilder<T extends Dialog> extends DialogBuilder<T> {
+public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<T> {
 
-    private static DialogBuilder ActiveDialogBuilder = DialogBuilder.V7;
+    private static DialogBuilder ActiveDialogBuilder = new DialogBuilderV7();
 
     /* package */ static void setActiveDialogBuilder(final DialogBuilder dialogBuilder){
         ActiveDialogBuilder = dialogBuilder;
     }
-
 
     @Override
     public DialogBuilder init(final Context context) {

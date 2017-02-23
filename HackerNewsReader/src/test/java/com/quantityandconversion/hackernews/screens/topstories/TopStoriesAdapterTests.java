@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryBuilder;
+import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
 import com.quantityandconversion.widget.QacTextView;
 
@@ -15,7 +16,7 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TopStoriesAdapterTests {
+public class TopStoriesAdapterTests extends QacTestClass {
 
     @Test
     public void onCreateViewHolderThrowsBecauseStub(){
@@ -63,7 +64,7 @@ public class TopStoriesAdapterTests {
         final long commentsExpected = RandomValues.nextInt(1000);
         final ArgumentCaptor<CharSequence> commentsCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
-        final String postedTimeExpected = RandomValues.alphaNumeric(50);
+        final String postedTimeExpected = Integer.toString(RandomValues.nextInt(1000));
         final ArgumentCaptor<CharSequence> postedTimeCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
         //Prep View
@@ -106,12 +107,14 @@ public class TopStoriesAdapterTests {
                         .setTitle(titleExpected)
                         .setAuthor(authorExpected)
                         .setCommentCount(commentsExpected)
+                        .setScore(Integer.parseInt(scoreExpected))
+                        .setPostTime(Integer.parseInt(postedTimeExpected))
                         .buildStory());
         //>
         final TopStoriesAdapter topStoriesAdapter = new TopStoriesAdapter(mockTopStoriesActivityMediator);
         //END Prep Adapter
 
-        
+
         //Act
         topStoriesAdapter.onBindViewHolder(viewHolder, position);
         
@@ -119,8 +122,8 @@ public class TopStoriesAdapterTests {
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
         assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
         assertThat(commentsCaptor.getValue()).isEqualTo(Long.toString(commentsExpected) + " comments");
-//        assertThat(scoreCaptor.getValue()).isEqualTo(scoreExpected);
-//        assertThat(postedTimeCaptor.getValue()).isEqualTo(postedTimeExpected);
+        assertThat(scoreCaptor.getValue()).isEqualTo(scoreExpected);
+        assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
     }
 
 }

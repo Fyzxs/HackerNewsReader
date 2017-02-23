@@ -4,8 +4,11 @@ import com.quantityandconversion.utils.date.DateUtilsAccess;
 import com.quantityandconversion.utils.log.FyzLogAccess;
 
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
-public class QacTestClass {
+@RunWith(MockitoJUnitRunner.class)
+public abstract class QacTestClass {
 
     @BeforeClass
     public static void beforeTests(){

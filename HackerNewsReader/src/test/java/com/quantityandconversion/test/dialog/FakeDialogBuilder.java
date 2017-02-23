@@ -28,7 +28,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FakeDialogBuilder extends DialogBuilder<Dialog> {
+public class FakeDialogBuilder implements DialogBuilder<Dialog> {
     private int titleId;
     private int messageId;
     private View view;
