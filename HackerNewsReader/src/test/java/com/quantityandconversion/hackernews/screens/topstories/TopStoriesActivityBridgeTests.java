@@ -41,20 +41,19 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     public void loadDataError() throws InterruptedException {
         hackerNewsNetworkTestResponses.emptyBodyDataError(mockWebServer);
 
-        final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder();
+        final CountDownLatch dialogLatch = new CountDownLatch(1);
+        final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(new CountDownLatch(0));
         final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
 
         topStoriesActivityBridge.loadData();
 
-        assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
-
-        //wasShowCalled is the result of encapsulation. harmful otherwise; no
+        assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
+        // wasShowCalled is the result of encapsulation. harmful otherwise; no
         // but why let data out? NO DATA OUT!
-        assertThat(fakeDialogBuilder.wasShowCalled(1)).isTrue();
+        fakeDialogBuilder.assertShowCalled(1);
     }
 
     @Test

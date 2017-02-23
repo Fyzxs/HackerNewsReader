@@ -64,10 +64,14 @@ public class StoryAdapterTests extends QacTestClass {
         //score
         targetStory.scoreInto(item);
         assertThat(item.getText()).isEqualTo(Integer.toString(expectedScore));
+
         //time - Since this is time; there's a TEENY change this will fail when the calls cross
         //the second boundary. Small. Deal with it then.
+        // Happened - Broke apart object creation to hopefully minimize
+        final DateUtils du = new DateUtils();
         targetStory.postTimeInto(item);
-        assertThat(item.getText()).isEqualTo(new DateUtils().relativeTimeSpanString(expectedTime*1000));
+        final CharSequence expectedTimeString = du.relativeTimeSpanString(expectedTime*1000);
+        assertThat(item.getText()).isEqualTo(expectedTimeString);
 
     }
 

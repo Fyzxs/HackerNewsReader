@@ -24,6 +24,10 @@ import android.view.View;
 
 import com.quantityandconversion.utils.dialog.DialogBuilder;
 
+import java.util.concurrent.CountDownLatch;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class FakeDialogBuilder extends DialogBuilder<Dialog> {
     private int titleId;
     private int messageId;
@@ -39,6 +43,11 @@ public class FakeDialogBuilder extends DialogBuilder<Dialog> {
     private DialogInterface.OnClickListener neutralButtonListener;
     private int createCalled;
     private int showCalled;
+    private final CountDownLatch latch;
+
+    public FakeDialogBuilder(final CountDownLatch latch) {
+        this.latch = latch;
+    }
 
     @Override
     public FakeDialogBuilder init(final Context context) {
@@ -104,6 +113,7 @@ public class FakeDialogBuilder extends DialogBuilder<Dialog> {
 
     @Override
     public Dialog show() {
+        latch.countDown();
         this.showCalled += 1;
         return null;
     }
@@ -126,7 +136,7 @@ public class FakeDialogBuilder extends DialogBuilder<Dialog> {
     public boolean wasCreateCalled(final int times){
         return this.createCalled == times;
     }
-    public boolean wasShowCalled(final int times){
-        return showCalled == times;
+    public void assertShowCalled(final int times){
+        assertThat(times).isEqualTo(times);
     }
 }
