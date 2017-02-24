@@ -31,12 +31,12 @@ import retrofit2.Response;
             @Override
             public void onResponse(final Call<Stories> call, final Response<Stories> response) {
                 topStories = response.body();
-                topStoriesActivityBridge.notifyTopStoriesChanged(dataLoadStrategyFactory(response));
+                dataLoadStrategyFactory(response).run(topStoriesActivityBridge);
             }
 
             @Override
             public void onFailure(final Call<Stories> call, final Throwable t) {
-                topStoriesActivityBridge.notifyTopStoriesChanged(dataLoadStrategyFactory(null));
+                dataLoadStrategyFactory(null).run(topStoriesActivityBridge);
             }
         });
     }

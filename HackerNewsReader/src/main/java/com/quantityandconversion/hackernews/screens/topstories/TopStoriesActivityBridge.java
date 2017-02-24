@@ -20,10 +20,6 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
         topStoriesActivityMediator.loadTopStoriesData();
     }
 
-    /* package */ void notifyTopStoriesChanged(final DataLoadStrategy dataLoadStrategy){
-        dataLoadStrategy.run(topStoriesActivity);
-    }
-
     /* package */ void notifyTopStoryChanged(final int index){
         topStoriesActivity.notifyTopStoryChanged(index);
     }
@@ -33,18 +29,19 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
     }
 
     /* package */ static abstract class DataLoadStrategy{
-        public final static DataLoadStrategy DataChanged = new DataLoadStrategy(){
+        public static final DataLoadStrategy DataChanged = new DataLoadStrategy(){
             @Override
-            public void run(final TopStoriesActivity activity) {
-                activity.notifyTopStoriesChanged();
+            public void run(final TopStoriesActivityBridge bridge) {
+                bridge.topStoriesActivity.notifyTopStoriesChanged();
             }
         };
 
-        public final static DataLoadStrategy DataError = new DataLoadStrategy() {
+        public static final DataLoadStrategy DataError = new DataLoadStrategy() {
             @Override
-            public void run(final TopStoriesActivity activity) {
+            public void run(final TopStoriesActivityBridge bridge) {
+
                 new AlertDialogBuilder<>()
-                        .init(activity)
+                        .init(bridge.topStoriesActivity)
                         .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
                         .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
                         .show();
@@ -52,18 +49,6 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
         };
 
         private DataLoadStrategy(){}
-        public abstract void run(final TopStoriesActivity activity);
+        public abstract void run(final TopStoriesActivityBridge bridge);
     }
-
-    /*
-        Required Strategies on data update
-            Refresh data
-            Display alert dialog on network issue
-
-        Required Strategies on story update
-            Update Story
-            Display Toast
-
-
-     */
 }
