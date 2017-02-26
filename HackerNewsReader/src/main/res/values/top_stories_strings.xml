@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="top_stories_strings_alert_dialog_failure_title">Failure Title</string>
-    <string name="top_stories_strings_alert_dialog_failure_message">Failure Messagae</string>
+    <string name="top_stories_strings_alert_dialog_failure_message">Failure Message</string>
 </resources>

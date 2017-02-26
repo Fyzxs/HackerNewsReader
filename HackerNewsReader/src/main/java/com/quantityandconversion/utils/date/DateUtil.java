@@ -1,13 +1,13 @@
 package com.quantityandconversion.utils.date;
 
 /* package */ abstract class DateUtil {
-    /* package */ static DateUtil Android = new DateUtil() {
+    /* package */ static final DateUtil Android = new DateUtil() {
         @Override
         public CharSequence relativeTimeSpanString(final long startTimeMs) {
             return android.text.format.DateUtils.getRelativeTimeSpanString(startTimeMs);
         }
     };
-    /* package */ static DateUtil SecondsOnly = new DateUtil() {
+    /* package */ static final DateUtil SecondsOnly = new DateUtil() {
         @Override
         public CharSequence relativeTimeSpanString(final long startTimeMs) {
             final long currentTime = System.currentTimeMillis();

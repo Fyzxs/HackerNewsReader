@@ -7,7 +7,7 @@ import com.quantityandconversion.hackernews.app.QacActivity;
 
 public class TopStoriesActivity extends QacActivity {
 
-    private TopStoriesActivityBridge topStoriesActivityBridge;
+    private final TopStoriesActivityBridge topStoriesActivityBridge;
 
     private TopStoriesRecyclerView topStoriesRecyclerView;
 
