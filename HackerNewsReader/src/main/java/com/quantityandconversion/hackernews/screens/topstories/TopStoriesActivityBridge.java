@@ -29,14 +29,14 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
     }
 
     /* package */ static abstract class DataLoadStrategy{
-        public static final DataLoadStrategy DataChanged = new DataLoadStrategy(){
+        /* package */ static final DataLoadStrategy DataChanged = new DataLoadStrategy(){
             @Override
             public void run(final TopStoriesActivityBridge bridge) {
                 bridge.topStoriesActivity.notifyTopStoriesChanged();
             }
         };
 
-        public static final DataLoadStrategy DataError = new DataLoadStrategy() {
+        /* package */ static final DataLoadStrategy DataError = new DataLoadStrategy() {
             @Override
             public void run(final TopStoriesActivityBridge bridge) {
 

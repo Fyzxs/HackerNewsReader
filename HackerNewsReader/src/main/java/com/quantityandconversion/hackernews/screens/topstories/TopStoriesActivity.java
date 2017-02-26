@@ -1,51 +1,48 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.quantityandconversion.hackernews.R;
+import com.quantityandconversion.hackernews.app.QacActivity;
 
-public class TopStoriesActivity extends AppCompatActivity {
+public class TopStoriesActivity extends QacActivity {
 
-    private TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(this);
+    private TopStoriesActivityBridge topStoriesActivityBridge;
 
-    private RecyclerView rvTopStories;
+    private TopStoriesRecyclerView topStoriesRecyclerView;
+
+    public TopStoriesActivity(){
+        topStoriesActivityBridge = new TopStoriesActivityBridge(this);
+    }
+    public TopStoriesActivity(final TopStoriesActivityBridge topStoriesActivityBridge,
+                              final TopStoriesRecyclerView topStoriesRecyclerView) {
+        this.topStoriesActivityBridge = topStoriesActivityBridge;
+        this.topStoriesRecyclerView = topStoriesRecyclerView;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateFunctionality() {
         setContentView(R.layout.top_stories_activity);
 
         bindViews();
-        configureViews();
+
         loadData();
     }
 
-    private void loadData() {
+    /* package */ void loadData() {
         topStoriesActivityBridge.loadData();
     }
 
-    private void configureViews() {
-        configureTopStories();
-    }
-
-    private void configureTopStories() {
-        rvTopStories.setAdapter(topStoriesActivityBridge.createTopStoriesAdapter());
-        rvTopStories.setLayoutManager(new LinearLayoutManager(this));
-        rvTopStories.addItemDecoration(new DividerItemDecoration(rvTopStories.getContext(), DividerItemDecoration.VERTICAL));
-    }
-
-    private void bindViews() {
-        rvTopStories = (RecyclerView)findViewById(R.id.rv_top_stories);
+    /* package */ void bindViews() {
+        topStoriesRecyclerView = new TopStoriesRecyclerView(
+                (RecyclerView)findViewById(R.id.rv_top_stories),
+                topStoriesActivityBridge.createTopStoriesAdapter());
     }
 
     /* package */ void notifyTopStoriesChanged(){
-        rvTopStories.getAdapter().notifyDataSetChanged();
+        topStoriesRecyclerView.notifyTopStoriesChanged();
     }
-    /* package */ void notifyTopStoryChanged(final int index){
-        rvTopStories.getAdapter().notifyItemChanged(index);
+    /* package */ void notifyTopStoryChanged(final int position){
+        topStoriesRecyclerView.notifyTopStoryChanged(position);
     }
 }

@@ -5,6 +5,7 @@ import com.quantityandconversion.hackernews.network.hackernews.internal.HackerNe
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,8 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new FakeTopStoriesActivity(latch))).loadTopStoriesData();
+        new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(latch)
+                , Mockito.mock(TopStoriesAdapter.class))).loadTopStoriesData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
@@ -52,7 +54,8 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleStory(mockWebServer, builder);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final TopStoriesActivityMediator mediator = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(latch, new FakeTopStoriesActivity(latch)));
+        final TopStoriesActivityMediator mediator = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(latch)
+                , Mockito.mock(TopStoriesAdapter.class)));
         mediator.loadTopStoriesData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();

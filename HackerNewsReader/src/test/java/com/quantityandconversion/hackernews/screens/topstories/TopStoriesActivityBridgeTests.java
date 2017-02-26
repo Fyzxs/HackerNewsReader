@@ -52,7 +52,7 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
         assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
 
-        fakeDialogBuilder.assertShowCalled(11);
+        fakeDialogBuilder.assertShowCalled(1);
     }
 
     @Test

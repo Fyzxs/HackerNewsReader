@@ -137,6 +137,6 @@ public class FakeDialogBuilder implements DialogBuilder<Dialog> {
         return this.createCalled == times;
     }
     public void assertShowCalled(final int times){
-        assertThat(times).isEqualTo(times);
+        assertThat(showCalled).isEqualTo(times);
     }
 }
