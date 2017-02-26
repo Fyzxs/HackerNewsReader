@@ -28,7 +28,7 @@ import android.widget.ListView;
  * {@link android.support.v7.app.AlertDialog.Builder} and {@link android.app.AlertDialog.Builder}
  * @param <T> type of created alert dialog, extends from {@link Dialog}
  */
-public interface DialogBuilder<T extends Dialog> {
+public interface DialogBuilder <T extends Dialog> {
 
 
     /**

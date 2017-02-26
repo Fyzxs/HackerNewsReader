@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.View;
 
-public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<T> {
+public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<Dialog> {
 
     private static DialogBuilder ActiveDialogBuilder = new DialogBuilderV7();
 
@@ -21,46 +21,46 @@ public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<T> {
 
     @Override
     public DialogBuilder setTitle(final int titleId) {
-        return null;
+        return ActiveDialogBuilder.setTitle(titleId);
     }
 
     @Override
     public DialogBuilder setMessage(@StringRes final int messageId) {
-        return null;
+        return ActiveDialogBuilder.setMessage(messageId);
     }
 
     @Override
     public DialogBuilder setView(final View view) {
-        return null;
+        return ActiveDialogBuilder.setView(view);
     }
 
     @Override
     public DialogBuilder setSingleChoiceItems(final CharSequence[] items, final int checkedItem, final DialogInterface.OnClickListener listener) {
-        return null;
+        return ActiveDialogBuilder.setSingleChoiceItems(items, checkedItem, listener);
     }
 
     @Override
     public DialogBuilder setNegativeButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
-        return null;
+        return ActiveDialogBuilder.setNegativeButton(textId, listener);
     }
 
     @Override
     public DialogBuilder setPositiveButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
-        return null;
+        return ActiveDialogBuilder.setPositiveButton(textId, listener);
     }
 
     @Override
     public DialogBuilder setNeutralButton(@StringRes final int textId, final DialogInterface.OnClickListener listener) {
-        return null;
+        return ActiveDialogBuilder.setNeutralButton(textId, listener);
     }
 
     @Override
-    public T create() {
-        return null;
+    public Dialog create() {
+        return ActiveDialogBuilder.create();
     }
 
     @Override
-    public T show() {
-        return null;
+    public Dialog show() {
+        return ActiveDialogBuilder.show();
     }
 }

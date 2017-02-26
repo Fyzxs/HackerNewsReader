@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.utils.log.FyzLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +65,8 @@ public class Stories {
 
             @Override
             public void onFailure(final Call<Story> call, final Throwable t) {
+                FyzLog.d(call.request().url().toString());
+                FyzLog.d(t.getMessage());
                 throw new UnsupportedOperationException("onFailure not implemented");
             }
         });
