@@ -26,4 +26,12 @@ public class ItemId extends SimpleWrapper<Long> {
     public boolean isStoryId() {
         return slug == STORY_ID;
     }
+
+    public static ItemId createJobId(final long id) {
+        return new ItemId(id, JOB_ID);
+    }
+
+    public boolean isJobId() {
+        return slug == JOB_ID;
+    }
 }

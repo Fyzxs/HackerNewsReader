@@ -29,47 +29,7 @@ public class StoryTests extends QacTestClass {
             new Author("That_Guy"),
             StoryComments.NullStoryComments,
             StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryOneDiff = new Story(ITEM_ID_ONE,
-            TitleOne,
-            new Author("That_Guy"),
-            StoryComments.NullStoryComments,
-            StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryTwo = new Story(ITEM_ID_TWO,
-            TitleTwo,
-            new Author("That_Guy"),
-            StoryComments.NullStoryComments,
-            StoryScore.NullStoryScore, PostTime.NullPostTime);
 
-    @Test
-    public void constructorThrowsForNullStoryId(){
-        assertThatThrownBy(() -> new Story(null,
-                TitleOne,
-                new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("itemId can not be null");
-    }
-    @Test
-    public void constructorThrowsForNullTitle(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
-                null,
-                new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title can not be null");
-    }
-    @Test
-    public void constructorThrowsForNullAuthor(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
-                TitleOne,
-                null,
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("author can not be null");
-    }
     @Test
     public void constructorThrowsForNullStoryComments(){
         assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
@@ -92,50 +52,6 @@ public class StoryTests extends QacTestClass {
     }
 
     @Test
-    public void constructorThrowsForNullPostTime(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
-                TitleOne,
-                new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore,
-                null))
-
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("postTime can not be null");
-    }
-
-    @Test
-    public void equals(){
-
-        assertThat(StoryOne).isEqualTo(StoryOne);
-        assertThat(StoryOne).isEqualTo(StoryOneDiff);
-        assertThat(StoryOne).isNotEqualTo(StoryTwo);
-    }
-
-    @Test
-    public void hash(){
-        assertThat(StoryOne.hashCode()).isEqualTo(StoryOne.hashCode());
-        assertThat(StoryOne.hashCode()).isEqualTo(StoryOneDiff.hashCode());
-        assertThat(StoryOne.hashCode()).isNotEqualTo(StoryTwo.hashCode());
-    }
-
-    @Test
-    public void titleInto() throws InterruptedException {
-        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.titleInto(fakeSetText);
-
-        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
-    }
-
-    @Test
-    public void authorInto() throws InterruptedException {
-        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.authorInto(fakeSetText);
-
-        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
-    }
-
-    @Test
     public void commentCountInto() throws InterruptedException {
         final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
         StoryOne.commentCountInto(fakeSetText);
@@ -149,18 +65,5 @@ public class StoryTests extends QacTestClass {
         StoryOne.scoreInto(fakeSetText);
 
         assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
-    }
-
-    @Test
-    public void postTimeInto() throws InterruptedException{
-        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.postTimeInto(fakeSetText);
-        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
-    }
-
-    @Test
-    public void storyId() throws NoSuchMethodException {
-        assertThat(Story.class.getDeclaredMethod("storyId").getModifiers()).isEqualTo(0);
-        assertThat(StoryOne.storyId()).isEqualTo(ITEM_ID_ONE);
     }
 }

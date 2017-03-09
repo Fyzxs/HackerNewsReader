@@ -42,6 +42,15 @@ public class ItemIdTests {
     }
 
     @Test
+    public void isJobIdShouldReturnTrueGivenJobId(){
+        assertThat(ItemId.createJobId(1L).isJobId()).isTrue();
+    }
+    @Test
+    public void isJobIdShouldReturnFalseGivenNotJobId(){
+        assertThat(ItemId.NULL_ITEM_ID.isJobId()).isFalse();
+    }
+
+    @Test
     public void isAdLong(){
         assertThat(ItemId.createStoryId(1L).idAsLong()).isEqualTo(1L);
     }
