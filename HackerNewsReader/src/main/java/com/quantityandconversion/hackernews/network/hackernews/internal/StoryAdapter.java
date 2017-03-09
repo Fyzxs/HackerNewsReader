@@ -9,8 +9,8 @@ import com.squareup.moshi.ToJson;
     /* package */ Story storyFromJson(final StoryJson storyJson) {
         if(storyJson == null) { throw new IllegalArgumentException("storyJson can not be null"); }
         if(!"story".equals(storyJson.type)) { throw new IllegalArgumentException("data type is not a story"); }
-        final StoryId storyId = new StoryId(storyJson.id);
-        return new Story(storyId,
+        final ItemId itemId = ItemId.createStoryId(storyJson.id);
+        return new Story(itemId,
                 new Title(storyJson.title),
                 new Author(storyJson.by),
                 new StoryComments(storyJson.descendants),

@@ -5,7 +5,7 @@ import com.quantityandconversion.ood.SetText;
 public class StoryComments {
     public static final StoryComments NullStoryComments = new StoryComments(0L);
     private final long commentCount;
-//    private final StoryId storyId;
+//    private final ItemId storyId;
 
 
     /* package */ StoryComments(final long commentCount) {

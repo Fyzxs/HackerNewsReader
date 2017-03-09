@@ -49,8 +49,8 @@ public class StoryBuilder {
     }
 
     public Story buildStory(){
-        final StoryId storyIdClass = new StoryId(storyId);
-        return new Story(storyIdClass,
+        final ItemId itemIdClass = ItemId.createStoryId(storyId);
+        return new Story(itemIdClass,
                 new Title(title),
                 new Author(author),
                 new StoryComments(commentCount),

@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
@@ -18,32 +18,32 @@ public class StoriesTests extends MockWebServerTestClass {
     public void ctor(){
         assertThatThrownBy(() -> new Stories(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("storyIds cannot be null");
+                .hasMessageContaining("itemIds cannot be null");
 
-        assertThatThrownBy(() -> new Stories(new StoryId[1]))
+        assertThatThrownBy(() -> new Stories(new ItemId[1]))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("storyId cannot be null");
+                .hasMessageContaining("itemId cannot be null");
     }
 
     @Test
     public void size(){
-        assertThat(new Stories(new StoryId[]{}).size()).isEqualTo(0);
-        assertThat(new Stories(new StoryId[]{new StoryId(12345L)}).size()).isEqualTo(1);
+        assertThat(new Stories(new ItemId[]{}).size()).isEqualTo(0);
+        assertThat(new Stories(new ItemId[]{ItemId.createStoryId(12345L)}).size()).isEqualTo(1);
     }
 
     @Test
     public void storyAt() throws InterruptedException {
-        assertThatThrownBy(() -> new Stories(new StoryId[0]).storyAt(0, null))
+        assertThatThrownBy(() -> new Stories(new ItemId[0]).storyAt(0, null))
                 .isInstanceOf(IndexOutOfBoundsException.class);
 
-        assertThat(new Stories(new StoryId[]{new StoryId(12345L)}).storyAt(0, null)).isEqualTo(NullStory);
+        assertThat(new Stories(new ItemId[]{ItemId.createStoryId(12345L)}).storyAt(0, null)).isEqualTo(NullStory);
     }
 
     @Test
     public void storyAtRefresh() throws InterruptedException {
         final Story builtStory = this.hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
         final CountDownLatch latch = new CountDownLatch(1);
-        final Stories stories = new Stories(new StoryId[]{builtStory.storyId()});
+        final Stories stories = new Stories(new ItemId[]{builtStory.storyId()});
         assertThat(stories.storyAt(0, new Stories.StoryRefreshCallback(){
 
             @Override

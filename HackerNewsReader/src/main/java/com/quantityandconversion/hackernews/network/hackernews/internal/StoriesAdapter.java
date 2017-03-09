@@ -7,12 +7,12 @@ import com.squareup.moshi.ToJson;
 /* package */ class StoriesAdapter {
 
     @FromJson
-    /* package */ Stories storiesFromJson(final StoryId[] storyIds) {
-        return new Stories(storyIds);
+    /* package */ Stories storiesFromJson(final ItemId[] itemIds) {
+        return new Stories(itemIds);
     }
 
     @ToJson
-    /* package */ StoryId[] storiesToJson(final Stories stories) {
+    /* package */ ItemId[] storiesToJson(final Stories stories) {
         throw new UnsupportedOperationException("serializing to json not supported");
     }
 }

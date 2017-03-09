@@ -39,7 +39,7 @@ public class StoryAdapterTests extends QacTestClass {
 
 
         final Story expectedStory = new Story(
-                new StoryId(expectedId),
+                ItemId.createStoryId(expectedId),
                 Title.NullTitle,
                 Author.NullAuthor,
                 StoryComments.NullStoryComments,

@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
@@ -29,8 +29,8 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
                 assertThat(response.body()).isNotNull();
                 final Stories stories = response.body();
                 assertThat(stories.size()).isEqualTo(2);
-                assertThat(stories.contains(new StoryId(storyIds.get(0)))).isTrue();
-                assertThat(stories.contains(new StoryId(storyIds.get(1)))).isTrue();
+                assertThat(stories.contains(ItemId.createStoryId(storyIds.get(0)))).isTrue();
+                assertThat(stories.contains(ItemId.createStoryId(storyIds.get(1)))).isTrue();
                 latch.countDown();
             }
 

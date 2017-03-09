@@ -2,9 +2,9 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.PostTime;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryComments;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryScore;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.hackernews.network.hackernews.internal.TitleTests;
@@ -20,21 +20,21 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class StoryTests extends QacTestClass {
 
-    private final static StoryId StoryIdOne = new StoryId(1L);
-    private final static StoryId StoryIdTwo = new StoryId(2L);
+    private final static ItemId ITEM_ID_ONE = ItemId.createStoryId(1L);
+    private final static ItemId ITEM_ID_TWO = ItemId.createStoryId(2L);
     private final static Title TitleOne = TitleTests.TitleOne;
     private final static Title TitleTwo = TitleTests.TitleTwo;
-    private final static Story StoryOne = new Story(StoryIdOne,
+    private final static Story StoryOne = new Story(ITEM_ID_ONE,
             TitleOne,
             new Author("That_Guy"),
             StoryComments.NullStoryComments,
             StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryOneDiff = new Story(StoryIdOne,
+    private final static Story StoryOneDiff = new Story(ITEM_ID_ONE,
             TitleOne,
             new Author("That_Guy"),
             StoryComments.NullStoryComments,
             StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryTwo = new Story(StoryIdTwo,
+    private final static Story StoryTwo = new Story(ITEM_ID_TWO,
             TitleTwo,
             new Author("That_Guy"),
             StoryComments.NullStoryComments,
@@ -48,11 +48,11 @@ public class StoryTests extends QacTestClass {
                 StoryComments.NullStoryComments,
                 StoryScore.NullStoryScore, PostTime.NullPostTime))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("storyId can not be null");
+                .hasMessageContaining("itemId can not be null");
     }
     @Test
     public void constructorThrowsForNullTitle(){
-        assertThatThrownBy(() -> new Story(StoryIdOne,
+        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
                 null,
                 new Author("That_Guy"),
                 StoryComments.NullStoryComments,
@@ -62,7 +62,7 @@ public class StoryTests extends QacTestClass {
     }
     @Test
     public void constructorThrowsForNullAuthor(){
-        assertThatThrownBy(() -> new Story(StoryIdOne,
+        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
                 TitleOne,
                 null,
                 StoryComments.NullStoryComments,
@@ -72,7 +72,7 @@ public class StoryTests extends QacTestClass {
     }
     @Test
     public void constructorThrowsForNullStoryComments(){
-        assertThatThrownBy(() -> new Story(StoryIdOne,
+        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
                 TitleOne,
                 new Author("That_Guy"),
                 null,
@@ -82,7 +82,7 @@ public class StoryTests extends QacTestClass {
     }
     @Test
     public void constructorThrowsForNullStoryScore(){
-        assertThatThrownBy(() -> new Story(StoryIdOne,
+        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
                 TitleOne,
                 new Author("That_Guy"),
                 StoryComments.NullStoryComments,
@@ -93,7 +93,7 @@ public class StoryTests extends QacTestClass {
 
     @Test
     public void constructorThrowsForNullPostTime(){
-        assertThatThrownBy(() -> new Story(StoryIdOne,
+        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
                 TitleOne,
                 new Author("That_Guy"),
                 StoryComments.NullStoryComments,
@@ -161,6 +161,6 @@ public class StoryTests extends QacTestClass {
     @Test
     public void storyId() throws NoSuchMethodException {
         assertThat(Story.class.getDeclaredMethod("storyId").getModifiers()).isEqualTo(0);
-        assertThat(StoryOne.storyId()).isEqualTo(StoryIdOne);
+        assertThat(StoryOne.storyId()).isEqualTo(ITEM_ID_ONE);
     }
 }

@@ -1,7 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.HackerNewsNetwork;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 
 import retrofit2.Callback;
 
@@ -12,7 +12,7 @@ public class HackerNewsAccess {
         new HackerNewsNetwork().topStories().enqueue(callback);
     }
 
-    public void story(final StoryId storyId, final Callback<Story> callback) {
-        new HackerNewsNetwork().story(storyId).enqueue(callback);
+    public void story(final ItemId itemId, final Callback<Story> callback) {
+        new HackerNewsNetwork().story(itemId).enqueue(callback);
     }
 }
