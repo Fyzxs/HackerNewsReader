@@ -2,6 +2,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.quantityandconversion.hackernews.network.hackernews.Job;
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.utils.network.LoggingInterceptor;
@@ -37,7 +38,7 @@ public class HackerNewsNetwork {
     }
 
     private HackerNewsApi hackerNewsApiTopStories() {
-        return hackerNewsApi(new StoriesAdapter(), new StoryIdAdapter());
+        return hackerNewsApi(new ItemsAdapter(), new ItemIdAdapter());
     }
 
     private HackerNewsApi hackerNewsApiStory() {
@@ -55,5 +56,12 @@ public class HackerNewsNetwork {
                 .addConverterFactory(MoshiConverterFactory.create(moshiBuilder.build()))
                 .build()
                 .create(HackerNewsApi.class);
+    }
+
+    public Call<Job> job(ItemId jobId) {
+        return hackerNewsApiJob().job(jobId.idAsLong());
+    }
+    private HackerNewsApi hackerNewsApiJob() {
+        return hackerNewsApi(new JobAdapter());
     }
 }

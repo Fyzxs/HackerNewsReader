@@ -51,6 +51,16 @@ public class ItemIdTests {
     }
 
     @Test
+    public void isUnknownIdIdShouldReturnTrueGivenUnknownId(){
+        assertThat(ItemId.createUnknownId(1L).isUnknownId()).isTrue();
+    }
+
+    @Test
+    public void isUnknownIdIdShouldReturnFalseGivenNotUnknownId(){
+        assertThat(ItemId.NULL_ITEM_ID.isUnknownId()).isFalse();
+    }
+
+    @Test
     public void isAdLong(){
         assertThat(ItemId.createStoryId(1L).idAsLong()).isEqualTo(1L);
     }

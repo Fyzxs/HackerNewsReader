@@ -5,15 +5,15 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 
-public class StoriesAdapterTests {
+public class ItemIdAdapterTests {
     @Test
-    public void storiesFromJson() {
-        assertNotNull(new StoriesAdapter().storiesFromJson(new ItemId[]{}));
+    public void itemIdFromJson() {
+        assertNotNull(new ItemIdAdapter().itemIdFromJson(1L).equals(ItemId.createUnknownId(1)));
     }
 
     @Test
-    public void storiesToJson() {
-        assertThatThrownBy(() -> new StoriesAdapter().storiesToJson(null))
+    public void itemIdToJson() {
+        assertThatThrownBy(() -> new ItemIdAdapter().itemIdToJson(null))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessageContaining("serializing to json not supported");
     }

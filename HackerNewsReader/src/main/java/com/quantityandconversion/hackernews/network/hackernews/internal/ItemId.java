@@ -2,9 +2,12 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.ood.SimpleWrapper;
 
-//ID Wrappers will need to collapse?
+/*
+ * Two Id's of different "Types" will be equal. The Slug is a helper; not decider.
+ */
 public class ItemId extends SimpleWrapper<Long> {
     public final static ItemId NULL_ITEM_ID = new ItemId(-1L, null);
+    private final static Object ITEM_ID = new Object();
     private final static Object STORY_ID = new Object();
     private final static Object JOB_ID = new Object();
 
@@ -31,7 +34,14 @@ public class ItemId extends SimpleWrapper<Long> {
         return new ItemId(id, JOB_ID);
     }
 
+    public static ItemId createUnknownId(final long id) {
+        return new ItemId(id, ITEM_ID);
+    }
+
     public boolean isJobId() {
         return slug == JOB_ID;
+    }
+    public boolean isUnknownId() {
+        return slug == ITEM_ID;
     }
 }

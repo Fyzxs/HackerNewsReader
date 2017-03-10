@@ -4,15 +4,15 @@ import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
-/* package */ class StoriesAdapter {
+/* package */ class ItemsAdapter {
 
     @FromJson
-    /* package */ Stories storiesFromJson(final ItemId[] itemIds) {
+    /* package */ Stories itemsFromJson(final ItemId[] itemIds) {
         return new Stories(itemIds);
     }
 
     @ToJson
-    /* package */ ItemId[] storiesToJson(final Stories stories) {
+    /* package */ ItemId[] itemsToJson(final Stories stories) {
         throw new UnsupportedOperationException("serializing to json not supported");
     }
 }
