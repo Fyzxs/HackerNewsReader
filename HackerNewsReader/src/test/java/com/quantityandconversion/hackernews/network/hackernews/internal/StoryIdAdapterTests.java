@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 public class StoryIdAdapterTests {
     @Test
     public void storyIdFromJson() {
-        assertNotNull(new StoryIdAdapter().storyIdFromJson(1L).equals(new StoryId(1)));
+        assertNotNull(new StoryIdAdapter().storyIdFromJson(1L).equals(ItemId.createStoryId(1)));
     }
 
     @Test

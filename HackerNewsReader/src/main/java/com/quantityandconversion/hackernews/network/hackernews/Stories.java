@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryId;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 import com.quantityandconversion.utils.log.FyzLog;
 
 import java.util.HashMap;
@@ -17,20 +17,20 @@ public class Stories {
     public interface StoryRefreshCallback{
         void storyRefreshed(final int index);
     }
-    private final Map<StoryId, Story> storyMap = new HashMap<>();
-    private final StoryId[] storyIds;
+    private final Map<ItemId, Story> storyMap = new HashMap<>();
+    private final ItemId[] itemIds;
 
-    public Stories(final StoryId[] storyIds) {
-        if(storyIds == null) { throw new IllegalArgumentException("storyIds cannot be null"); }
+    public Stories(final ItemId[] itemIds) {
+        if(itemIds == null) { throw new IllegalArgumentException("itemIds cannot be null"); }
 
-        this.storyIds = storyIds;
+        this.itemIds = itemIds;
         importStoryIds();
     }
 
     private void importStoryIds() {
-        for (final StoryId storyId : storyIds) {
-            if(storyId == null){ throw new IllegalArgumentException("storyId cannot be null");}
-            storyMap.put(storyId, NullStory);
+        for (final ItemId itemId : itemIds) {
+            if(itemId == null){ throw new IllegalArgumentException("itemId cannot be null");}
+            storyMap.put(itemId, NullStory);
         }
     }
 
@@ -38,24 +38,24 @@ public class Stories {
         return storyMap.size();
     }
 
-    public boolean contains(final StoryId storyId) {
-        return storyMap.get(storyId) != null;
+    public boolean contains(final ItemId itemId) {
+        return storyMap.get(itemId) != null;
     }
 
     public Story storyAt(final int index, final StoryRefreshCallback storyRefreshCallback) {
-        final StoryId storyId = storyIds[index];
-        final Story story = storyMap.get(storyId);
+        final ItemId itemId = itemIds[index];
+        final Story story = storyMap.get(itemId);
         if(!shouldRefreshStory(story, storyRefreshCallback)){
             return story;
         }
 
-        refreshStory(index, storyRefreshCallback, storyId);
+        refreshStory(index, storyRefreshCallback, itemId);
 
         return story;
     }
 
-    private void refreshStory(final int index, final StoryRefreshCallback storyRefreshCallback, StoryId storyId) {
-        new HackerNewsAccess().story(storyId, new Callback<Story>() {
+    private void refreshStory(final int index, final StoryRefreshCallback storyRefreshCallback, ItemId itemId) {
+        new HackerNewsAccess().story(itemId, new Callback<Story>() {
             @Override
             public void onResponse(final Call<Story> call, final Response<Story> response) {
                 final Story story = response.body();

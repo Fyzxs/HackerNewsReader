@@ -32,8 +32,8 @@ public class HackerNewsNetwork {
     }
 
 
-    public Call<Story> story(final StoryId storyId) {
-        return hackerNewsApiStory().story(storyId.idAsLong());
+    public Call<Story> story(final ItemId itemId) {
+        return hackerNewsApiStory().story(itemId.idAsLong());
     }
 
     private HackerNewsApi hackerNewsApiTopStories() {

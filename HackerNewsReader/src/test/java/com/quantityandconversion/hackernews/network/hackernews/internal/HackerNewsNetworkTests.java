@@ -37,6 +37,6 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
     public void story() throws IOException{
         hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
-        final Call<Story> itemCall = new HackerNewsNetwork().story(new StoryId(1));
+        final Call<Story> itemCall = new HackerNewsNetwork().story(ItemId.createStoryId(1));
     }
 }
