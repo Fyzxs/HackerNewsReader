@@ -1,6 +1,7 @@
 package com.quantityandconversion.hackernews.screens.topstories;
 
 import com.quantityandconversion.hackernews.network.hackernews.HackerNewsAccess;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.quantityandconversion.hackernews.network.hackernews.Story;
 
@@ -10,7 +11,7 @@ import retrofit2.Response;
 
 /* package */ class TopStoriesActivityMediator {
     private final TopStoriesActivityBridge topStoriesActivityBridge;
-    private Stories topStories;
+    private Stories topItems;
 
     /* package */ TopStoriesActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
         if(topStoriesActivityBridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
@@ -18,19 +19,19 @@ import retrofit2.Response;
     }
 
     /* package */ int topStoriesSize() {
-        return topStories == null ? 0 : topStories.size();
+        return topItems == null ? 0 : topItems.size();
     }
 
-    /* package */ Story storyAt(final int index) {
-        if (topStories == null) { return Story.NullStory; }
-        return topStories.storyAt(index, topStoriesActivityBridge::notifyTopStoryChanged);
+    /* package */ Item itemAt(final int index) {
+        if (topItems == null) { return Story.NullStory; }
+        return topItems.storyAt(index, topStoriesActivityBridge::notifyTopStoryChanged);
     }
 
     /* package */ void loadTopStoriesData() {
         new HackerNewsAccess().topStories(new Callback<Stories>() {
             @Override
             public void onResponse(final Call<Stories> call, final Response<Stories> response) {
-                topStories = response.body();
+                topItems = response.body();
                 dataLoadStrategyFactory(response).run(topStoriesActivityBridge);
             }
 

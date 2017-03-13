@@ -102,7 +102,7 @@ public class TopStoriesAdapterTests extends QacTestClass {
         final TopStoriesAdapter.ViewHolder viewHolder = new TopStoriesAdapter.ViewHolder(mockView);
         //>
         final TopStoriesActivityMediator mockTopStoriesActivityMediator = Mockito.mock(TopStoriesActivityMediator.class);
-        Mockito.when(mockTopStoriesActivityMediator.storyAt(position)).thenReturn(
+        Mockito.when(mockTopStoriesActivityMediator.itemAt(position)).thenReturn(
                 new StoryBuilder()
                         .setTitle(titleExpected)
                         .setAuthor(authorExpected)

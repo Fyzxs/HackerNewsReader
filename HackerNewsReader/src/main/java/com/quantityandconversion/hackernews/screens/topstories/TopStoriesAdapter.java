@@ -26,7 +26,7 @@ import com.quantityandconversion.widget.QacTextView;
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
-        final Story story = topStoriesActivityMediator.storyAt(position);
+        final Story story = topStoriesActivityMediator.itemAt(position);
         story.titleInto(viewHolder.title);
         story.authorInto(viewHolder.author);
         story.commentCountInto(viewHolder.comments);
