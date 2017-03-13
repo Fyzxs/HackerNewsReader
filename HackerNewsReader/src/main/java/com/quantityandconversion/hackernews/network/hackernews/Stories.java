@@ -14,57 +14,57 @@ import static com.quantityandconversion.hackernews.network.hackernews.Story.Null
 
 public class Stories {
 
-    public interface StoryRefreshCallback{
-        void storyRefreshed(final int index);
+    public interface ItemRefreshCallback{
+        void itemRefreshed(final int index);
     }
-    private final Map<ItemId, Story> storyMap = new HashMap<>();
+    private final Map<ItemId, Item> itemMap = new HashMap<>();
     private final ItemId[] itemIds;
 
     public Stories(final ItemId[] itemIds) {
         if(itemIds == null) { throw new IllegalArgumentException("itemIds cannot be null"); }
 
         this.itemIds = itemIds;
-        importStoryIds();
+        importItemIds();
     }
 
-    private void importStoryIds() {
+    private void importItemIds() {
         for (final ItemId itemId : itemIds) {
             if(itemId == null){ throw new IllegalArgumentException("itemId cannot be null");}
-            storyMap.put(itemId, NullStory);
+            itemMap.put(itemId, NullStory);
         }
     }
 
     public int size() {
-        return storyMap.size();
+        return itemMap.size();
     }
 
     public boolean contains(final ItemId itemId) {
-        return storyMap.get(itemId) != null;
+        return itemMap.get(itemId) != null;
     }
 
-    public Story storyAt(final int index, final StoryRefreshCallback storyRefreshCallback) {
+    public Item itemAt(final int index, final ItemRefreshCallback itemRefreshCallback) {
         final ItemId itemId = itemIds[index];
-        final Story story = storyMap.get(itemId);
-        if(!shouldRefreshStory(story, storyRefreshCallback)){
-            return story;
+        final Item item = itemMap.get(itemId);
+        if(!shouldRefreshItem(item, itemRefreshCallback)){
+            return item;
         }
 
-        refreshStory(index, storyRefreshCallback, itemId);
+        refreshItem(index, itemRefreshCallback, itemId);
 
-        return story;
+        return item;
     }
 
-    private void refreshStory(final int index, final StoryRefreshCallback storyRefreshCallback, ItemId itemId) {
-        new HackerNewsAccess().story(itemId, new Callback<Story>() {
+    private void refreshItem(final int index, final ItemRefreshCallback itemRefreshCallback, ItemId itemId) {
+        new HackerNewsAccess().item(itemId, new Callback<Item>() {
             @Override
-            public void onResponse(final Call<Story> call, final Response<Story> response) {
-                final Story story = response.body();
-                storyMap.put(story.storyId(), story);
-                storyRefreshCallback.storyRefreshed(index);
+            public void onResponse(final Call<Item> call, final Response<Item> response) {
+                final Item item = response.body();
+                itemMap.put(item.itemId(), item);
+                itemRefreshCallback.itemRefreshed(index);
             }
 
             @Override
-            public void onFailure(final Call<Story> call, final Throwable t) {
+            public void onFailure(final Call<Item> call, final Throwable t) {
                 FyzLog.d(call.request().url().toString());
                 FyzLog.d(t.getMessage());
                 throw new UnsupportedOperationException("onFailure not implemented");
@@ -72,11 +72,10 @@ public class Stories {
         });
     }
 
-    private boolean shouldRefreshStory( final Story story, final StoryRefreshCallback storyRefreshCallback) {
-        return !isValidStory(story) && storyRefreshCallback != null;
+    private boolean shouldRefreshItem(final Item item, final ItemRefreshCallback itemRefreshCallback) {
+        return !isValidItem(item) && itemRefreshCallback != null;
     }
-    private boolean isValidStory(final Story story){
-        return story != null && !NullStory.equals(story);
+    private boolean isValidItem(final Item item){
+        return item != null && item.isValidType();
     }
-
 }

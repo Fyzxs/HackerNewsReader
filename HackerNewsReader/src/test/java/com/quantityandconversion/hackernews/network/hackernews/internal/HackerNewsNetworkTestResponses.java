@@ -26,10 +26,10 @@ public class HackerNewsNetworkTestResponses {
         new HackerNewsNetwork(mockWebServer.url("/"));
     }
 
-    public List<Long> simpleStoryIdList(final MockWebServer mockWebServer) {
-        return simpleStoryIdList(mockWebServer, new Builder());
+    public List<Long> simpleItemIdList(final MockWebServer mockWebServer) {
+        return simpleItemIdList(mockWebServer, new Builder());
     }
-    public List<Long> simpleStoryIdList(final MockWebServer mockWebServer, final Builder builder) {
+    public List<Long> simpleItemIdList(final MockWebServer mockWebServer, final Builder builder) {
         final Builder other = new Builder();
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)

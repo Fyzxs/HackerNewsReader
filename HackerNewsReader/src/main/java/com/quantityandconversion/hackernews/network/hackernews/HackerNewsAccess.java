@@ -12,7 +12,7 @@ public class HackerNewsAccess {
         new HackerNewsNetwork().topStories().enqueue(callback);
     }
 
-    public void story(final ItemId itemId, final Callback<Story> callback) {
-        new HackerNewsNetwork().story(itemId).enqueue(callback);
+    public void item(final ItemId itemId, final Callback<Item> callback) {
+        new HackerNewsNetwork().item(itemId).enqueue(callback);
     }
 }

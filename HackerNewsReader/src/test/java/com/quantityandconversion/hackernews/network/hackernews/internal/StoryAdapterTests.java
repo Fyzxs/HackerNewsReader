@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class StoryAdapterTests extends QacTestClass {
     @Test
     public void storyFromJsonThrowsStoryJson() {
-        assertThatThrownBy(() -> new StoryAdapter().storyFromJson(null))
+        assertThatThrownBy(() -> new ItemAdapter().itemFromJson(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("can not be null");
     }
@@ -28,14 +28,14 @@ public class StoryAdapterTests extends QacTestClass {
         final int expectedComments = RandomValues.nextInt(1000);
         final long expectedTime = RandomValues.nextLongAbs();
 
-        final StoryJson storyJson = new StoryJson();
-        storyJson.id = expectedId;
-        storyJson.title = expectedTitle;
-        storyJson.type = "story";
-        storyJson.by = expectedAuthor;
-        storyJson.score = expectedScore;
-        storyJson.time = expectedTime;
-        storyJson.descendants = expectedComments;
+        final ItemJson itemJson = new ItemJson();
+        itemJson.id = expectedId;
+        itemJson.title = expectedTitle;
+        itemJson.type = "story";
+        itemJson.by = expectedAuthor;
+        itemJson.score = expectedScore;
+        itemJson.time = expectedTime;
+        itemJson.descendants = expectedComments;
 
 
         final Story expectedStory = new Story(
@@ -46,7 +46,7 @@ public class StoryAdapterTests extends QacTestClass {
                 StoryScore.NullStoryScore,
                 PostTime.NullPostTime);
 
-        final Story targetStory = new StoryAdapter().storyFromJson(storyJson);
+        final Story targetStory = (Story) new ItemAdapter().itemFromJson(itemJson);
 
         //id
         assertThat(targetStory).isEqualTo(expectedStory);
@@ -65,7 +65,7 @@ public class StoryAdapterTests extends QacTestClass {
         targetStory.scoreInto(item);
         assertThat(item.getText()).isEqualTo(Integer.toString(expectedScore));
 
-        //time - Since this is time; there's a change this will fail when the time doesn't match
+        //time - Since this is time; there's a chance this will fail when the time doesn't match
         //perfectly.
         //Which happens. Using some text manipulation to prevent this.
         final DateUtils du = new DateUtils();
@@ -78,7 +78,7 @@ public class StoryAdapterTests extends QacTestClass {
 
     @Test
     public void storyToJson() {
-        assertThatThrownBy(() -> new StoryAdapter().storyToJson(null))
+        assertThatThrownBy(() -> new ItemAdapter().itemToJson(null))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessageContaining("serializing to json not supported");
     }

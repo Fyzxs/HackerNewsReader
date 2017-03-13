@@ -3,18 +3,16 @@ package com.quantityandconversion.hackernews.network.hackernews;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
 import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
 import com.quantityandconversion.hackernews.network.hackernews.internal.PostTime;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryComments;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryScore;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.ood.SetText;
 
-public class Item {
+public abstract class Item {
     private final ItemId itemId;
     private final Title title;
     private final Author author;
     private final PostTime postTime;
 
-    public Item(final ItemId itemId,
+    /* package */ Item(final ItemId itemId,
                 final Title title,
                 final Author author,
                 final PostTime postTime) {
@@ -52,9 +50,21 @@ public class Item {
     }
 
     //I'm very BOOOO on this
-    /* package */ ItemId storyId(){
+    /* package */ ItemId itemId(){
         return itemId;
     }
+
+    /* package */  boolean isValidType(){
+        return itemId.isJobId() || itemId.isStoryId();
+    }
+
+//    public boolean isStory(){
+//        return itemId().isStoryId();
+//    }
+//
+//    public boolean isJob(){
+//        return itemId().isJobId();
+//    }
 
     public void postTimeInto(final SetText item) {
         postTime.postTimeInto(item);

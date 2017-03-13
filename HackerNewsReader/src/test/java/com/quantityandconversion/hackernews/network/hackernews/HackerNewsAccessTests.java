@@ -19,7 +19,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void topStories() throws Exception {
-        final List<Long> storyIds = hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        final List<Long> storyIds = hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         new HackerNewsAccess().topStories(new Callback<Stories>(){
@@ -48,16 +48,16 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
         final Story builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new HackerNewsAccess().story(builtStory.storyId(), new Callback<Story>(){
+        new HackerNewsAccess().item(builtStory.itemId(), new Callback<Item>(){
             @Override
-            public void onResponse(final Call<Story> call, final Response<Story> response) {
+            public void onResponse(final Call<Item> call, final Response<Item> response) {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
                 latch.countDown();
             }
 
             @Override
-            public void onFailure(final Call<Story> call, final Throwable t) {
+            public void onFailure(final Call<Item> call, final Throwable t) {
                 assertThat(call).isNull();
             }
         });

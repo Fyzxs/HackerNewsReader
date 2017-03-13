@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.Job;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.hackernews.network.hackernews.Stories;
 import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.quantityandconversion.test.MockWebServerTestClass;
@@ -31,7 +31,7 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
 
     @Test
     public void topStories() throws IOException {
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final Call<Stories> topStoriesCall = new HackerNewsNetwork().topStories();
         final Stories stories = topStoriesCall.execute().body();
@@ -40,23 +40,12 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
     }
 
     @Test
-    public void story() throws IOException{
+    public void item() throws IOException{
         final Story builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
-        final Call<Story> itemCall = new HackerNewsNetwork().story(ItemId.createStoryId(1L));
-        final Story story = itemCall.execute().body();
+        final Call<Item> itemCall = new HackerNewsNetwork().item(ItemId.createStoryId(1L));
+        final Item story = itemCall.execute().body();
 
         assertThat(story).isEqualTo(builtStory);
-    }
-
-    @Test
-    public void job() throws Exception{
-
-        final Job builtJob = hackerNewsNetworkTestResponses.simpleJob(mockWebServer);
-
-        final Call<Job> itemCall = new HackerNewsNetwork().job(ItemId.createJobId(1L));
-        final Job job = itemCall.execute().body();
-
-        assertThat(job).isEqualTo(builtJob);
     }
 }

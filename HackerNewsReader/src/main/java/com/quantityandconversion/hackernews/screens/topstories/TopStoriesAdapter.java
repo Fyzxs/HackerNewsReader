@@ -11,11 +11,11 @@ import com.quantityandconversion.widget.QacTextView;
 
 /* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
 
-    private final TopStoriesActivityMediator topStoriesActivityMediator;
+    private final TopItemsActivityMediator topItemsActivityMediator;
 
-    /* package */ TopStoriesAdapter(final TopStoriesActivityMediator topStoriesActivityMediator){
-        if(topStoriesActivityMediator == null) {throw new IllegalArgumentException("topStoriesActivityMediator cannot be null"); }
-        this.topStoriesActivityMediator = topStoriesActivityMediator;
+    /* package */ TopStoriesAdapter(final TopItemsActivityMediator topItemsActivityMediator){
+        if(topItemsActivityMediator == null) {throw new IllegalArgumentException("topItemsActivityMediator cannot be null"); }
+        this.topItemsActivityMediator = topItemsActivityMediator;
     }
 
     @Override
@@ -26,7 +26,8 @@ import com.quantityandconversion.widget.QacTextView;
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
-        final Story story = topStoriesActivityMediator.itemAt(position);
+        //Hard code cast - // FIXME: 3/12/17 
+        final Story story = (Story)topItemsActivityMediator.itemAt(position);
         story.titleInto(viewHolder.title);
         story.authorInto(viewHolder.author);
         story.commentCountInto(viewHolder.comments);
@@ -37,7 +38,7 @@ import com.quantityandconversion.widget.QacTextView;
 
     @Override
     public int getItemCount() {
-        return topStoriesActivityMediator.topStoriesSize();
+        return topItemsActivityMediator.topStoriesSize();
     }
 
     /* package */ static class ViewHolder extends RecyclerView.ViewHolder{

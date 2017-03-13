@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-/* package */ final class StoryJson {
+/* package */ final class ItemJson {
     String by;
     long descendants;
     long id;

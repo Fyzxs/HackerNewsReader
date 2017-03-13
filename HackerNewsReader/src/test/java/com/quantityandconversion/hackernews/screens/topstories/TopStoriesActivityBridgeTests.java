@@ -26,7 +26,7 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
     public void loadData() throws InterruptedException {
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
@@ -57,7 +57,7 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
     public void notifyTopStoryChanged() throws InterruptedException {
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);

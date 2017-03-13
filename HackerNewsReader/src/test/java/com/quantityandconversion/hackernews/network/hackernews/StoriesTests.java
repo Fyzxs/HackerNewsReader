@@ -33,21 +33,21 @@ public class StoriesTests extends MockWebServerTestClass {
 
     @Test
     public void storyAt() throws InterruptedException {
-        assertThatThrownBy(() -> new Stories(new ItemId[0]).storyAt(0, null))
+        assertThatThrownBy(() -> new Stories(new ItemId[0]).itemAt(0, null))
                 .isInstanceOf(IndexOutOfBoundsException.class);
 
-        assertThat(new Stories(new ItemId[]{ItemId.createStoryId(12345L)}).storyAt(0, null)).isEqualTo(NullStory);
+        assertThat(new Stories(new ItemId[]{ItemId.createStoryId(12345L)}).itemAt(0, null)).isEqualTo(NullStory);
     }
 
     @Test
     public void storyAtRefresh() throws InterruptedException {
         final Story builtStory = this.hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
         final CountDownLatch latch = new CountDownLatch(1);
-        final Stories stories = new Stories(new ItemId[]{builtStory.storyId()});
-        assertThat(stories.storyAt(0, new Stories.StoryRefreshCallback(){
+        final Stories stories = new Stories(new ItemId[]{builtStory.itemId()});
+        assertThat(stories.itemAt(0, new Stories.ItemRefreshCallback(){
 
             @Override
-            public void storyRefreshed(int index) {
+            public void itemRefreshed(int index) {
                 assertThat(index).isEqualTo(0);
                 latch.countDown();
             }
@@ -55,6 +55,6 @@ public class StoriesTests extends MockWebServerTestClass {
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
 
-        assertThat(stories.storyAt(0, null)).isEqualTo(builtStory);
+        assertThat(stories.itemAt(0, null)).isEqualTo(builtStory);
     }
 }

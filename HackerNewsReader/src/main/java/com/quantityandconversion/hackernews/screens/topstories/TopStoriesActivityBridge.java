@@ -6,18 +6,18 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 /* package */ class TopStoriesActivityBridge {
 
     private final TopStoriesActivity topStoriesActivity;
-    private final TopStoriesActivityMediator topStoriesActivityMediator;
+    private final TopItemsActivityMediator topItemsActivityMediator;
 
     /* package */ TopStoriesActivityBridge(final TopStoriesActivity topStoriesActivity) {
         if (topStoriesActivity == null) {
             throw new IllegalArgumentException("topStoriesActivity can not be null");
         }
         this.topStoriesActivity = topStoriesActivity;
-        this.topStoriesActivityMediator = new TopStoriesActivityMediator(this);
+        this.topItemsActivityMediator = new TopItemsActivityMediator(this);
     }
 
     /* package */ void loadData() {
-        topStoriesActivityMediator.loadTopStoriesData();
+        topItemsActivityMediator.loadTopStoriesData();
     }
 
     /* package */ void notifyTopStoryChanged(final int index){
@@ -25,7 +25,7 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
     }
 
     /* package */  TopStoriesAdapter createTopStoriesAdapter() {
-        return new TopStoriesAdapter(topStoriesActivityMediator);
+        return new TopStoriesAdapter(topItemsActivityMediator);
     }
 
     /* package */ static abstract class DataLoadStrategy{

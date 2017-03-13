@@ -9,11 +9,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/* package */ class TopStoriesActivityMediator {
+/* package */ class TopItemsActivityMediator {
     private final TopStoriesActivityBridge topStoriesActivityBridge;
     private Stories topItems;
 
-    /* package */ TopStoriesActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
+    /* package */ TopItemsActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
         if(topStoriesActivityBridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
         this.topStoriesActivityBridge = topStoriesActivityBridge;
     }
@@ -24,7 +24,7 @@ import retrofit2.Response;
 
     /* package */ Item itemAt(final int index) {
         if (topItems == null) { return Story.NullStory; }
-        return topItems.storyAt(index, topStoriesActivityBridge::notifyTopStoryChanged);
+        return topItems.itemAt(index, topStoriesActivityBridge::notifyTopStoryChanged);
     }
 
     /* package */ void loadTopStoriesData() {

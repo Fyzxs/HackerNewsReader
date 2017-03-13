@@ -20,7 +20,7 @@ public class TopStoriesAdapterTests extends QacTestClass {
 
     @Test
     public void onCreateViewHolderThrowsBecauseStub(){
-        final TopStoriesActivityMediator fake = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class)));
+        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class)));
         assertThatThrownBy(() -> new TopStoriesAdapter(fake).onCreateViewHolder(Mockito.mock(ViewGroup.class), 0))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("Method from in android.view.LayoutInflater not mocked. See http://g.co/androidstudio/not-mocked for details.");
@@ -30,14 +30,14 @@ public class TopStoriesAdapterTests extends QacTestClass {
     public void ctor(){
         assertThatThrownBy(() -> new TopStoriesAdapter(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("topStoriesActivityMediator");
+                .hasMessageContaining("topItemsActivityMediator");
     }
 
 
     @Test
     public void getItemCount(){
         final int val = RandomValues.nextInt(100);
-        final TopStoriesActivityMediator fake = new TopStoriesActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class))){
+        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class))){
             @Override
             int topStoriesSize() {
                 return val;
@@ -48,7 +48,7 @@ public class TopStoriesAdapterTests extends QacTestClass {
 
 
     @Test
-    public void onBindViewHolder(){
+    public void onBindViewHolderShouldSetStory(){
 
         final int position = RandomValues.nextInt(1000);
 
@@ -97,12 +97,12 @@ public class TopStoriesAdapterTests extends QacTestClass {
             }
         }
         //Prep View
-        
+
         //BEG Prep Adapter
         final TopStoriesAdapter.ViewHolder viewHolder = new TopStoriesAdapter.ViewHolder(mockView);
         //>
-        final TopStoriesActivityMediator mockTopStoriesActivityMediator = Mockito.mock(TopStoriesActivityMediator.class);
-        Mockito.when(mockTopStoriesActivityMediator.itemAt(position)).thenReturn(
+        final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
+        Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(
                 new StoryBuilder()
                         .setTitle(titleExpected)
                         .setAuthor(authorExpected)
@@ -111,13 +111,13 @@ public class TopStoriesAdapterTests extends QacTestClass {
                         .setPostTime(Integer.parseInt(postedTimeExpected))
                         .buildStory());
         //>
-        final TopStoriesAdapter topStoriesAdapter = new TopStoriesAdapter(mockTopStoriesActivityMediator);
+        final TopStoriesAdapter topStoriesAdapter = new TopStoriesAdapter(mockTopItemsActivityMediator);
         //END Prep Adapter
 
 
         //Act
         topStoriesAdapter.onBindViewHolder(viewHolder, position);
-        
+
         //Assert
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
         assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
@@ -125,5 +125,64 @@ public class TopStoriesAdapterTests extends QacTestClass {
         assertThat(scoreCaptor.getValue()).isEqualTo(scoreExpected);
         assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
     }
+//    @Test
+//    public void onBindViewHolderShouldSetJob(){
+//
+//        final int position = RandomValues.nextInt(1000);
+//
+//        final String titleExpected = RandomValues.alphaNumeric(50);
+//        final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
+//
+//        final String authorExpected = RandomValues.alphaNumeric(50);
+//        final ArgumentCaptor<CharSequence> authorCaptor = ArgumentCaptor.forClass(CharSequence.class);
+//
+//        final String postedTimeExpected = Integer.toString(RandomValues.nextInt(1000));
+//        final ArgumentCaptor<CharSequence> postedTimeCaptor = ArgumentCaptor.forClass(CharSequence.class);
+//
+//        //Prep View
+//        final View mockView = Mockito.mock(View.class);
+//        {
+//
+//            {
+//                final QacTextView postedTimeView = Mockito.mock(QacTextView.class);
+//                Mockito.doNothing().when(postedTimeView).setText(postedTimeCaptor.capture());
+//                Mockito.when(mockView.findViewById(R.id.tv_posted_time)).thenReturn(postedTimeView);
+//            }
+//            {
+//                final QacTextView titleView = Mockito.mock(QacTextView.class);
+//                Mockito.doNothing().when(titleView).setText(titleCaptor.capture());
+//                Mockito.when(mockView.findViewById(R.id.tv_title)).thenReturn(titleView);
+//            }
+//
+//            {
+//                final QacTextView authorView = Mockito.mock(QacTextView.class);
+//                Mockito.doNothing().when(authorView).setText(authorCaptor.capture());
+//                Mockito.when(mockView.findViewById(R.id.tv_posted_by)).thenReturn(authorView);
+//            }
+//        }
+//        //Prep View
+//
+//        //BEG Prep Adapter
+//        final TopStoriesAdapter.ViewHolder viewHolder = new TopStoriesAdapter.ViewHolder(mockView);
+//        //>
+//        final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
+//        Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(
+//                new JobBuilder()
+//                        .setTitle(titleExpected)
+//                        .setAuthor(authorExpected)
+//                        .setPostTime(Integer.parseInt(postedTimeExpected))
+//                        .buildJob());
+//        //>
+//        final TopStoriesAdapter topStoriesAdapter = new TopStoriesAdapter(mockTopItemsActivityMediator);
+//        //END Prep Adapter
+//
+//        //Act
+//        topStoriesAdapter.onBindViewHolder(viewHolder, position);
+//
+//        //Assert
+//        assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
+//        assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
+//        assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
+//    }
 
 }

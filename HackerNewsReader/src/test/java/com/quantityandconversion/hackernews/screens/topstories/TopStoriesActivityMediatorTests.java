@@ -20,19 +20,19 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
     @Test
     public void constructor(){
 
-        assertThatThrownBy(() -> new TopStoriesActivityMediator(null))
+        assertThatThrownBy(() -> new TopItemsActivityMediator(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("topStoriesActivityBridge");
 
-        new TopStoriesActivityMediator(new TopStoriesActivityBridge(new TopStoriesActivity()));
+        new TopItemsActivityMediator(new TopStoriesActivityBridge(new TopStoriesActivity()));
     }
 
     @Test
     public void loadItemData() throws InterruptedException {
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new TopStoriesActivityMediator(
+        new TopItemsActivityMediator(
                 new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(latch),
                         Mockito.mock(TopStoriesAdapter.class))).loadTopStoriesData();
 
@@ -40,27 +40,27 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
     }
     @Test
     public void topStoriesSize(){
-        assertThat(new TopStoriesActivityMediator(
+        assertThat(new TopItemsActivityMediator(
                 new TopStoriesActivityBridge(new TopStoriesActivity()))
                 .topStoriesSize()).isEqualTo(0);
     }
 
     @Test
     public void storyAtShouldReturnNullStoryForInvalidIndex() throws InterruptedException {
-        assertThat(new TopStoriesActivityMediator(
+        assertThat(new TopItemsActivityMediator(
                 new TopStoriesActivityBridge(new TopStoriesActivity()))
                 .itemAt(-1)).isEqualTo(NullStory);
     }
     @Test
-    public void storyAtShouldReturnStory() throws InterruptedException {
+    public void itemAtShouldReturnStory() throws InterruptedException {
 
         final HackerNewsNetworkTestResponses.Builder builder = new HackerNewsNetworkTestResponses.Builder();
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer, builder);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer, builder);
 
         final Story simpleStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer, builder);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final TopStoriesActivityMediator mediator = new TopStoriesActivityMediator(
+        final TopItemsActivityMediator mediator = new TopItemsActivityMediator(
                 new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(latch),
                         Mockito.mock(TopStoriesAdapter.class)));
         mediator.loadTopStoriesData();
@@ -68,21 +68,22 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
 
         assertThat(mediator.itemAt(0)).isEqualTo(Story.NullStory);
-        Thread.sleep(100);//Sleeping so the fake network can update
+        Thread.sleep(500);//Sleeping so the fake network can update
         final Item actualItem = mediator.itemAt(0);
         assertThat(actualItem).isEqualTo(simpleStory);
         assertThat(actualItem.getClass()).isEqualTo(Story.class);
     }
+
     @Test
-    public void storyAtShouldReturnItem() throws InterruptedException {
+    public void itemAtShouldReturnJob() throws InterruptedException {
 
         final HackerNewsNetworkTestResponses.Builder builder = new HackerNewsNetworkTestResponses.Builder();
-        hackerNewsNetworkTestResponses.simpleStoryIdList(mockWebServer, builder);
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer, builder);
 
         final Job simpleJob = hackerNewsNetworkTestResponses.simpleJob(mockWebServer, builder);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final TopStoriesActivityMediator mediator = new TopStoriesActivityMediator(
+        final TopItemsActivityMediator mediator = new TopItemsActivityMediator(
                 new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(latch),
                         Mockito.mock(TopStoriesAdapter.class)));
         mediator.loadTopStoriesData();
@@ -90,7 +91,7 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
 
         assertThat(mediator.itemAt(0)).isEqualTo(Story.NullStory);
-        Thread.sleep(100);//Sleeping so the fake network can update
+        Thread.sleep(500);//Sleeping so the fake network can update
         final Item actualItem = mediator.itemAt(0);
         assertThat(actualItem).isEqualTo(simpleJob);
         assertThat(actualItem.getClass()).isEqualTo(Job.class);
