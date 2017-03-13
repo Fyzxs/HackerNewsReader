@@ -1,13 +1,14 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.hackernews.network.hackernews.Items;
-import com.quantityandconversion.utils.network.LoggingInterceptor;
 import com.squareup.moshi.Moshi;
 
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -16,15 +17,18 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 public class HackerNewsNetwork {
 
     private static HttpUrl serverUrl = null;
+    private static Interceptor interceptorObj = null;
 
     public HackerNewsNetwork() {
         if(serverUrl != null) return;
         serverUrl = HttpUrl.parse(HackerNewsApi.URL);
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    public HackerNewsNetwork(final HttpUrl url) {
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    /* package */ HackerNewsNetwork(final HttpUrl url, final Interceptor interceptor) {
         serverUrl = url;
+        interceptorObj = interceptor;
     }
 
     public Call<Items> topStories() {
@@ -51,10 +55,17 @@ public class HackerNewsNetwork {
         }
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
-                .client(new OkHttpClient().newBuilder().addInterceptor(new LoggingInterceptor()).build())
+                .client(getClient())
                 .addConverterFactory(MoshiConverterFactory.create(moshiBuilder.build()))
                 .build()
                 .create(HackerNewsApi.class);
+    }
+
+    @NonNull
+    private OkHttpClient getClient() {
+        return interceptorObj == null
+                ? new OkHttpClient()
+                : new OkHttpClient().newBuilder().addInterceptor(interceptorObj).build();
     }
 
 }

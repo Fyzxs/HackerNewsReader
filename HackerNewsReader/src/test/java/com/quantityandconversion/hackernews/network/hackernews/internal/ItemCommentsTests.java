@@ -31,7 +31,7 @@ public class ItemCommentsTests {
     @Test
     public void commentCountIntoSetsValue() throws InterruptedException {
         final AsyncFakeSetText item = new AsyncFakeSetText();
-        final long rand = RandomValues.nextLong();
+        final long rand = RandomValues.nextLongAbs();
         new ItemComments(rand).commentCountInto(item);
 
         assertThat(item.getText()).isEqualTo(rand + " comments");

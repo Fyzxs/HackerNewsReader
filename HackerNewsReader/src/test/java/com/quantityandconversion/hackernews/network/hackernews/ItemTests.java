@@ -160,7 +160,7 @@ public class ItemTests extends QacTestClass {
     public void createItemShouldThrowIllegalArgumentExceptionGivenNonItemId(){
         assertThatThrownBy(() -> Item.createStory(ItemId.NullItemId, null, null, null, null, null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Story must have a item id");
+                .hasMessageContaining("Story must have a story id");
     }
 
     @Test

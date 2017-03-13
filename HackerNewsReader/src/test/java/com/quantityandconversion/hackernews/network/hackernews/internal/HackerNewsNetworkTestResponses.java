@@ -2,6 +2,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.test.utils.RandomValues;
+import com.quantityandconversion.utils.network.LoggingInterceptor;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class HackerNewsNetworkTestResponses {
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(""));
 
-        new HackerNewsNetwork(mockWebServer.url("/"));
+        new HackerNewsNetwork(mockWebServer.url("/"), new LoggingInterceptor());
     }
 
     public List<Long> simpleItemIdList(final MockWebServer mockWebServer) {
@@ -34,7 +35,7 @@ public class HackerNewsNetworkTestResponses {
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody("[" + builder.itemId + "," + other.itemId + "]"));
 
-        new HackerNewsNetwork(mockWebServer.url("/"));
+        new HackerNewsNetwork(mockWebServer.url("/"), new LoggingInterceptor());
 
         return new ArrayList<Long>() {{
             add(builder.itemId);
@@ -51,7 +52,7 @@ public class HackerNewsNetworkTestResponses {
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(storyBuilder.setStoryId(builder.itemId).buildJson()));
 
-        new HackerNewsNetwork(mockWebServer.url("/"));
+        new HackerNewsNetwork(mockWebServer.url("/"), new LoggingInterceptor());
 
         return storyBuilder.buildStory();
     }
@@ -66,7 +67,7 @@ public class HackerNewsNetworkTestResponses {
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(jobBuilder.setItemId(builder.itemId).buildJson()));
 
-        new HackerNewsNetwork(mockWebServer.url("/"));
+        new HackerNewsNetwork(mockWebServer.url("/"), new LoggingInterceptor());
 
         return jobBuilder.buildJob();
     }

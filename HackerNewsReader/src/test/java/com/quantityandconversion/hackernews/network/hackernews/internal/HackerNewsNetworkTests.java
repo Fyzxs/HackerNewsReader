@@ -3,6 +3,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.hackernews.network.hackernews.Items;
 import com.quantityandconversion.test.MockWebServerTestClass;
+import com.quantityandconversion.utils.network.LoggingInterceptor;
 
 import org.junit.Test;
 
@@ -19,12 +20,12 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
 
     @Test
     public void constructorHandlesNull(){
-        new HackerNewsNetwork(null);
+        new HackerNewsNetwork(null, new LoggingInterceptor());
         new HackerNewsNetwork();
     }
     @Test
     public void constructorHandlesMockUrl(){
-        new HackerNewsNetwork(mockWebServer.url("/"));
+        new HackerNewsNetwork(mockWebServer.url("/"), new LoggingInterceptor());
         new HackerNewsNetwork();
     }
 

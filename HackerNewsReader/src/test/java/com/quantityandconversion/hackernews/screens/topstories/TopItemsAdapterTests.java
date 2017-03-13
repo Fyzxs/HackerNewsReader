@@ -201,7 +201,7 @@ public class TopItemsAdapterTests extends QacTestClass {
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
         assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
         assertThat(commentsCaptor.getValue()).isEqualTo(Strings.Empty);
-        assertThat(scoreCaptor.getValue()).isEqualTo(scoreExpected);
+        assertThat(scoreCaptor.getValue()).isEqualTo(Strings.Empty);
         assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
     }
 
