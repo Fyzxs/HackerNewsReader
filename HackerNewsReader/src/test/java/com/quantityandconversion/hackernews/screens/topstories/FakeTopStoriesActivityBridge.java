@@ -4,13 +4,13 @@ import java.util.concurrent.CountDownLatch;
 
 class FakeTopStoriesActivityBridge extends TopStoriesActivityBridge {
 
-    private final TopStoriesAdapter topStoriesAdapter;
+    private final TopItemsAdapter topItemsAdapter;
     private TopStoriesActivity topStoriesActivity;
     private CountDownLatch latch;
 
-    /* package */ FakeTopStoriesActivityBridge(final TopStoriesActivity topStoriesActivity, final TopStoriesAdapter topStoriesAdapter) {
+    /* package */ FakeTopStoriesActivityBridge(final TopStoriesActivity topStoriesActivity, final TopItemsAdapter topItemsAdapter) {
         super(topStoriesActivity);
-        this.topStoriesAdapter = topStoriesAdapter;
+        this.topItemsAdapter = topItemsAdapter;
     }
 
     /* package */ void setActualTopStoriesActivity(final TopStoriesActivity topStoriesActivity){
@@ -28,9 +28,9 @@ class FakeTopStoriesActivityBridge extends TopStoriesActivityBridge {
     }
 
     @Override
-    /* package */ TopStoriesAdapter createTopStoriesAdapter() {
+    /* package */ TopItemsAdapter createTopStoriesAdapter() {
         countDownLatch();
-        return topStoriesAdapter;
+        return topItemsAdapter;
     }
 
     private void countDownLatch(){

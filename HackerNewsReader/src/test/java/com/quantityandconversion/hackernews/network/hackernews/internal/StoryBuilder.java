@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.test.utils.RandomValues;
 
 import java.util.Locale;
@@ -48,13 +48,12 @@ public class StoryBuilder {
         return String.format(Locale.US, jsonFormat, postTime, storyScore, storyId, title, author, commentCount);
     }
 
-    public Story buildStory(){
-        final ItemId itemIdClass = ItemId.createStoryId(storyId);
-        return new Story(itemIdClass,
+    public Item buildStory(){
+        return Item.createStory(ItemId.createStoryId(storyId),
                 new Title(title),
                 new Author(author),
-                new StoryComments(commentCount),
-                new StoryScore(storyScore),
+                new ItemComments(commentCount),
+                new ItemScore(storyScore),
                 new PostTime(postTime));
     }
 }

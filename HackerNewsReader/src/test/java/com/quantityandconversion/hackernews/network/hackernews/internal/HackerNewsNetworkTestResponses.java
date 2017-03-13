@@ -1,7 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.Job;
-import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.test.utils.RandomValues;
 
 import java.net.HttpURLConnection;
@@ -42,10 +41,10 @@ public class HackerNewsNetworkTestResponses {
             add(other.itemId);
         }};
     }
-    public Story simpleStory(final MockWebServer mockWebServer) {
+    public Item simpleStory(final MockWebServer mockWebServer) {
         return simpleStory(mockWebServer, new Builder());
     }
-    public Story simpleStory(final MockWebServer mockWebServer, final Builder builder){
+    public Item simpleStory(final MockWebServer mockWebServer, final Builder builder){
         final StoryBuilder storyBuilder = new StoryBuilder();
 
         mockWebServer.enqueue(new MockResponse()
@@ -57,10 +56,10 @@ public class HackerNewsNetworkTestResponses {
         return storyBuilder.buildStory();
     }
 
-    public Job simpleJob(final MockWebServer mockWebServer) {
+    public Item simpleJob(final MockWebServer mockWebServer) {
         return simpleJob(mockWebServer, new Builder());
     }
-    public Job simpleJob(final MockWebServer mockWebServer, final Builder builder){
+    public Item simpleJob(final MockWebServer mockWebServer, final Builder builder){
         final JobBuilder jobBuilder = new JobBuilder();
 
         mockWebServer.enqueue(new MockResponse()

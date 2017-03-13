@@ -6,10 +6,10 @@ import com.quantityandconversion.ood.SimpleWrapper;
  * Two Id's of different "Types" will be equal. The Slug is a helper; not decider.
  */
 public class ItemId extends SimpleWrapper<Long> {
-    public final static ItemId NULL_ITEM_ID = new ItemId(-1L, null);
-    private final static Object ITEM_ID = new Object();
-    private final static Object STORY_ID = new Object();
-    private final static Object JOB_ID = new Object();
+    public final static ItemId NullItemId = new ItemId(-1L, null);
+    private final static Object ItemId = new Object();
+    private final static Object StoryId = new Object();
+    private final static Object JobId = new Object();
 
     private final Object slug;
 
@@ -19,7 +19,7 @@ public class ItemId extends SimpleWrapper<Long> {
     }
 
     public static ItemId createStoryId(final long id){
-        return new ItemId(id, STORY_ID);
+        return new ItemId(id, StoryId);
     }
 
     /* package */ long idAsLong(){
@@ -27,21 +27,21 @@ public class ItemId extends SimpleWrapper<Long> {
     }
 
     public boolean isStoryId() {
-        return slug == STORY_ID;
+        return slug == StoryId;
     }
 
     public static ItemId createJobId(final long id) {
-        return new ItemId(id, JOB_ID);
+        return new ItemId(id, JobId);
     }
 
     public static ItemId createUnknownId(final long id) {
-        return new ItemId(id, ITEM_ID);
+        return new ItemId(id, ItemId);
     }
 
     public boolean isJobId() {
-        return slug == JOB_ID;
+        return slug == JobId;
     }
     public boolean isUnknownId() {
-        return slug == ITEM_ID;
+        return slug == ItemId;
     }
 }

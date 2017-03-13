@@ -2,10 +2,10 @@ package com.quantityandconversion.hackernews.network.hackernews;
 
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.Author;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemComments;
 import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
+import com.quantityandconversion.hackernews.network.hackernews.internal.ItemScore;
 import com.quantityandconversion.hackernews.network.hackernews.internal.PostTime;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryComments;
-import com.quantityandconversion.hackernews.network.hackernews.internal.StoryScore;
 import com.quantityandconversion.hackernews.network.hackernews.internal.Title;
 import com.quantityandconversion.hackernews.network.hackernews.internal.TitleTests;
 import com.quantityandconversion.test.AsyncFakeSetText;
@@ -24,60 +24,60 @@ public class ItemTests extends QacTestClass {
     private final static ItemId ITEM_ID_TWO = ItemId.createStoryId(2L);
     private final static Title TitleOne = TitleTests.TitleOne;
     private final static Title TitleTwo = TitleTests.TitleTwo;
-    private final static Story StoryOne = new Story(ITEM_ID_ONE,
+    private final static Item ItemOne = new Item(ITEM_ID_ONE,
             TitleOne,
             new Author("That_Guy"),
-            StoryComments.NullStoryComments,
-            StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryOneDiff = new Story(ITEM_ID_ONE,
+            ItemComments.NullItemComments,
+            ItemScore.NullItemScore, PostTime.NullPostTime);
+    private final static Item ItemOneDiff = new Item(ITEM_ID_ONE,
             TitleOne,
             new Author("That_Guy"),
-            StoryComments.NullStoryComments,
-            StoryScore.NullStoryScore, PostTime.NullPostTime);
-    private final static Story StoryTwo = new Story(ITEM_ID_TWO,
+            ItemComments.NullItemComments,
+            ItemScore.NullItemScore, PostTime.NullPostTime);
+    private final static Item ItemTwo = new Item(ITEM_ID_TWO,
             TitleTwo,
             new Author("That_Guy"),
-            StoryComments.NullStoryComments,
-            StoryScore.NullStoryScore, PostTime.NullPostTime);
+            ItemComments.NullItemComments,
+            ItemScore.NullItemScore, PostTime.NullPostTime);
 
     @Test
-    public void constructorThrowsForNullStoryId(){
-        assertThatThrownBy(() -> new Story(null,
+    public void constructorThrowsForNullItemId(){
+        assertThatThrownBy(() -> new Item(null,
                 TitleOne,
                 new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
+                ItemComments.NullItemComments,
+                ItemScore.NullItemScore, PostTime.NullPostTime))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("itemId can not be null");
     }
     @Test
     public void constructorThrowsForNullTitle(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
+        assertThatThrownBy(() -> new Item(ITEM_ID_ONE,
                 null,
                 new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
+                ItemComments.NullItemComments,
+                ItemScore.NullItemScore, PostTime.NullPostTime))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("title can not be null");
     }
     @Test
     public void constructorThrowsForNullAuthor(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
+        assertThatThrownBy(() -> new Item(ITEM_ID_ONE,
                 TitleOne,
                 null,
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore, PostTime.NullPostTime))
+                ItemComments.NullItemComments,
+                ItemScore.NullItemScore, PostTime.NullPostTime))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("author can not be null");
     }
 
     @Test
     public void constructorThrowsForNullPostTime(){
-        assertThatThrownBy(() -> new Story(ITEM_ID_ONE,
+        assertThatThrownBy(() -> new Item(ITEM_ID_ONE,
                 TitleOne,
                 new Author("That_Guy"),
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore,
+                ItemComments.NullItemComments,
+                ItemScore.NullItemScore,
                 null))
 
                 .isInstanceOf(IllegalArgumentException.class)
@@ -86,34 +86,34 @@ public class ItemTests extends QacTestClass {
 
     @Test
     public void equalsSameInstance(){
-        assertThat(StoryOne).isEqualTo(StoryOne);
+        assertThat(ItemOne).isEqualTo(ItemOne);
     }
     @Test
     public void equalsSameValue(){
-        assertThat(StoryOne).isEqualTo(StoryOneDiff);
+        assertThat(ItemOne).isEqualTo(ItemOneDiff);
     }
     @Test
     public void equalsDifferentValue(){
-        assertThat(StoryOne).isNotEqualTo(StoryTwo);
+        assertThat(ItemOne).isNotEqualTo(ItemTwo);
     }
 
     @Test
     public void hashSameInstance(){
-        assertThat(StoryOne.hashCode()).isEqualTo(StoryOne.hashCode());
+        assertThat(ItemOne.hashCode()).isEqualTo(ItemOne.hashCode());
     }
     @Test
     public void hashSameValue(){
-        assertThat(StoryOne.hashCode()).isEqualTo(StoryOneDiff.hashCode());
+        assertThat(ItemOne.hashCode()).isEqualTo(ItemOneDiff.hashCode());
     }
     @Test
     public void hashDifferentValue(){
-        assertThat(StoryOne.hashCode()).isNotEqualTo(StoryTwo.hashCode());
+        assertThat(ItemOne.hashCode()).isNotEqualTo(ItemTwo.hashCode());
     }
 
     @Test
     public void titleInto() throws InterruptedException {
         final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.titleInto(fakeSetText);
+        ItemOne.titleInto(fakeSetText);
 
         assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
     }
@@ -121,7 +121,7 @@ public class ItemTests extends QacTestClass {
     @Test
     public void authorInto() throws InterruptedException {
         final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.authorInto(fakeSetText);
+        ItemOne.authorInto(fakeSetText);
 
         assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
     }
@@ -129,7 +129,58 @@ public class ItemTests extends QacTestClass {
     @Test
     public void postTimeInto() throws InterruptedException{
         final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
-        StoryOne.postTimeInto(fakeSetText);
+        ItemOne.postTimeInto(fakeSetText);
         assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void commentCountInto() throws InterruptedException {
+        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
+        ItemOne.commentCountInto(fakeSetText);
+
+        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void scoreInto() throws InterruptedException{
+        final AsyncFakeSetText fakeSetText = new AsyncFakeSetText();
+        ItemOne.scoreInto(fakeSetText);
+
+        assertThat(fakeSetText.await(1, TimeUnit.SECONDS)).isTrue();
+    }
+
+    @Test
+    public void createJobShouldThrowIllegalArgumentExceptionGivenNonJobId(){
+        assertThatThrownBy(() -> Item.createJob(ItemId.NullItemId, null, null, null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Job must have a job id");
+    }
+
+    @Test
+    public void createItemShouldThrowIllegalArgumentExceptionGivenNonItemId(){
+        assertThatThrownBy(() -> Item.createStory(ItemId.NullItemId, null, null, null, null, null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Story must have a item id");
+    }
+
+    @Test
+    public void createItemShouldThrowsForNullItemComments(){
+        assertThatThrownBy(() -> Item.createStory(ITEM_ID_ONE,
+                TitleOne,
+                new Author("That_Guy"),
+                null,
+                ItemScore.NullItemScore, PostTime.NullPostTime))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("itemComments can not be null");
+    }
+    @Test
+    public void createItemShouldThrowsForNullItemScore(){
+        assertThatThrownBy(() -> Item.createStory(ITEM_ID_ONE,
+                TitleOne,
+                new Author("That_Guy"),
+                ItemComments.NullItemComments,
+                null, PostTime.NullPostTime))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("itemScore can not be null");
     }
 }

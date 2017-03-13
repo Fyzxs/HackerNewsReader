@@ -3,8 +3,6 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 import android.support.annotation.NonNull;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
-import com.quantityandconversion.hackernews.network.hackernews.Job;
-import com.quantityandconversion.hackernews.network.hackernews.Story;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -24,22 +22,19 @@ import com.squareup.moshi.ToJson;
     }
 
     private Item createJob(final ItemJson itemJson) {
-
-        final ItemId itemId = ItemId.createJobId(itemJson.id);
-        return new Job(itemId,
+        return Item.createJob(ItemId.createJobId(itemJson.id),
                 new Title(itemJson.title),
                 new Author(itemJson.by),
                 new PostTime(itemJson.time));
     }
 
     @NonNull
-    private Story createStory(final ItemJson itemJson) {
-        final ItemId itemId = ItemId.createStoryId(itemJson.id);
-        return new Story(itemId,
+    private Item createStory(final ItemJson itemJson) {
+        return Item.createStory(ItemId.createStoryId(itemJson.id),
                 new Title(itemJson.title),
                 new Author(itemJson.by),
-                new StoryComments(itemJson.descendants),
-                new StoryScore(itemJson.score),
+                new ItemComments(itemJson.descendants),
+                new ItemScore(itemJson.score),
                 new PostTime(itemJson.time));
     }
 

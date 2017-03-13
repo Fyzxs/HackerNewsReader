@@ -72,7 +72,7 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
         final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
 
-        final TopStoriesAdapter adapter = topStoriesActivityBridge.createTopStoriesAdapter();
+        final TopItemsAdapter adapter = topStoriesActivityBridge.createTopStoriesAdapter();
 
         assertThat(adapter).isNotNull();
     }

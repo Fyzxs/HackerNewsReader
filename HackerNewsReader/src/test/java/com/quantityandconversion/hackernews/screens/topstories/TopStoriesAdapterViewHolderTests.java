@@ -20,7 +20,7 @@ public class TopStoriesAdapterViewHolderTests extends QacTestClass{
     public void ctor(){
         Mockito.when(mockView.findViewById(anyInt())).thenReturn(mockQacTextView);
 
-        new TopStoriesAdapter.ViewHolder(mockView);
+        new TopItemsAdapter.ViewHolder(mockView);
 
         Mockito.verify(mockView).findViewById(R.id.tv_title);
         Mockito.verify(mockView).findViewById(R.id.tv_score_value);

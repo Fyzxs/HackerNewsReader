@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.quantityandconversion.hackernews.R;
-import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.widget.QacTextView;
 
-/* package */ class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ViewHolder> {
+/* package */ class TopItemsAdapter extends RecyclerView.Adapter<TopItemsAdapter.ViewHolder> {
 
     private final TopItemsActivityMediator topItemsActivityMediator;
 
-    /* package */ TopStoriesAdapter(final TopItemsActivityMediator topItemsActivityMediator){
+    /* package */ TopItemsAdapter(final TopItemsActivityMediator topItemsActivityMediator){
         if(topItemsActivityMediator == null) {throw new IllegalArgumentException("topItemsActivityMediator cannot be null"); }
         this.topItemsActivityMediator = topItemsActivityMediator;
     }
@@ -26,8 +26,10 @@ import com.quantityandconversion.widget.QacTextView;
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
-        //Hard code cast - // FIXME: 3/12/17 
-        final Story story = (Story)topItemsActivityMediator.itemAt(position);
+        final Item item = topItemsActivityMediator.itemAt(position);
+
+
+        final Item story = topItemsActivityMediator.itemAt(position);
         story.titleInto(viewHolder.title);
         story.authorInto(viewHolder.author);
         story.commentCountInto(viewHolder.comments);

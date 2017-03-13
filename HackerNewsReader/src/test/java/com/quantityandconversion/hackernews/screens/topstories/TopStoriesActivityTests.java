@@ -50,7 +50,7 @@ public class TopStoriesActivityTests extends QacTestClass {
 
     @Test
     public void onCreateShouldLoadData(){
-        final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge = new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class));
+        final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge = new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
         final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView);
 
         fakeTopStoriesActivityBridge.setActualTopStoriesActivity(actualTopStoriesActivity);
@@ -80,7 +80,7 @@ public class TopStoriesActivityTests extends QacTestClass {
     public void bindViews() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
         final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge =
-                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class));
+                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
         final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(
                 fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView){
             @Override
@@ -102,7 +102,7 @@ public class TopStoriesActivityTests extends QacTestClass {
     public void onCreateFunctionality() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(4);
         final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge =
-                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopStoriesAdapter.class));
+                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
         fakeTopStoriesActivityBridge.setCountDownLatch(latch);
         final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(
                 fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView){

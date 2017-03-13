@@ -1,7 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
-import com.quantityandconversion.hackernews.network.hackernews.Stories;
+import com.quantityandconversion.hackernews.network.hackernews.Items;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,7 +11,7 @@ import retrofit2.http.Path;
     String URL = "https://hacker-news.firebaseio.com/v0/";
 
     @GET("topstories.json")
-    Call<Stories> topStories();
+    Call<Items> topStories();
 
     @GET("item/{itemId}.json")
     Call<Item> item(@Path("itemId") final long itemId);

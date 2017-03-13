@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.Job;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.test.utils.RandomValues;
 
 import java.util.Locale;
@@ -36,9 +36,8 @@ public class JobBuilder {
         return String.format(Locale.US, jsonFormat, postTime, itemId, title, author);
     }
 
-    public Job buildJob(){
-        final ItemId itemIdClass = ItemId.createJobId(itemId);
-        return new Job(itemIdClass,
+    public Item buildJob(){
+        return Item.createJob(ItemId.createJobId(itemId),
                 new Title(title),
                 new Author(author),
                 new PostTime(postTime));

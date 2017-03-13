@@ -10,9 +10,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.quantityandconversion.hackernews.network.hackernews.Story.NullStory;
-
-public class Stories {
+public class Items {
 
     public interface ItemRefreshCallback{
         void itemRefreshed(final int index);
@@ -20,7 +18,7 @@ public class Stories {
     private final Map<ItemId, Item> itemMap = new HashMap<>();
     private final ItemId[] itemIds;
 
-    public Stories(final ItemId[] itemIds) {
+    public Items(final ItemId[] itemIds) {
         if(itemIds == null) { throw new IllegalArgumentException("itemIds cannot be null"); }
 
         this.itemIds = itemIds;
@@ -30,7 +28,7 @@ public class Stories {
     private void importItemIds() {
         for (final ItemId itemId : itemIds) {
             if(itemId == null){ throw new IllegalArgumentException("itemId cannot be null");}
-            itemMap.put(itemId, NullStory);
+            itemMap.put(itemId, Item.NullItem);
         }
     }
 

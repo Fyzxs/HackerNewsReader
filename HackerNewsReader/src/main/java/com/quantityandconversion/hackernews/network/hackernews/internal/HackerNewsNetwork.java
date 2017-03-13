@@ -3,7 +3,7 @@ package com.quantityandconversion.hackernews.network.hackernews.internal;
 import android.support.annotation.VisibleForTesting;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
-import com.quantityandconversion.hackernews.network.hackernews.Stories;
+import com.quantityandconversion.hackernews.network.hackernews.Items;
 import com.quantityandconversion.utils.network.LoggingInterceptor;
 import com.squareup.moshi.Moshi;
 
@@ -27,7 +27,7 @@ public class HackerNewsNetwork {
         serverUrl = url;
     }
 
-    public Call<Stories> topStories() {
+    public Call<Items> topStories() {
         return hackerNewsApiTopStories().topStories();
     }
 

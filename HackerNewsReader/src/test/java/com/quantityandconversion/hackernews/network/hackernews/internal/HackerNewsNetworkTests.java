@@ -1,8 +1,7 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
-import com.quantityandconversion.hackernews.network.hackernews.Stories;
-import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.Items;
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
@@ -33,15 +32,15 @@ public class HackerNewsNetworkTests extends MockWebServerTestClass {
     public void topStories() throws IOException {
         hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
-        final Call<Stories> topStoriesCall = new HackerNewsNetwork().topStories();
-        final Stories stories = topStoriesCall.execute().body();
-        assertNotNull(stories);
-        assertEquals(2, stories.size());
+        final Call<Items> topStoriesCall = new HackerNewsNetwork().topStories();
+        final Items items = topStoriesCall.execute().body();
+        assertNotNull(items);
+        assertEquals(2, items.size());
     }
 
     @Test
     public void item() throws IOException{
-        final Story builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
+        final Item builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
         final Call<Item> itemCall = new HackerNewsNetwork().item(ItemId.createStoryId(1L));
         final Item story = itemCall.execute().body();

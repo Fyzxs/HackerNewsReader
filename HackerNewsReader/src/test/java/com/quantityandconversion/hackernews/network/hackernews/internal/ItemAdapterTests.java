@@ -1,6 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import com.quantityandconversion.hackernews.network.hackernews.Story;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.test.AsyncFakeSetText;
 import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class StoryAdapterTests extends QacTestClass {
+public class ItemAdapterTests extends QacTestClass {
     @Test
     public void storyFromJsonThrowsStoryJson() {
         assertThatThrownBy(() -> new ItemAdapter().itemFromJson(null))
@@ -38,15 +38,15 @@ public class StoryAdapterTests extends QacTestClass {
         itemJson.descendants = expectedComments;
 
 
-        final Story expectedStory = new Story(
+        final Item expectedStory = Item.createStory(
                 ItemId.createStoryId(expectedId),
                 Title.NullTitle,
                 Author.NullAuthor,
-                StoryComments.NullStoryComments,
-                StoryScore.NullStoryScore,
+                ItemComments.NullItemComments,
+                ItemScore.NullItemScore,
                 PostTime.NullPostTime);
 
-        final Story targetStory = (Story) new ItemAdapter().itemFromJson(itemJson);
+        final Item targetStory = new ItemAdapter().itemFromJson(itemJson);
 
         //id
         assertThat(targetStory).isEqualTo(expectedStory);
@@ -71,7 +71,10 @@ public class StoryAdapterTests extends QacTestClass {
         final DateUtils du = new DateUtils();
         targetStory.postTimeInto(item);
         final CharSequence expectedTimeString = du.relativeTimeSpanString(expectedTime*1000);
-        assertThat(item.getText().subSequence(0, 18)).isEqualTo(expectedTimeString.subSequence(0, 18));
+        final long actualPostTimeLong = Long.valueOf(item.getText().subSequence(0, 18).toString());
+        final long expectedPostTimeLong = Long.valueOf(expectedTimeString.subSequence(0, 18).toString());
+        //This get's around the time issue
+        assertThat(actualPostTimeLong).isBetween(expectedPostTimeLong, expectedPostTimeLong + 1);
         assertThat(item.getText().subSequence(20, expectedTimeString.length()))
                 .isEqualTo(expectedTimeString.subSequence(20, expectedTimeString.length()));
     }

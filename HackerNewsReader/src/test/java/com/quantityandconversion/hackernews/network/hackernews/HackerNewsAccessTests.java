@@ -22,20 +22,20 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
         final List<Long> storyIds = hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        new HackerNewsAccess().topStories(new Callback<Stories>(){
+        new HackerNewsAccess().topStories(new Callback<Items>(){
             @Override
-            public void onResponse(Call<Stories> call, Response<Stories> response) {
+            public void onResponse(Call<Items> call, Response<Items> response) {
                 assertThat(response.isSuccessful()).isTrue();
                 assertThat(response.body()).isNotNull();
-                final Stories stories = response.body();
-                assertThat(stories.size()).isEqualTo(2);
-                assertThat(stories.contains(ItemId.createStoryId(storyIds.get(0)))).isTrue();
-                assertThat(stories.contains(ItemId.createStoryId(storyIds.get(1)))).isTrue();
+                final Items items = response.body();
+                assertThat(items.size()).isEqualTo(2);
+                assertThat(items.contains(ItemId.createStoryId(storyIds.get(0)))).isTrue();
+                assertThat(items.contains(ItemId.createStoryId(storyIds.get(1)))).isTrue();
                 latch.countDown();
             }
 
             @Override
-            public void onFailure(Call<Stories> call, Throwable t) {
+            public void onFailure(Call<Items> call, Throwable t) {
 
             }
         });
@@ -45,7 +45,7 @@ public class HackerNewsAccessTests extends MockWebServerTestClass {
 
     @Test
     public void story() throws Exception{
-        final Story builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
+        final Item builtStory = hackerNewsNetworkTestResponses.simpleStory(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
         new HackerNewsAccess().item(builtStory.itemId(), new Callback<Item>(){

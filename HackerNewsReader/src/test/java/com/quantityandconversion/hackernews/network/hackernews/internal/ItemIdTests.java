@@ -38,7 +38,7 @@ public class ItemIdTests {
     }
     @Test
     public void isStoryIdShouldReturnFalseGivenNotStoryId(){
-        assertThat(ItemId.NULL_ITEM_ID.isStoryId()).isFalse();
+        assertThat(ItemId.NullItemId.isStoryId()).isFalse();
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ItemIdTests {
     }
     @Test
     public void isJobIdShouldReturnFalseGivenNotJobId(){
-        assertThat(ItemId.NULL_ITEM_ID.isJobId()).isFalse();
+        assertThat(ItemId.NullItemId.isJobId()).isFalse();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ItemIdTests {
 
     @Test
     public void isUnknownIdIdShouldReturnFalseGivenNotUnknownId(){
-        assertThat(ItemId.NULL_ITEM_ID.isUnknownId()).isFalse();
+        assertThat(ItemId.NullItemId.isUnknownId()).isFalse();
     }
 
     @Test

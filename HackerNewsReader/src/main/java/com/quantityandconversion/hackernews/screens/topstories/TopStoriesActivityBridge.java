@@ -24,8 +24,8 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
         topStoriesActivity.notifyTopStoryChanged(index);
     }
 
-    /* package */  TopStoriesAdapter createTopStoriesAdapter() {
-        return new TopStoriesAdapter(topItemsActivityMediator);
+    /* package */  TopItemsAdapter createTopStoriesAdapter() {
+        return new TopItemsAdapter(topItemsActivityMediator);
     }
 
     /* package */ static abstract class DataLoadStrategy{

@@ -8,7 +8,7 @@ import retrofit2.Callback;
 
 public class HackerNewsAccess {
 
-    public void topStories(final Callback<Stories> callback) {
+    public void topStories(final Callback<Items> callback) {
         new HackerNewsNetwork().topStories().enqueue(callback);
     }
 
