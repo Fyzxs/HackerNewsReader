@@ -6,7 +6,9 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-/* package */ class DialogBuilderV7 implements DialogBuilder<AlertDialog> {
+/* package */
+@SuppressWarnings("unchecked")
+class DialogBuilderV7 implements DialogBuilder<AlertDialog> {
 
     private android.support.v7.app.AlertDialog.Builder builder;
 

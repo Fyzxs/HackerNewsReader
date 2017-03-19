@@ -1,7 +1,7 @@
 package com.quantityandconversion.utils.log;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 
 /**
  * Fyzxs Log(ger)
@@ -35,7 +35,7 @@ public final class FyzLog {
 
 
     /**
-     * The {@link Log#VERBOSE} level logging
+     * The {@link android.util.Log#VERBOSE} level logging
      *
      * @param msg The message to log
      */
@@ -44,7 +44,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#VERBOSE} level logging with string formatting
+     * The {@link android.util.Log#VERBOSE} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in
@@ -54,7 +54,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#DEBUG} level logging
+     * The {@link android.util.Log#DEBUG} level logging
      *
      * @param msg The message to log
      */
@@ -63,7 +63,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#DEBUG} level logging with string formatting
+     * The {@link android.util.Log#DEBUG} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in
@@ -73,7 +73,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#INFO} level logging
+     * The {@link android.util.Log#INFO} level logging
      *
      * @param msg The message to log
      */
@@ -82,7 +82,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#INFO} level logging with string formatting
+     * The {@link android.util.Log#INFO} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in
@@ -92,7 +92,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#WARN} level logging
+     * The {@link android.util.Log#WARN} level logging
      *
      * @param msg The message to log
      */
@@ -101,7 +101,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#WARN} level logging with string formatting
+     * The {@link android.util.Log#WARN} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in
@@ -111,7 +111,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#ERROR} level logging
+     * The {@link android.util.Log#ERROR} level logging
      *
      * @param msg The message to log
      */
@@ -120,7 +120,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#ERROR} level logging with string formatting
+     * The {@link android.util.Log#ERROR} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in
@@ -130,7 +130,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#ASSERT} level logging
+     * The {@link android.util.Log#ASSERT} level logging
      *
      * @param msg The message to log
      */
@@ -139,7 +139,7 @@ public final class FyzLog {
     }
 
     /**
-     * The {@link Log#ASSERT} level logging with string formatting
+     * The {@link android.util.Log#ASSERT} level logging with string formatting
      *
      * @param msgFormat the format string
      * @param args      the args to format in

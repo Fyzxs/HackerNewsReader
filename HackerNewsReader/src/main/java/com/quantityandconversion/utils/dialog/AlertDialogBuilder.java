@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.View;
 
+@SuppressWarnings("unchecked")
 public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<Dialog> {
 
     private static DialogBuilder ActiveDialogBuilder = new DialogBuilderV7();

@@ -36,21 +36,21 @@ public interface DialogBuilder <T extends Dialog> {
      * @param context activity context
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder init(Context context);
+    DialogBuilder<T> init(Context context);
 
     /**
      * Set the title using the given resource id.
      *
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setTitle(int titleId);
+    DialogBuilder<T> setTitle(int titleId);
 
     /**
      * Set the message to display using the given resource id.
      *
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setMessage(@StringRes int messageId);
+    DialogBuilder<T> setMessage(@StringRes int messageId);
 
     /**
      * Sets a custom view to be the contents of the alert dialog.
@@ -66,7 +66,7 @@ public interface DialogBuilder <T extends Dialog> {
      * @return this Builder object to allow for chaining of calls to set
      *         methods
      */
-    DialogBuilder setView(View view);
+    DialogBuilder<T> setView(View view);
 
     /**
      * Set a list of items to be displayed in the dialog as the content, you will be notified
@@ -85,7 +85,7 @@ public interface DialogBuilder <T extends Dialog> {
      *                    dialog.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setSingleChoiceItems(CharSequence[] items, int checkedItem,
+    DialogBuilder<T> setSingleChoiceItems(CharSequence[] items, int checkedItem,
                                        final DialogInterface.OnClickListener listener);
 
     /**
@@ -95,7 +95,7 @@ public interface DialogBuilder <T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setNegativeButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder<T> setNegativeButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Set a listener to be invoked when the positive button of the dialog is pressed.
@@ -104,7 +104,7 @@ public interface DialogBuilder <T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setPositiveButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder<T> setPositiveButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Set a listener to be invoked when the neutral button of the dialog is pressed.
@@ -113,7 +113,7 @@ public interface DialogBuilder <T extends Dialog> {
      * @param listener The {@link DialogInterface.OnClickListener} to use.
      * @return This Builder object to allow for chaining of calls to set methods
      */
-    DialogBuilder setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener);
+    DialogBuilder<T> setNeutralButton(@StringRes int textId, DialogInterface.OnClickListener listener);
 
     /**
      * Creates a {@link Dialog} with the arguments supplied to this builder. It does not

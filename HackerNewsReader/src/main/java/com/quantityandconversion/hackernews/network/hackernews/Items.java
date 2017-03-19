@@ -1,7 +1,6 @@
 package com.quantityandconversion.hackernews.network.hackernews;
 
 import com.quantityandconversion.hackernews.network.hackernews.internal.ItemId;
-import com.quantityandconversion.utils.log.FyzLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,8 +62,6 @@ public class Items {
 
             @Override
             public void onFailure(final Call<Item> call, final Throwable t) {
-                FyzLog.d(call.request().url().toString());
-                FyzLog.d(t.getMessage());
                 throw new UnsupportedOperationException("onFailure not implemented");
             }
         });

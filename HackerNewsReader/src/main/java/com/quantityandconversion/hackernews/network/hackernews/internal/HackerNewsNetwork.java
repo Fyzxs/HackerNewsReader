@@ -1,6 +1,5 @@
 package com.quantityandconversion.hackernews.network.hackernews.internal;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.quantityandconversion.hackernews.network.hackernews.Item;
@@ -18,6 +17,7 @@ public class HackerNewsNetwork {
 
     private static HttpUrl serverUrl = null;
     private static Interceptor interceptorObj = null;
+    private static OkHttpClient reusedHttpClient = null;
 
     public HackerNewsNetwork() {
         if(serverUrl != null) return;
@@ -55,17 +55,21 @@ public class HackerNewsNetwork {
         }
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
-                .client(getClient())
+                .client(reusableHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create(moshiBuilder.build()))
                 .build()
                 .create(HackerNewsApi.class);
     }
 
-    @NonNull
-    private OkHttpClient getClient() {
+    private synchronized OkHttpClient reusableHttpClient() {
+        return reusedHttpClient == null
+                ? reusedHttpClient = httpClient()
+                : reusedHttpClient;
+    }
+
+    private OkHttpClient httpClient() {
         return interceptorObj == null
                 ? new OkHttpClient()
                 : new OkHttpClient().newBuilder().addInterceptor(interceptorObj).build();
     }
-
 }
