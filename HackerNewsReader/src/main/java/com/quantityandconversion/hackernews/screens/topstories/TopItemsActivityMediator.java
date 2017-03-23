@@ -40,7 +40,7 @@ import retrofit2.Response;
 
             @Override
             public void onFailure(final Call<Items> call, final Throwable t) {
-                dataLoadStrategyFactory(null).run(topStoriesActivityBridge);
+                topStoriesActivityBridge.dataError().run();//dataLoadStrategyFactory(null).run(topStoriesActivityBridge);
             }
         });
     }

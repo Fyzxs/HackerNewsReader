@@ -18,16 +18,11 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
 
     /* package */ Runnable dataError() {
-        return new Runnable() {
-            @Override
-            public void run() {
-                new AlertDialogBuilder<>()
-                        .init(TopStoriesActivityBridge.this.topStoriesActivity)
-                        .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
-                        .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
-                        .show();
-            }
-        };
+        return () -> new AlertDialogBuilder<>()
+                .init(TopStoriesActivityBridge.this.topStoriesActivity)
+                .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
+                .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
+                .show();
     }
 
     /* package */ void loadData() {
