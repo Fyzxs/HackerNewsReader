@@ -94,4 +94,5 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
         assertThat(actualItem).isEqualTo(simpleJob);
         assertThat(actualItem.isJob()).isTrue();
     }
+
 }

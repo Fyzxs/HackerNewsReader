@@ -12,6 +12,10 @@ import retrofit2.Response;
     private final TopStoriesActivityBridge topStoriesActivityBridge;
     private Items topItems;
 
+
+    /* package */ interface TopStoriesBridge {
+    }
+
     /* package */ TopItemsActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
         if(topStoriesActivityBridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
         this.topStoriesActivityBridge = topStoriesActivityBridge;

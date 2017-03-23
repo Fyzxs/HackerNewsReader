@@ -76,4 +76,24 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
         assertThat(adapter).isNotNull();
     }
+
+    @Test
+    public void createDataErrorRunnable() throws InterruptedException {
+        final CountDownLatch dialogLatch = new CountDownLatch(1);
+        final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
+        AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
+
+        final TopStoriesActivityBridge topStoriesActivityBridge = simpleBridge();
+
+        topStoriesActivityBridge.dataError().run();
+
+        assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
+
+        fakeDialogBuilder.assertShowCalled(1);
+    }
+
+    private TopStoriesActivityBridge simpleBridge() {
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
+        return new TopStoriesActivityBridge(fakeTopStoriesActivity);
+    }
 }
