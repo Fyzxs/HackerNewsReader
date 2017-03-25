@@ -9,8 +9,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /* package */ class TopItemsActivityMediator {
-    private final Bridge topStoriesActivityBridge;
-    private Items topItems;
+    private final Bridge bridge;
+    private volatile Items topItems;
 
     /* package */ interface Bridge {
         void notifyTopStoryChanged(int index);
@@ -22,7 +22,7 @@ import retrofit2.Response;
 
     /* package */ TopItemsActivityMediator(final Bridge bridge) {
         if(bridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
-        this.topStoriesActivityBridge = bridge;
+        this.bridge = bridge;
     }
 
     /* package */ int topStoriesSize() {
@@ -31,7 +31,7 @@ import retrofit2.Response;
 
     /* package */ Item itemAt(final int index) {
         if (topItems == null) { return Item.NullItem; }
-        return topItems.itemAt(index, topStoriesActivityBridge::notifyTopStoryChanged);
+        return topItems.itemAt(index, bridge::notifyTopStoryChanged);
     }
 
     /* package */ void loadTopStoriesData() {
@@ -51,7 +51,7 @@ import retrofit2.Response;
 
     private Runnable dataLoadStrategyFactory(final Response<Items> response){
         return response == null || !response.isSuccessful()
-                ? topStoriesActivityBridge.dataError()
-                : topStoriesActivityBridge.dataChanged();
+                ? bridge.dataError()
+                : bridge.dataChanged();
     }
 }
