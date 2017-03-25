@@ -1,14 +1,14 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-/* package */ class TopStoriesRecyclerView{
+/* package */ class TopItemsRecyclerView {
     private final RecyclerView recyclerView;
     private final RecyclerView.Adapter adapter;
 
-    /* package */ TopStoriesRecyclerView(final RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+    /* package */ TopItemsRecyclerView(final RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         if(recyclerView == null) { throw new IllegalArgumentException("recyclerView can not be null"); }
         if(adapter == null) { throw new IllegalArgumentException("adapter can not be null"); }
 

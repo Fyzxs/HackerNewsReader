@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.view.View;
 

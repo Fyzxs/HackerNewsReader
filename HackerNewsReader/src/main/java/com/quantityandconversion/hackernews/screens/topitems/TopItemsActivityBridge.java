@@ -1,18 +1,18 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
-/* package */ class TopStoriesActivityBridge implements TopItemsActivityMediator.Bridge{
+/* package */ class TopItemsActivityBridge implements TopItemsActivityMediator.Bridge{
 
-    private final TopStoriesActivity topStoriesActivity;
+    private final TopItemsActivity topItemsActivity;
     private final TopItemsActivityMediator topItemsActivityMediator;
 
-    /* package */ TopStoriesActivityBridge(final TopStoriesActivity topStoriesActivity) {
-        if (topStoriesActivity == null) {
-            throw new IllegalArgumentException("topStoriesActivity can not be null");
+    /* package */ TopItemsActivityBridge(final TopItemsActivity topItemsActivity) {
+        if (topItemsActivity == null) {
+            throw new IllegalArgumentException("topItemsActivity can not be null");
         }
-        this.topStoriesActivity = topStoriesActivity;
+        this.topItemsActivity = topItemsActivity;
         this.topItemsActivityMediator = new TopItemsActivityMediator(this);
     }
 
@@ -20,7 +20,7 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
     @Override
     public Runnable dataError() {
         return () -> new AlertDialogBuilder<>()
-                .init(TopStoriesActivityBridge.this.topStoriesActivity)
+                .init(TopItemsActivityBridge.this.topItemsActivity)
                 .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
                 .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
                 .show();
@@ -29,12 +29,12 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
     @Override
     public Runnable dataChanged() {
-        return TopStoriesActivityBridge.this.topStoriesActivity::notifyTopStoriesChanged;
+        return TopItemsActivityBridge.this.topItemsActivity::notifyTopStoriesChanged;
     }
 
     @Override
     public void notifyTopStoryChanged(final int index){
-        topStoriesActivity.notifyTopStoryChanged(index);
+        topItemsActivity.notifyTopStoryChanged(index);
     }
 
     /* package */ void loadData() {

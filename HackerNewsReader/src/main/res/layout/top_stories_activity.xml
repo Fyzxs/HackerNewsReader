@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.quantityandconversion.hackernews.screens.topstories.TopStoriesActivity"
+    tools:context="com.quantityandconversion.hackernews.screens.topitems.TopItemsActivity"
     app:layout_constraintHorizontal_bias="0.61">
 
     <android.support.v7.widget.RecyclerView

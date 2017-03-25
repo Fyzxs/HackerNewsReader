@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -29,7 +29,8 @@ public class TopStoriesActivityTests extends QacTestClass {
     @Mock RecyclerView.Adapter mockAdapter;
     @Mock Context mockContext;
     @Mock TypedArray mockTypedArray;
-    @Mock TopStoriesRecyclerView mockTopStoriesRecyclerView;
+    @Mock
+    TopItemsRecyclerView mockTopItemsRecyclerView;
 
     @Before
     public void setup(){
@@ -39,50 +40,50 @@ public class TopStoriesActivityTests extends QacTestClass {
 
     @Test
     public void ctorShouldHaveEmpty(){
-        new TopStoriesActivity();
+        new TopItemsActivity();
     }
 
     @Test
     public void ctorShouldTakeBridge(){
         //noinspection RedundantCast - Don't need to mock, but tests the types
-        new TopStoriesActivity((TopStoriesActivityBridge)null, (TopStoriesRecyclerView)mockTopStoriesRecyclerView);
+        new TopItemsActivity((TopItemsActivityBridge)null, (TopItemsRecyclerView) mockTopItemsRecyclerView);
     }
 
     @Test
     public void onCreateShouldLoadData(){
-        final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge = new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
-        final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView);
+        final FakeTopItemsActivityBridge fakeTopStoriesActivityBridge = new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class));
+        final TopItemsActivity actualTopItemsActivity = new TopItemsActivity(fakeTopStoriesActivityBridge, mockTopItemsRecyclerView);
 
-        fakeTopStoriesActivityBridge.setActualTopStoriesActivity(actualTopStoriesActivity);
+        fakeTopStoriesActivityBridge.setActualTopStoriesActivity(actualTopItemsActivity);
 
-        actualTopStoriesActivity.loadData();
+        actualTopItemsActivity.loadData();
 
-        Mockito.verify(mockTopStoriesRecyclerView).notifyTopStoriesChanged();
+        Mockito.verify(mockTopItemsRecyclerView).notifyTopStoriesChanged();
     }
 
     @Test
     public void notifyTopStoriesChangedShouldUpdateAdapter(){
-        new TopStoriesActivity(null, mockTopStoriesRecyclerView).notifyTopStoriesChanged();
+        new TopItemsActivity(null, mockTopItemsRecyclerView).notifyTopStoriesChanged();
 
-        Mockito.verify(mockTopStoriesRecyclerView).notifyTopStoriesChanged();
+        Mockito.verify(mockTopItemsRecyclerView).notifyTopStoriesChanged();
     }
 
     @Test
     public void notifyTopStoryChangedShouldUpdateAdapter(){
         final int position = RandomValues.nextInt(1000);
 
-        new TopStoriesActivity(null, mockTopStoriesRecyclerView).notifyTopStoryChanged(position);
+        new TopItemsActivity(null, mockTopItemsRecyclerView).notifyTopStoryChanged(position);
 
-        Mockito.verify(mockTopStoriesRecyclerView).notifyTopStoryChanged(position);
+        Mockito.verify(mockTopItemsRecyclerView).notifyTopStoryChanged(position);
     }
 
     @Test
     public void bindViews() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge =
-                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
-        final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(
-                fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView){
+        final FakeTopItemsActivityBridge fakeTopStoriesActivityBridge =
+                new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class));
+        final TopItemsActivity actualTopItemsActivity = new TopItemsActivity(
+                fakeTopStoriesActivityBridge, mockTopItemsRecyclerView){
             @Override
             public View findViewById(@IdRes int id) {
                 if(id == R.id.rv_top_stories){
@@ -93,7 +94,7 @@ public class TopStoriesActivityTests extends QacTestClass {
             }
         };
 
-        actualTopStoriesActivity.bindViews();
+        actualTopItemsActivity.bindViews();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
@@ -101,11 +102,11 @@ public class TopStoriesActivityTests extends QacTestClass {
     @Test
     public void onCreateFunctionality() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(4);
-        final FakeTopStoriesActivityBridge fakeTopStoriesActivityBridge =
-                new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class));
+        final FakeTopItemsActivityBridge fakeTopStoriesActivityBridge =
+                new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class));
         fakeTopStoriesActivityBridge.setCountDownLatch(latch);
-        final TopStoriesActivity actualTopStoriesActivity = new TopStoriesActivity(
-                fakeTopStoriesActivityBridge, mockTopStoriesRecyclerView){
+        final TopItemsActivity actualTopItemsActivity = new TopItemsActivity(
+                fakeTopStoriesActivityBridge, mockTopItemsRecyclerView){
             @Override
             public void setContentView(@LayoutRes int id) {
                 if(id == R.layout.top_stories_activity){
@@ -124,7 +125,7 @@ public class TopStoriesActivityTests extends QacTestClass {
             }
         };
 
-        actualTopStoriesActivity.onCreateFunctionality();
+        actualTopItemsActivity.onCreateFunctionality();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }

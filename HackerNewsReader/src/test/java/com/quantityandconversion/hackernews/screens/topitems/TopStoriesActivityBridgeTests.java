@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import com.quantityandconversion.test.MockWebServerTestClass;
 import com.quantityandconversion.test.dialog.FakeDialogBuilder;
@@ -18,11 +18,11 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     @Test
     public void constructor(){
 
-        assertThatThrownBy(() -> new TopStoriesActivityBridge(null))
+        assertThatThrownBy(() -> new TopItemsActivityBridge(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("topStoriesActivity");
+                .hasMessageContaining("topItemsActivity");
 
-        new TopStoriesActivityBridge(new TopStoriesActivity());
+        new TopItemsActivityBridge(new TopItemsActivity());
     }
 
     @Test
@@ -30,10 +30,10 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(latch);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
 
-        topStoriesActivityBridge.loadData();
+        topItemsActivityBridge.loadData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
@@ -46,10 +46,10 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(new CountDownLatch(0));
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(new CountDownLatch(0));
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
 
-        topStoriesActivityBridge.loadData();
+        topItemsActivityBridge.loadData();
 
         assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
 
@@ -61,19 +61,19 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(latch);
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(latch);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
 
-        topStoriesActivityBridge.notifyTopStoryChanged(0);
+        topItemsActivityBridge.notifyTopStoryChanged(0);
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
     }
     @Test
     public void createTopStoriesAdapter(){
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(null);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
 
-        final TopItemsAdapter adapter = topStoriesActivityBridge.createTopStoriesAdapter();
+        final TopItemsAdapter adapter = topItemsActivityBridge.createTopStoriesAdapter();
 
         assertThat(adapter).isNotNull();
     }
@@ -84,10 +84,10 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
+        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(null);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
 
-        topStoriesActivityBridge.dataError().run();
+        topItemsActivityBridge.dataError().run();
 
         assertThat(dialogLatch.await(1, TimeUnit.SECONDS)).isTrue();
 
@@ -96,15 +96,15 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
     public void dataChangedShouldLoadChangedData() throws InterruptedException{
-        final TopStoriesActivity mockTopStoriesActivity = Mockito.mock(TopStoriesActivity.class);
-        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(mockTopStoriesActivity);
-        final Runnable dataLoad = topStoriesActivityBridge.dataChanged();
+        final TopItemsActivity mockTopItemsActivity = Mockito.mock(TopItemsActivity.class);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockTopItemsActivity);
+        final Runnable dataLoad = topItemsActivityBridge.dataChanged();
 
-        Mockito.doNothing().when(mockTopStoriesActivity).notifyTopStoriesChanged();
+        Mockito.doNothing().when(mockTopItemsActivity).notifyTopStoriesChanged();
 
         dataLoad.run();
 
-        Mockito.verify(mockTopStoriesActivity).notifyTopStoriesChanged();
+        Mockito.verify(mockTopItemsActivity).notifyTopStoriesChanged();
     }
 
 }

@@ -1,20 +1,20 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import java.util.concurrent.CountDownLatch;
 
-class FakeTopStoriesActivityBridge extends TopStoriesActivityBridge {
+class FakeTopItemsActivityBridge extends TopItemsActivityBridge {
 
     private final TopItemsAdapter topItemsAdapter;
-    private TopStoriesActivity topStoriesActivity;
+    private TopItemsActivity topItemsActivity;
     private CountDownLatch latch;
 
-    /* package */ FakeTopStoriesActivityBridge(final TopStoriesActivity topStoriesActivity, final TopItemsAdapter topItemsAdapter) {
-        super(topStoriesActivity);
+    /* package */ FakeTopItemsActivityBridge(final TopItemsActivity topItemsActivity, final TopItemsAdapter topItemsAdapter) {
+        super(topItemsActivity);
         this.topItemsAdapter = topItemsAdapter;
     }
 
-    /* package */ void setActualTopStoriesActivity(final TopStoriesActivity topStoriesActivity){
-        this.topStoriesActivity = topStoriesActivity;
+    /* package */ void setActualTopStoriesActivity(final TopItemsActivity topItemsActivity){
+        this.topItemsActivity = topItemsActivity;
     }
 
     /* package */ void setCountDownLatch(final CountDownLatch latch){
@@ -24,7 +24,7 @@ class FakeTopStoriesActivityBridge extends TopStoriesActivityBridge {
     @Override
     /* package */ void loadData() {
         countDownLatch();
-        if(topStoriesActivity != null) topStoriesActivity.notifyTopStoriesChanged();
+        if(topItemsActivity != null) topItemsActivity.notifyTopStoriesChanged();
     }
 
     @Override

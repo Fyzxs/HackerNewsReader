@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,7 @@ public class TopItemsAdapterTests extends QacTestClass {
 
     @Test
     public void onCreateViewHolderThrowsBecauseStub(){
-        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class)));
+        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class)));
         assertThatThrownBy(() -> new TopItemsAdapter(fake).onCreateViewHolder(Mockito.mock(ViewGroup.class), 0))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("Method from in android.view.LayoutInflater not mocked. See http://g.co/androidstudio/not-mocked for details.");
@@ -39,7 +39,7 @@ public class TopItemsAdapterTests extends QacTestClass {
     @Test
     public void getItemCount(){
         final int val = RandomValues.nextInt(100);
-        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopStoriesActivityBridge(new FakeTopStoriesActivity(), Mockito.mock(TopItemsAdapter.class))){
+        final TopItemsActivityMediator fake = new TopItemsActivityMediator(new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class))){
             @Override
             int topStoriesSize() {
                 return val;

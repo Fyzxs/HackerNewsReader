@@ -1,13 +1,13 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import java.util.concurrent.CountDownLatch;
 
-class FakeTopStoriesActivity extends TopStoriesActivity{
+class FakeTopItemsActivity extends TopItemsActivity {
     private final CountDownLatch latch;
-    public FakeTopStoriesActivity() {
+    public FakeTopItemsActivity() {
         this(new CountDownLatch(0));
     }
-    public FakeTopStoriesActivity(final CountDownLatch latch) {
+    public FakeTopItemsActivity(final CountDownLatch latch) {
         super(null, null);
         this.latch = latch;
     }

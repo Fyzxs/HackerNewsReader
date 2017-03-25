@@ -1,4 +1,4 @@
-package com.quantityandconversion.hackernews.screens.topstories;
+package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -30,45 +30,45 @@ public class TopStoriesRecyclerViewTests extends QacTestClass{
 
     @Test
     public void ctorShouldThrowIllegalArgumentGivenNullRecyclerView(){
-        assertThatThrownBy(() -> new TopStoriesRecyclerView(null, mockAdapter))
+        assertThatThrownBy(() -> new TopItemsRecyclerView(null, mockAdapter))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("recyclerView");
     }
     @Test
     public void ctorShouldThrowIllegalArgumentGivenNullAdapter(){
-        assertThatThrownBy(() -> new TopStoriesRecyclerView(mockRecyclerView, null))
+        assertThatThrownBy(() -> new TopItemsRecyclerView(mockRecyclerView, null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("adapter");
     }
 
     @Test
     public void ctorShouldTakeRecyclerViewAndAdapter(){
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter);
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter);
     }
 
     @Test
     public void ctorShouldSetRecyclerViewAdapter(){
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter);
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter);
         Mockito.verify(mockRecyclerView).setAdapter(mockAdapter);
     }
 
     @Test
     public void ctorShouldSetLayoutManager(){
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter);
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter);
 
         Mockito.verify(mockRecyclerView).setLayoutManager(any());
     }
 
     @Test
     public void ctorShouldSetItemDecoration(){
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter);
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter);
 
         Mockito.verify(mockRecyclerView).addItemDecoration(any());
     }
 
     @Test
     public void notifyTopStoriesChanged(){
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter).notifyTopStoriesChanged();
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter).notifyTopStoriesChanged();
 
         Mockito.verify(mockAdapter).notifyDataSetChanged();
     }
@@ -76,7 +76,7 @@ public class TopStoriesRecyclerViewTests extends QacTestClass{
     @Test
     public void notifyTopStoryChanged(){
         final int position = RandomValues.nextInt(1000);
-        new TopStoriesRecyclerView(mockRecyclerView, mockAdapter).notifyTopStoryChanged(position);
+        new TopItemsRecyclerView(mockRecyclerView, mockAdapter).notifyTopStoryChanged(position);
 
         Mockito.verify(mockAdapter).notifyItemChanged(position);
     }
