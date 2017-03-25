@@ -25,6 +25,11 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
                 .show();
     }
 
+
+    /* package */ Runnable dataLoad() {
+        return TopStoriesActivityBridge.this.topStoriesActivity::notifyTopStoriesChanged;
+    }
+
     /* package */ void loadData() {
         topItemsActivityMediator.loadTopStoriesData();
     }

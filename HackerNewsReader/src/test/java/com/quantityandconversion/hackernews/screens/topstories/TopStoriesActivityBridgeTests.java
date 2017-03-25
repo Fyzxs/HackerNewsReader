@@ -5,6 +5,7 @@ import com.quantityandconversion.test.dialog.FakeDialogBuilder;
 import com.quantityandconversion.utils.dialog.AlertDialogBuilderAccess;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -78,12 +79,13 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     }
 
     @Test
-    public void createDataErrorRunnable() throws InterruptedException {
+    public void dataErrorShouldDisplayDialog() throws InterruptedException {
         final CountDownLatch dialogLatch = new CountDownLatch(1);
         final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final TopStoriesActivityBridge topStoriesActivityBridge = simpleBridge();
+        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
+        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(fakeTopStoriesActivity);
 
         topStoriesActivityBridge.dataError().run();
 
@@ -92,8 +94,16 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         fakeDialogBuilder.assertShowCalled(1);
     }
 
-    private TopStoriesActivityBridge simpleBridge() {
-        final FakeTopStoriesActivity fakeTopStoriesActivity = new FakeTopStoriesActivity(null);
-        return new TopStoriesActivityBridge(fakeTopStoriesActivity);
+    @Test
+    public void dataChangedShouldLoadChangedData() throws InterruptedException{
+        final TopStoriesActivity mockTopStoriesActivity = Mockito.mock(TopStoriesActivity.class);
+        final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(mockTopStoriesActivity);
+        final Runnable dataLoad = topStoriesActivityBridge.dataLoad();
+
+        Mockito.doNothing().when(mockTopStoriesActivity).notifyTopStoriesChanged();
+
+        dataLoad.run();
+
+        Mockito.verify(mockTopStoriesActivity).notifyTopStoriesChanged();
     }
 }
