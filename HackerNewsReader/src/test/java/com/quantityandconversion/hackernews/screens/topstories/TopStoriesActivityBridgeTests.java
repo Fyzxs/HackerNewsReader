@@ -98,7 +98,7 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     public void dataChangedShouldLoadChangedData() throws InterruptedException{
         final TopStoriesActivity mockTopStoriesActivity = Mockito.mock(TopStoriesActivity.class);
         final TopStoriesActivityBridge topStoriesActivityBridge = new TopStoriesActivityBridge(mockTopStoriesActivity);
-        final Runnable dataLoad = topStoriesActivityBridge.dataLoad();
+        final Runnable dataLoad = topStoriesActivityBridge.dataChanged();
 
         Mockito.doNothing().when(mockTopStoriesActivity).notifyTopStoriesChanged();
 
@@ -106,4 +106,5 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
         Mockito.verify(mockTopStoriesActivity).notifyTopStoriesChanged();
     }
+
 }

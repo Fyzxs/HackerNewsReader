@@ -9,16 +9,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /* package */ class TopItemsActivityMediator {
-    private final TopStoriesActivityBridge topStoriesActivityBridge;
+    private final Bridge topStoriesActivityBridge;
     private Items topItems;
 
+    /* package */ interface Bridge {
+        void notifyTopStoryChanged(int index);
 
-    /* package */ interface TopStoriesBridge {
+        Runnable dataError();
+
+        Runnable dataChanged();
     }
 
-    /* package */ TopItemsActivityMediator(final TopStoriesActivityBridge topStoriesActivityBridge) {
-        if(topStoriesActivityBridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
-        this.topStoriesActivityBridge = topStoriesActivityBridge;
+    /* package */ TopItemsActivityMediator(final Bridge bridge) {
+        if(bridge == null) { throw new IllegalArgumentException("topStoriesActivityBridge can not be null"); }
+        this.topStoriesActivityBridge = bridge;
     }
 
     /* package */ int topStoriesSize() {
@@ -35,19 +39,19 @@ import retrofit2.Response;
             @Override
             public void onResponse(final Call<Items> call, final Response<Items> response) {
                 topItems = response.body();
-                dataLoadStrategyFactory(response).run(topStoriesActivityBridge);
+                dataLoadStrategyFactory(response).run();
             }
 
             @Override
             public void onFailure(final Call<Items> call, final Throwable t) {
-                topStoriesActivityBridge.dataError().run();//dataLoadStrategyFactory(null).run(topStoriesActivityBridge);
+                dataLoadStrategyFactory(null).run();
             }
         });
     }
 
-    private TopStoriesActivityBridge.DataLoadStrategy dataLoadStrategyFactory(final Response<Items> response){
+    private Runnable dataLoadStrategyFactory(final Response<Items> response){
         return response == null || !response.isSuccessful()
-                ? TopStoriesActivityBridge.DataLoadStrategy.DataError
-                : TopStoriesActivityBridge.DataLoadStrategy.DataChanged;
+                ? topStoriesActivityBridge.dataError()
+                : topStoriesActivityBridge.dataChanged();
     }
 }

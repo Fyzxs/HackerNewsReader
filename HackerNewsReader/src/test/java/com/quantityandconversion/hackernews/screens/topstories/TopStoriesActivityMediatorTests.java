@@ -5,6 +5,7 @@ import com.quantityandconversion.hackernews.network.hackernews.internal.HackerNe
 import com.quantityandconversion.test.MockWebServerTestClass;
 
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.concurrent.CountDownLatch;
@@ -15,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
+    @Mock TopItemsActivityMediator.Bridge mockBridge;
+
     @Test
     public void constructor(){
 
@@ -22,7 +25,7 @@ public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("topStoriesActivityBridge");
 
-        new TopItemsActivityMediator(new TopStoriesActivityBridge(new TopStoriesActivity()));
+        new TopItemsActivityMediator(mockBridge);
     }
 
     @Test
