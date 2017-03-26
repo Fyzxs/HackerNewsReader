@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 
-public class TopStoriesAdapterViewHolderTests extends QacTestClass{
+public class TopItemsAdapterViewHolderTests extends QacTestClass{
     @Mock QacTextView mockQacTextView;
     @Mock View mockView;
 

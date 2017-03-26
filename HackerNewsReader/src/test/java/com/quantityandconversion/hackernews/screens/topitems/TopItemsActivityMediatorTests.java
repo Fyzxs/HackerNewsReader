@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
 
-public class TopStoriesActivityMediatorTests extends MockWebServerTestClass {
+public class TopItemsActivityMediatorTests extends MockWebServerTestClass {
     @Mock TopItemsActivityMediator.Bridge mockBridge;
 
     @Test

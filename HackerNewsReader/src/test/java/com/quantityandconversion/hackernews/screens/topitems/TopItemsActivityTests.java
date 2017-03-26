@@ -22,15 +22,13 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 
-public class TopStoriesActivityTests extends QacTestClass {
+public class TopItemsActivityTests extends QacTestClass {
 
 
     @Mock RecyclerView mockRecyclerView;
-    @Mock RecyclerView.Adapter mockAdapter;
     @Mock Context mockContext;
     @Mock TypedArray mockTypedArray;
-    @Mock
-    TopItemsRecyclerView mockTopItemsRecyclerView;
+    @Mock TopItemsRecyclerView mockTopItemsRecyclerView;
 
     @Before
     public void setup(){

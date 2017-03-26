@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 
-public class TopStoriesRecyclerViewTests extends QacTestClass{
+public class TopItemsRecyclerViewTests extends QacTestClass{
 
     @Mock RecyclerView mockRecyclerView;
     @Mock RecyclerView.Adapter mockAdapter;

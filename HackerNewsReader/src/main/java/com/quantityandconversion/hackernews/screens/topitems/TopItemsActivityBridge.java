@@ -1,26 +1,37 @@
 package com.quantityandconversion.hackernews.screens.topitems;
 
+import android.content.Context;
+
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
 /* package */ class TopItemsActivityBridge implements TopItemsActivityMediator.Bridge{
 
-    private final TopItemsActivity topItemsActivity;
-    private final TopItemsActivityMediator topItemsActivityMediator;
+    /* package */ interface UiView {
+        void notifyTopStoriesChanged();
 
-    /* package */ TopItemsActivityBridge(final TopItemsActivity topItemsActivity) {
-        if (topItemsActivity == null) {
-            throw new IllegalArgumentException("topItemsActivity can not be null");
-        }
-        this.topItemsActivity = topItemsActivity;
-        this.topItemsActivityMediator = new TopItemsActivityMediator(this);
+        void notifyTopStoryChanged(int index);
+
+        Context asContext();
     }
 
+
+    private UiView uiView;
+    private final TopItemsActivityMediator topItemsActivityMediator;
+
+
+    /* package */ TopItemsActivityBridge(final UiView uiView) {
+        if (uiView == null) {
+            throw new IllegalArgumentException("topItemsActivity can not be null");
+        }
+        this.uiView = uiView;
+        this.topItemsActivityMediator = new TopItemsActivityMediator(this);
+    }
 
     @Override
     public Runnable dataError() {
         return () -> new AlertDialogBuilder<>()
-                .init(TopItemsActivityBridge.this.topItemsActivity)
+                .init(uiView.asContext())
                 .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
                 .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
                 .show();
@@ -29,12 +40,12 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
     @Override
     public Runnable dataChanged() {
-        return TopItemsActivityBridge.this.topItemsActivity::notifyTopStoriesChanged;
+        return uiView::notifyTopStoriesChanged;
     }
 
     @Override
     public void notifyTopStoryChanged(final int index){
-        topItemsActivity.notifyTopStoryChanged(index);
+        uiView.notifyTopStoryChanged(index);
     }
 
     /* package */ void loadData() {

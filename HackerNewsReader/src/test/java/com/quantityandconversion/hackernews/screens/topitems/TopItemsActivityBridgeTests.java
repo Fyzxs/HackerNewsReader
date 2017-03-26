@@ -13,16 +13,20 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
+public class TopItemsActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
-    public void constructor(){
+    public void constructorThrowsGivenNull(){
 
-        assertThatThrownBy(() -> new TopItemsActivityBridge(null))
+        assertThatThrownBy(() -> new TopItemsActivityBridge((TopItemsActivityBridge.UiView)null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("topItemsActivity");
 
-        new TopItemsActivityBridge(new TopItemsActivity());
+    }
+
+    @Test
+    public void ctorTakesDisplay() {
+       new TopItemsActivityBridge(Mockito.mock(TopItemsActivityBridge.UiView.class));
     }
 
     @Test
@@ -30,8 +34,13 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(latch);
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+        Mockito.doAnswer(invocation -> {
+            latch.countDown();
+            return null;
+        }).when(mockUiView).notifyTopStoriesChanged();
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
+
 
         topItemsActivityBridge.loadData();
 
@@ -46,8 +55,9 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(new CountDownLatch(0));
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
 
         topItemsActivityBridge.loadData();
 
@@ -61,8 +71,12 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(latch);
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+        Mockito.doAnswer(invocation -> {
+            latch.countDown();
+            return null;
+        }).when(mockUiView).notifyTopStoryChanged(0);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
 
         topItemsActivityBridge.notifyTopStoryChanged(0);
 
@@ -70,8 +84,8 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
     }
     @Test
     public void createTopStoriesAdapter(){
-        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(null);
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
 
         final TopItemsAdapter adapter = topItemsActivityBridge.createTopStoriesAdapter();
 
@@ -84,8 +98,8 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
         final FakeDialogBuilder fakeDialogBuilder = new FakeDialogBuilder(dialogLatch);
         AlertDialogBuilderAccess.setActiveDialogBuilder(fakeDialogBuilder);
 
-        final FakeTopItemsActivity fakeTopStoriesActivity = new FakeTopItemsActivity(null);
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(fakeTopStoriesActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
 
         topItemsActivityBridge.dataError().run();
 
@@ -96,15 +110,15 @@ public class TopStoriesActivityBridgeTests extends MockWebServerTestClass {
 
     @Test
     public void dataChangedShouldLoadChangedData() throws InterruptedException{
-        final TopItemsActivity mockTopItemsActivity = Mockito.mock(TopItemsActivity.class);
-        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockTopItemsActivity);
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
+        final TopItemsActivityBridge topItemsActivityBridge = new TopItemsActivityBridge(mockUiView);
         final Runnable dataLoad = topItemsActivityBridge.dataChanged();
 
-        Mockito.doNothing().when(mockTopItemsActivity).notifyTopStoriesChanged();
+        Mockito.doNothing().when(mockUiView).notifyTopStoriesChanged();
 
         dataLoad.run();
 
-        Mockito.verify(mockTopItemsActivity).notifyTopStoriesChanged();
+        Mockito.verify(mockUiView).notifyTopStoriesChanged();
     }
 
 }

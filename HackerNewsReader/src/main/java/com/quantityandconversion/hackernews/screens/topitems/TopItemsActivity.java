@@ -1,11 +1,12 @@
 package com.quantityandconversion.hackernews.screens.topitems;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.app.QacActivity;
 
-public class TopItemsActivity extends QacActivity {
+public class TopItemsActivity extends QacActivity implements TopItemsActivityBridge.UiView{
 
     private final TopItemsActivityBridge topItemsActivityBridge;
 
@@ -39,10 +40,18 @@ public class TopItemsActivity extends QacActivity {
                 topItemsActivityBridge.createTopStoriesAdapter());
     }
 
-    /* package */ void notifyTopStoriesChanged(){
+    @Override
+    public void notifyTopStoriesChanged(){
         topItemsRecyclerView.notifyTopStoriesChanged();
     }
-    /* package */ void notifyTopStoryChanged(final int position){
+    
+    @Override
+    public  void notifyTopStoryChanged(final int position){
         topItemsRecyclerView.notifyTopStoryChanged(position);
+    }
+
+    @Override
+    public Context asContext() {
+        return this;
     }
 }
