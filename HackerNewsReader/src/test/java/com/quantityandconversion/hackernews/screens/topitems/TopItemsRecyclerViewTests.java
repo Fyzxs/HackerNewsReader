@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 
+@SuppressWarnings("WeakerAccess")
 public class TopItemsRecyclerViewTests extends QacTestClass{
 
     @Mock RecyclerView mockRecyclerView;

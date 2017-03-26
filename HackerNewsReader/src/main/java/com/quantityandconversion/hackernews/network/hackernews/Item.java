@@ -44,7 +44,7 @@ public class Item {
     private final ItemComments itemComments;
     private final ItemScore itemScore;
 
-    /* package */ Item(final ItemId itemId,
+    private Item(final ItemId itemId,
                        final Title title,
                        final Author author,
                        final PostTime postTime) {

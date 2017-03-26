@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 
+@SuppressWarnings("WeakerAccess")
 public class TopItemsActivityTests extends QacTestClass {
 
 
@@ -49,6 +50,7 @@ public class TopItemsActivityTests extends QacTestClass {
 
     @Test
     public void onCreateShouldLoadData(){
+        final TopItemsActivityBridge.UiView mockUiView = Mockito.mock(TopItemsActivityBridge.UiView.class);
         final FakeTopItemsActivityBridge fakeTopStoriesActivityBridge = new FakeTopItemsActivityBridge(new FakeTopItemsActivity(), Mockito.mock(TopItemsAdapter.class));
         final TopItemsActivity actualTopItemsActivity = new TopItemsActivity(fakeTopStoriesActivityBridge, mockTopItemsRecyclerView);
 

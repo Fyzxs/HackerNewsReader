@@ -30,11 +30,10 @@ import com.quantityandconversion.utils.dialog.AlertDialogBuilder;
 
     @Override
     public Runnable dataError() {
-        return () -> new AlertDialogBuilder<>()
+        return new AlertDialogBuilder<>()
                 .init(uiView.asContext())
                 .setTitle(R.string.top_stories_strings_alert_dialog_failure_title)
-                .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)
-                .show();
+                .setMessage(R.string.top_stories_strings_alert_dialog_failure_message)::show;
     }
 
 
