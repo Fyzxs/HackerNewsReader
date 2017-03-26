@@ -47,7 +47,7 @@ public class TheFyzLogTests {
 
         final String logLevel = attemptingLogLevel.tag() + "@" + currentLogLevel.tag() + "/ ";
         final String tag = "FYZ:TheFyzLogTests ";
-        final String thread = "[main] ";
+        final String thread = "[" + Thread.currentThread().getName() + "] ";
         return logLevel + tag + thread;
     }
 
