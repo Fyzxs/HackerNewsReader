@@ -38,6 +38,7 @@ public class TopItemsActivityMediatorTests extends MockWebServerTestClass {
         final CountDownLatch latch = new CountDownLatch(1);
         Mockito.when(mockBridge.dataChanged()).thenReturn(latch::countDown);
 
+        hackerNewsNetworkTestResponses.simpleItemIdList(mockWebServer);
         new TopItemsActivityMediator(mockBridge).loadTopStoriesData();
 
         assertThat(latch.await(1, TimeUnit.SECONDS)).isTrue();
