@@ -2,6 +2,7 @@ package com.quantityandconversion.hackernews.screens.topitems;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.internal.JobBuilder;
@@ -54,6 +55,8 @@ public class TopItemsAdapterTests extends QacTestClass {
 
         final int position = RandomValues.nextInt(1000);
 
+        final ArgumentCaptor<View.OnClickListener> containerCaptor = ArgumentCaptor.forClass(View.OnClickListener.class);
+
         final String titleExpected = RandomValues.alphaNumeric(50);
         final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
@@ -69,9 +72,15 @@ public class TopItemsAdapterTests extends QacTestClass {
         final String postedTimeExpected = Integer.toString(RandomValues.nextInt(1000));
         final ArgumentCaptor<CharSequence> postedTimeCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
+
         //Prep View
         final View mockView = Mockito.mock(View.class);
         {
+            {
+                final LinearLayout container = Mockito.mock(LinearLayout.class);
+                Mockito.doNothing().when(container).setOnClickListener(containerCaptor.capture());
+                Mockito.when(mockView.findViewById(R.id.ll_item_container)).thenReturn(container);
+            }
             {
                 final QacTextView commentsView = Mockito.mock(QacTextView.class);
                 Mockito.doNothing().when(commentsView).setText(commentsCaptor.capture());
@@ -121,6 +130,8 @@ public class TopItemsAdapterTests extends QacTestClass {
         topItemsAdapter.onBindViewHolder(viewHolder, position);
 
         //Assert
+        assertThat(containerCaptor.getValue()).isNotNull();
+        containerCaptor.getValue().onClick(Mockito.mock(View.class));
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
         assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
         assertThat(commentsCaptor.getValue()).isEqualTo(Long.toString(commentsExpected) + " comments");
@@ -133,16 +144,17 @@ public class TopItemsAdapterTests extends QacTestClass {
 
         final int position = RandomValues.nextInt(1000);
 
+        final ArgumentCaptor<View.OnClickListener> containerCaptor = ArgumentCaptor.forClass(View.OnClickListener.class);
+
+
         final String titleExpected = RandomValues.alphaNumeric(50);
         final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
-        final String scoreExpected = Integer.toString(RandomValues.nextInt(1000));
         final ArgumentCaptor<CharSequence> scoreCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
         final String authorExpected = RandomValues.alphaNumeric(50);
         final ArgumentCaptor<CharSequence> authorCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
-        final long commentsExpected = RandomValues.nextInt(1000);
         final ArgumentCaptor<CharSequence> commentsCaptor = ArgumentCaptor.forClass(CharSequence.class);
 
         final String postedTimeExpected = Integer.toString(RandomValues.nextInt(1000));
@@ -151,6 +163,11 @@ public class TopItemsAdapterTests extends QacTestClass {
         //Prep View
         final View mockView = Mockito.mock(View.class);
         {
+            {
+                final LinearLayout container = Mockito.mock(LinearLayout.class);
+                Mockito.doNothing().when(container).setOnClickListener(containerCaptor.capture());
+                Mockito.when(mockView.findViewById(R.id.ll_item_container)).thenReturn(container);
+            }
             {
                 final QacTextView commentsView = Mockito.mock(QacTextView.class);
                 Mockito.doNothing().when(commentsView).setText(commentsCaptor.capture());
@@ -198,6 +215,8 @@ public class TopItemsAdapterTests extends QacTestClass {
         topItemsAdapter.onBindViewHolder(viewHolder, position);
 
         //Assert
+
+        assertThat(containerCaptor.getValue()).isNotNull();
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
         assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + authorExpected);
         assertThat(commentsCaptor.getValue()).isEqualTo(Strings.Empty);

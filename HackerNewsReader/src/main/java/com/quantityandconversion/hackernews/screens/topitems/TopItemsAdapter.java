@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.Item;
@@ -25,17 +27,14 @@ import com.quantityandconversion.widget.QacTextView;
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        //I feel Mediator should have a "displayStoryAt" to avoid this Demeter violation
-        final Item item = topItemsActivityMediator.itemAt(position);
-
-
         final Item story = topItemsActivityMediator.itemAt(position);
         story.titleInto(viewHolder.title);
         story.authorInto(viewHolder.author);
         story.commentCountInto(viewHolder.comments);
         story.scoreInto(viewHolder.points);
         story.postTimeInto(viewHolder.time);
-
+        viewHolder.container.setOnClickListener(v ->
+                Toast.makeText(v.getContext(), "TAPPED: " + viewHolder.title, Toast.LENGTH_LONG).show());
     }
 
     @Override
@@ -49,6 +48,7 @@ import com.quantityandconversion.widget.QacTextView;
         private QacTextView author;
         private QacTextView comments;
         private QacTextView time;
+        private LinearLayout container;
 
         /* package */ ViewHolder(final View itemView) {
             super(itemView);
@@ -57,6 +57,7 @@ import com.quantityandconversion.widget.QacTextView;
         }
 
         private void bindControls(final View itemView) {
+            container = (LinearLayout)itemView.findViewById(R.id.ll_item_container);
             title = (QacTextView)itemView.findViewById(R.id.tv_title);
             points = (QacTextView)itemView.findViewById(R.id.tv_score_value);
             author = (QacTextView)itemView.findViewById(R.id.tv_posted_by);
