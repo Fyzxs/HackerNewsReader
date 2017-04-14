@@ -1,7 +1,6 @@
 package com.quantityandconversion.utils.toast;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.widget.Toast;
 
 import com.quantityandconversion.test.QacTestClass;
@@ -22,7 +21,7 @@ public class ToasterTests extends QacTestClass {
         final Toast mockToast = Mockito.mock(Toast.class);
         Toaster.setReplacementToast(mockToast);
         final Toaster toast = new Toaster();
-        toast.prepareToast(mockContext, "SomeText", Toast.LENGTH_LONG);
+        toast.makeToast(mockContext, "SomeText", Toast.LENGTH_LONG);
         toast.show();
 
         Mockito.verify(mockToast).show();

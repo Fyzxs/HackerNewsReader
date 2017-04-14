@@ -12,12 +12,14 @@ public class Toaster {
         ReplacementToast = toast;
     }
 
-    public void prepareToast(final Context context, final CharSequence text, final int duration) {
-        if(ReplacementToast != null){
+    public Toaster makeToast(final Context context, final CharSequence text, final int duration) {
+        if(ReplacementToast == null){//A static method on Toast, we can't fake it
+            currentToast = Toast.makeText(context, text, duration);
+        } else {
             currentToast = ReplacementToast;
-            return;
-        }//A static method on Toast, we can't fake it
-        currentToast = Toast.makeText(context, text, duration);
+        }
+
+        return this;
     }
 
     public void show() {

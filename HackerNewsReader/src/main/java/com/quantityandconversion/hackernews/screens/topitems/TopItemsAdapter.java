@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.quantityandconversion.hackernews.R;
 import com.quantityandconversion.hackernews.network.hackernews.Item;
+import com.quantityandconversion.utils.toast.Toaster;
 import com.quantityandconversion.widget.QacTextView;
 
 /* package */ class TopItemsAdapter extends RecyclerView.Adapter<TopItemsAdapter.ViewHolder> {
@@ -34,7 +35,7 @@ import com.quantityandconversion.widget.QacTextView;
         story.scoreInto(viewHolder.points);
         story.postTimeInto(viewHolder.time);
         viewHolder.container.setOnClickListener(v ->
-                Toast.makeText(v.getContext(), "TAPPED: " + viewHolder.title, Toast.LENGTH_LONG).show());
+                new Toaster().makeToast(v.getContext(), "TAPPED: " + viewHolder.title, Toast.LENGTH_LONG).show());
     }
 
     @Override
