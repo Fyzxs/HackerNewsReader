@@ -1,15 +1,30 @@
 package com.quantityandconversion.utils.toast;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.widget.Toast;
 
+import com.quantityandconversion.test.QacTestClass;
+
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import static junit.framework.Assert.fail;
 
-public class ToasterTests {
+public class ToasterTests extends QacTestClass {
+
+    @Mock
+    Context mockContext;
 
     @Test
-    public void ToasterBuilder(){
-        fail();
+    public void ToastShows(){
+        final Toast mockToast = Mockito.mock(Toast.class);
+        Toaster.setReplacementToast(mockToast);
+        final Toaster toast = new Toaster();
+        toast.prepareToast(mockContext, "SomeText", Toast.LENGTH_LONG);
+        toast.show();
+
+        Mockito.verify(mockToast).show();
     }
 }

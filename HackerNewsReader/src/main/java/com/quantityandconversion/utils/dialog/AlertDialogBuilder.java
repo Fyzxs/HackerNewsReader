@@ -7,7 +7,7 @@ import android.support.annotation.StringRes;
 import android.view.View;
 
 @SuppressWarnings("unchecked")
-public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<Dialog> {
+public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<T> {
 
     private static DialogBuilder ActiveDialogBuilder = new DialogBuilderV7();
 
@@ -56,12 +56,12 @@ public class AlertDialogBuilder<T extends Dialog> implements DialogBuilder<Dialo
     }
 
     @Override
-    public Dialog create() {
-        return ActiveDialogBuilder.create();
+    public T create() {
+        return (T)ActiveDialogBuilder.create();
     }
 
     @Override
-    public Dialog show() {
-        return ActiveDialogBuilder.show();
+    public T show() {
+        return (T)ActiveDialogBuilder.show();
     }
 }
