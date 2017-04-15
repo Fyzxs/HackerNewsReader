@@ -1,23 +1,24 @@
 package com.quantityandconversion.utils.toast;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
 public class Toaster {
 
-    private static Toast ReplacementToast;
+    private static Toast replacementToast;
     private Toast currentToast;
 
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     public static void setReplacementToast(final Toast toast){
-        ReplacementToast = toast;
+        replacementToast = toast;
     }
 
     public Toaster makeToast(final Context context, final CharSequence text, final int duration) {
-        if(ReplacementToast == null){//A static method on Toast, we can't fake it
-            currentToast = Toast.makeText(context, text, duration);
-        } else {
-            currentToast = ReplacementToast;
-        }
+        currentToast = replacementToast == null ? new Toast(context) : replacementToast;
+
+        currentToast.setText(text);
+        currentToast.setDuration(duration);
 
         return this;
     }

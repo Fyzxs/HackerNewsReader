@@ -17,7 +17,20 @@ public class ToasterTests extends QacTestClass {
     Context mockContext;
 
     @Test
-    public void ToastShows(){
+    public void makeToastSetsValues(){
+        final Toast mockToast = Mockito.mock(Toast.class);
+        Toaster.setReplacementToast(mockToast);
+        final Toaster toast = new Toaster();
+        toast.makeToast(mockContext, "SomeText", Toast.LENGTH_LONG);
+        toast.show();
+
+        Mockito.verify(mockToast).setText("SomeText");
+        Mockito.verify(mockToast).setDuration(Toast.LENGTH_LONG);
+    }
+
+    @Test
+    public void showShows(){
+
         final Toast mockToast = Mockito.mock(Toast.class);
         Toaster.setReplacementToast(mockToast);
         final Toaster toast = new Toaster();
