@@ -222,6 +222,9 @@ public class TopItemsAdapterTests extends QacTestClass {
         topItemsAdapter.onBindViewHolder(viewHolder, position);
 
         //Assert
+        Toast mockToast = Mockito.mock(Toast.class);
+        Toaster.setReplacementToast(mockToast);
+
         assertThat(containerCaptor.getValue()).isNotNull();
         containerCaptor.getValue().onClick(Mockito.mock(View.class));
         assertThat(titleCaptor.getValue()).isEqualTo(titleExpected);
