@@ -14,6 +14,26 @@ public class StoryBuilder {
     private long storyScore = RandomValues.nextInt(1000);
     private long postTime = RandomValues.nextLongAbs();
 
+    public String title(){
+        return title;
+    }
+
+    public String author(){
+        return author;
+    }
+
+    public long storyId(){
+        return storyId;
+    }
+
+    public long commentCount(){
+        return commentCount;
+    }
+
+    public long storyScore(){
+        return storyScore;
+    }
+
     public StoryBuilder setTitle(final String title){
         this.title = title;
         return this;

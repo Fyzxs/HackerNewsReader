@@ -12,6 +12,14 @@ public class JobBuilder {
     private long itemId = RandomValues.nextInt(Integer.MAX_VALUE);
     private long postTime = RandomValues.nextLongAbs();
 
+    public String title(){
+        return title;
+    }
+
+    public String author(){
+        return author;
+    }
+
     public JobBuilder setTitle(final String title){
         this.title = title;
         return this;
