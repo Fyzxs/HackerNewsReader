@@ -1,19 +1,16 @@
 package com.quantityandconversion.hackernews.screens.topitems;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.quantityandconversion.hackernews.R;
+import com.quantityandconversion.hackernews.network.hackernews.Item;
 import com.quantityandconversion.hackernews.network.hackernews.internal.JobBuilder;
 import com.quantityandconversion.hackernews.network.hackernews.internal.StoryBuilder;
 import com.quantityandconversion.test.QacTestClass;
 import com.quantityandconversion.test.utils.RandomValues;
 import com.quantityandconversion.utils.Strings;
-import com.quantityandconversion.utils.toast.Toaster;
 import com.quantityandconversion.widget.QacTextView;
 
 import org.junit.Test;
@@ -55,134 +52,129 @@ public class TopItemsAdapterTests extends QacTestClass {
 
     @Test
     public void onBindViewHolderShouldConfigureViewHolderContainerOnClickListener(){
-
-        final int position = RandomValues.nextInt(1000);
-
-        final ArgumentCaptor<View.OnClickListener> containerCaptor = ArgumentCaptor.forClass(View.OnClickListener.class);
-
-        final String titleExpected = RandomValues.alphaNumeric(50);
-        final ArgumentCaptor<CharSequence> titleCaptor = ArgumentCaptor.forClass(CharSequence.class);
-
-        final String scoreExpected = Integer.toString(RandomValues.nextInt(1000));
-        final ArgumentCaptor<CharSequence> scoreCaptor = ArgumentCaptor.forClass(CharSequence.class);
-
-        final String authorExpected = RandomValues.alphaNumeric(50);
-        final ArgumentCaptor<CharSequence> authorCaptor = ArgumentCaptor.forClass(CharSequence.class);
-
-        final long commentsExpected = RandomValues.nextInt(1000);
-        final ArgumentCaptor<CharSequence> commentsCaptor = ArgumentCaptor.forClass(CharSequence.class);
-
-        final String postedTimeExpected = Integer.toString(RandomValues.nextInt(1000));
-        final ArgumentCaptor<CharSequence> postedTimeCaptor = ArgumentCaptor.forClass(CharSequence.class);
-
-
-        //Prep View
-        final View mockView = Mockito.mock(View.class);
-        {
-            {
-                final LinearLayout container = Mockito.mock(LinearLayout.class);
-                Mockito.doNothing().when(container).setOnClickListener(containerCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.ll_item_container)).thenReturn(container);
-            }
-            {
-                final QacTextView commentsView = Mockito.mock(QacTextView.class);
-                Mockito.doNothing().when(commentsView).setText(commentsCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.tv_comments)).thenReturn(commentsView);
-            }
-            {
-                final QacTextView postedTimeView = Mockito.mock(QacTextView.class);
-                Mockito.doNothing().when(postedTimeView).setText(postedTimeCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.tv_posted_time)).thenReturn(postedTimeView);
-            }
-            {
-                final QacTextView titleView = Mockito.mock(QacTextView.class);
-                Mockito.doNothing().when(titleView).setText(titleCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.tv_title)).thenReturn(titleView);
-            }
-            {
-                final QacTextView scoreView = Mockito.mock(QacTextView.class);
-                Mockito.doNothing().when(scoreView).setText(scoreCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.tv_score_value)).thenReturn(scoreView);
-            }
-            {
-                final QacTextView authorView = Mockito.mock(QacTextView.class);
-                Mockito.doNothing().when(authorView).setText(authorCaptor.capture());
-                Mockito.when(mockView.findViewById(R.id.tv_posted_by)).thenReturn(authorView);
-            }
-        }
-        //Prep View
-
-        //BEG Prep Adapter
-        final TopItemsAdapter.ViewHolder viewHolder = new TopItemsAdapter.ViewHolder(mockView);
-        //>
-        final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
-        Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(
-                new StoryBuilder()
-                        .setTitle(titleExpected)
-                        .setAuthor(authorExpected)
-                        .setCommentCount(commentsExpected)
-                        .setScore(Integer.parseInt(scoreExpected))
-                        .setPostTime(Integer.parseInt(postedTimeExpected))
-                        .buildStory());
-        //>
-        final TopItemsAdapter topItemsAdapter = new TopItemsAdapter(mockTopItemsActivityMediator);
-        //END Prep Adapter
-
-
-        topItemsAdapter.onBindViewHolder(viewHolder, position);
-
-        Toast mockToast = Mockito.mock(Toast.class);
-        Toaster.setReplacementToast(mockToast);
-        assertThat(containerCaptor.getValue()).isNotNull();
-        Mockito.when(mockView.getContext()).thenReturn(Mockito.mock(Context.class));
+        //Arrange
+        final StoryBuilder storyBuilder = createStoryBuilder();
+        final OnBindViewHolderValidator validator = OnBindViewHolderValidator.arrange(storyBuilder.buildStory());
 
         //Act
-        containerCaptor.getValue().onClick(mockView);
+        validator.act(validator::clickContainer);
 
         //Assert
-        Mockito.verify(mockToast).show();
+        validator.assertStory(storyBuilder, () -> Mockito.verify(mockToast).show());
     }
 
     @Test
     public void onBindViewHolderShouldSetStory(){
-        final View mockView = Mockito.mock(View.class);
-
-        final ArgumentCaptor<View.OnClickListener> containerCaptor =
-                configureItemContainer(mockView, R.id.ll_item_container);
-        final ArgumentCaptor<CharSequence> titleCaptor =
-                configureViewQacTextView(mockView, R.id.tv_title);
-        final ArgumentCaptor<CharSequence> scoreCaptor =
-                configureViewQacTextView(mockView, R.id.tv_score_value);
-        final ArgumentCaptor<CharSequence> authorCaptor =
-                configureViewQacTextView(mockView, R.id.tv_posted_by);
-        final ArgumentCaptor<CharSequence> commentsCaptor =
-                configureViewQacTextView(mockView, R.id.tv_comments);
-        final ArgumentCaptor<CharSequence> postedTimeCaptor =
-                configureViewQacTextView(mockView, R.id.tv_posted_time);
-
-        final int position = RandomValues.nextInt(1000);
-        final StoryBuilder storyBuilder = CreateStoryBuilder();
-        final TopItemsAdapter topItemsAdapter = createTopItemsAdapter(position, storyBuilder);
+        //Arrange
+        final StoryBuilder storyBuilder = createStoryBuilder();
+        final OnBindViewHolderValidator validator = OnBindViewHolderValidator.arrange(storyBuilder.buildStory());
 
         //Act
-        topItemsAdapter.onBindViewHolder(new TopItemsAdapter.ViewHolder(mockView), position);
+        validator.act(null);
 
         //Assert
-        containerCaptor.getValue().onClick(Mockito.mock(View.class));
-        assertThat(titleCaptor.getValue()).isEqualTo(storyBuilder.title());
-        assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + storyBuilder.author());
-        assertThat(commentsCaptor.getValue()).isEqualTo(Long.toString(storyBuilder.commentCount()) + " comments");
-        assertThat(scoreCaptor.getValue()).isEqualTo(Long.toString(storyBuilder.storyScore()));
-        assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
+        validator.assertStory(storyBuilder, null);
+    }
+    @Test
+    public void onBindViewHolderShouldSetJob(){
+        //Arrange
+        final JobBuilder jobBuilder = CreateJobBuilder();
+        final OnBindViewHolderValidator validator = OnBindViewHolderValidator.arrange(jobBuilder.buildJob());
+
+        //Act
+        validator.act(null);
+
+        //Assert
+        validator.assertJob(jobBuilder);
+    }
+    private static class OnBindViewHolderValidator{
+
+        private OnBindViewHolderValidator(){
+        }
+
+        public static OnBindViewHolderValidator arrange(final Item item){
+            OnBindViewHolderValidator validator = new OnBindViewHolderValidator();
+
+            validator.topItemsAdapter = createTopItemsAdapter(validator.position, item);
+
+            return validator;
+        }
+
+        private final View mockView = Mockito.mock(View.class);
+
+        private final ArgumentCaptor<View.OnClickListener> containerCaptor =
+                configureItemContainer(mockView, R.id.ll_item_container);
+        private final ArgumentCaptor<CharSequence> titleCaptor =
+                configureViewQacTextView(mockView, R.id.tv_title);
+        private final ArgumentCaptor<CharSequence> scoreCaptor =
+                configureViewQacTextView(mockView, R.id.tv_score_value);
+        private final ArgumentCaptor<CharSequence> authorCaptor =
+                configureViewQacTextView(mockView, R.id.tv_posted_by);
+        private final ArgumentCaptor<CharSequence> commentsCaptor =
+                configureViewQacTextView(mockView, R.id.tv_comments);
+        private final ArgumentCaptor<CharSequence> postedTimeCaptor =
+                configureViewQacTextView(mockView, R.id.tv_posted_time);
+
+        private final int position = RandomValues.nextInt(1000);
+
+        private TopItemsAdapter topItemsAdapter;
+
+        public void clickContainer(){
+            containerCaptor.getValue().onClick(mockView);
+        }
+
+        public void act(final Runnable postAct){
+            topItemsAdapter.onBindViewHolder(new TopItemsAdapter.ViewHolder(mockView), position);
+
+            if(postAct == null) return;
+            postAct.run();
+        }
+
+        public void assertStory(final StoryBuilder storyBuilder, final Runnable postAssert){
+            assertThat(titleCaptor.getValue()).isEqualTo(storyBuilder.title());
+            assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + storyBuilder.author());
+            assertThat(commentsCaptor.getValue()).isEqualTo(Long.toString(storyBuilder.commentCount()) + " comments");
+            assertThat(scoreCaptor.getValue()).isEqualTo(Long.toString(storyBuilder.storyScore()));
+            assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
+
+            if(postAssert == null) return;
+            postAssert.run();
+        }
+
+        public void assertJob(final JobBuilder jobBuilder){
+            assertThat(containerCaptor.getValue()).isNotNull();
+            assertThat(titleCaptor.getValue()).isEqualTo(jobBuilder.title());
+            assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + jobBuilder.author());
+            assertThat(commentsCaptor.getValue()).isEqualTo(Strings.Empty);
+            assertThat(scoreCaptor.getValue()).isEqualTo(Strings.Empty);
+            assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
+
+        }
+        private static TopItemsAdapter createTopItemsAdapter(final int position, final Item item) {
+            final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
+            Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(item);
+            return new TopItemsAdapter(mockTopItemsActivityMediator);
+        }
+
+        private ArgumentCaptor<CharSequence> configureViewQacTextView(final View mockView, final int resId) {
+            final ArgumentCaptor<CharSequence> captor = ArgumentCaptor.forClass(CharSequence.class);
+            final QacTextView qacTextView = Mockito.mock(QacTextView.class);
+            Mockito.doNothing().when(qacTextView).setText(captor.capture());
+            Mockito.when(mockView.findViewById(resId)).thenReturn(qacTextView);
+            return captor;
+        }
+
+        private ArgumentCaptor<View.OnClickListener> configureItemContainer(final View mockView, final int resId) {
+            final ArgumentCaptor<View.OnClickListener> captor = ArgumentCaptor.forClass(View.OnClickListener.class);
+            final LinearLayout container = Mockito.mock(LinearLayout.class);
+            Mockito.doNothing().when(container).setOnClickListener(captor.capture());
+            Mockito.when(mockView.findViewById(resId)).thenReturn(container);
+            return captor;
+        }
+
     }
 
-    private TopItemsAdapter createTopItemsAdapter(int position, StoryBuilder storyBuilder) {
-        final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
-        Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(storyBuilder.buildStory());
-        return new TopItemsAdapter(mockTopItemsActivityMediator);
-    }
-
-    private StoryBuilder CreateStoryBuilder() {
+    private StoryBuilder createStoryBuilder() {
 
         final String titleExpected = RandomValues.alphaNumeric(50);
         final String scoreExpected = Integer.toString(RandomValues.nextInt(1000));
@@ -208,62 +200,6 @@ public class TopItemsAdapterTests extends QacTestClass {
                 .setTitle(titleExpected)
                 .setAuthor(authorExpected)
                 .setPostTime(Integer.parseInt(postedTimeExpected));
-    }
-
-    private ArgumentCaptor<CharSequence> configureViewQacTextView(final View mockView, final int resId) {
-        final ArgumentCaptor<CharSequence> captor = ArgumentCaptor.forClass(CharSequence.class);
-        final QacTextView qacTextView = Mockito.mock(QacTextView.class);
-        Mockito.doNothing().when(qacTextView).setText(captor.capture());
-        Mockito.when(mockView.findViewById(resId)).thenReturn(qacTextView);
-        return captor;
-    }
-
-    private ArgumentCaptor<View.OnClickListener> configureItemContainer(final View mockView, final int resId) {
-        final ArgumentCaptor<View.OnClickListener> captor = ArgumentCaptor.forClass(View.OnClickListener.class);
-        final LinearLayout container = Mockito.mock(LinearLayout.class);
-        Mockito.doNothing().when(container).setOnClickListener(captor.capture());
-        Mockito.when(mockView.findViewById(resId)).thenReturn(container);
-        return captor;
-    }
-
-    @Test
-    public void onBindViewHolderShouldSetJob(){
-        final View mockView = Mockito.mock(View.class);
-
-        final ArgumentCaptor<View.OnClickListener> containerCaptor =
-                configureItemContainer(mockView, R.id.ll_item_container);
-        final ArgumentCaptor<CharSequence> titleCaptor =
-                configureViewQacTextView(mockView, R.id.tv_title);
-        final ArgumentCaptor<CharSequence> scoreCaptor =
-                configureViewQacTextView(mockView, R.id.tv_score_value);
-        final ArgumentCaptor<CharSequence> authorCaptor =
-                configureViewQacTextView(mockView, R.id.tv_posted_by);
-        final ArgumentCaptor<CharSequence> commentsCaptor =
-                configureViewQacTextView(mockView, R.id.tv_comments);
-        final ArgumentCaptor<CharSequence> postedTimeCaptor =
-                configureViewQacTextView(mockView, R.id.tv_posted_time);
-
-        final int position = RandomValues.nextInt(1000);
-        final JobBuilder jobBuilder = CreateJobBuilder();
-        final TopItemsAdapter topItemsAdapter = createTopItemsAdapter(position, jobBuilder);
-
-        //Act
-        topItemsAdapter.onBindViewHolder(new TopItemsAdapter.ViewHolder(mockView), position);
-
-        //Assert
-        assertThat(containerCaptor.getValue()).isNotNull();
-        assertThat(titleCaptor.getValue()).isEqualTo(jobBuilder.title());
-        assertThat(authorCaptor.getValue()).isEqualTo("Posted by: " + jobBuilder.author());
-        assertThat(commentsCaptor.getValue()).isEqualTo(Strings.Empty);
-        assertThat(scoreCaptor.getValue()).isEqualTo(Strings.Empty);
-        assertThat(postedTimeCaptor.getValue()).endsWith(" seconds ago - only");
-    }
-
-    @NonNull
-    private TopItemsAdapter createTopItemsAdapter(int position, JobBuilder jobBuilder) {
-        final TopItemsActivityMediator mockTopItemsActivityMediator = Mockito.mock(TopItemsActivityMediator.class);
-        Mockito.when(mockTopItemsActivityMediator.itemAt(position)).thenReturn(jobBuilder.buildJob());
-        return new TopItemsAdapter(mockTopItemsActivityMediator);
     }
 
 }
